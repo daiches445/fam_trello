@@ -1,0 +1,43 @@
+html {
+  background-color: #dfe49c;
+}
+
+.app_container {
+  margin: 2% 10%;
+  width: 80%;
+  height: 80vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-top: black 3vh solid;
+  background-color: rosybrown;
+}
+
+.container {
+  width: 30%;
+  height: 70vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -ms-flex-item-align: center;
+      align-self: center;
+}
+
+.container TextField {
+  background-color: red;
+}
+
+.fam {
+  background-color: blue;
+  height: 19vh;
+}
+/*# sourceMappingURL=App.css.map */
