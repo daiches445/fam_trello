@@ -1,5 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap');
+
 html{
   background-color: rgb(223, 228, 156);
+}
+h2{
+  font-family: 'Yusei Magic', sans-serif;
+  font-size: 3vw;
 }
 .app_container{
   margin: 2% 10%;
@@ -13,19 +19,25 @@ html{
 
 
 }
-.container{
+.container {
 
   width: 30%;
   height: 70vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  align-items: flex-start;
   align-self: center;
+  background-color: antiquewhite;
+  border: rgb(56, 51, 51) solid 1px;
+  border-radius: 5px;
 
-
-  TextField{
-    background-color: red;
-  }
+}
+.container  * {
+  padding: 3px;
+}
+.MuiFormControl-root{
+  margin:1vw;
+  
 }
 .fam{
   background-color: blue;
