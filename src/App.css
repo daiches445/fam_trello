@@ -1,11 +1,36 @@
 @import url("https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap");
+@font-face {
+  font-family: 'Billion Dreams';
+  src: url("/src/fonts/BillionDreams.ttf");
+}
+
+@font-face {
+  font-family: 'Sunday Best';
+  src: url("/src/fonts/SundayBest.ttf");
+}
+
 html {
   background-color: #dfe49c;
 }
 
 h2 {
-  font-family: 'Yusei Magic', sans-serif;
-  font-size: 3vw;
+  font-size: 1.5ch;
+  font-family: 'Sunday Best';
+}
+
+h2 span {
+  font-family: 'Billion Dreams';
+  background: -webkit-gradient(linear, left top, right top, from(#5cdf83), color-stop(88%, #195774), to(#0c3034));
+  background: linear-gradient(90deg, #5cdf83 0%, #195774 88%, #0c3034 100%);
+  background-clip: border-box;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 3ch;
+}
+
+h3 {
+  font-family: 'Yusei Magic';
+  font-size: 2ch;
 }
 
 .app_container {
@@ -15,39 +40,44 @@ h2 {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   border-top: black 3vh solid;
   background-color: rosybrown;
 }
 
 .container {
-  width: 30%;
-  height: 70vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-  -ms-flex-item-align: center;
-      align-self: center;
-  background-color: antiquewhite;
+  width: 100%;
+  height: 100%;
+  justify-self: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   border: #383333 solid 1px;
   border-radius: 5px;
 }
 
-.container * {
-  padding: 3px;
+.MuiPaper-root {
+  margin: 2%;
+  width: 50%;
+  min-height: 90%;
+  max-width: 80%;
+  min-width: 60%;
+  border: #383333 solid 1px;
+  border-radius: 5px;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-shadow: 25px 25px black;
+          box-shadow: 25px 25px black;
 }
 
-.MuiFormControl-root {
-  margin: 1vw;
+.MuiGrid-root {
+  padding: 1%;
+  font-family: 'Roboto', sans-serif;
 }
 
 .fam {

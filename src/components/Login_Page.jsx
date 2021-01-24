@@ -1,9 +1,15 @@
 import React, { Component } from 'react'
+import Grid from '@material-ui/core/Grid';
+import { Paper } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import FormControl from '@material-ui/core/FormControl';
-
 import { withRouter } from 'react-router-dom';
+
+
+
+
+
+
 class Login_Page extends Component {
     constructor(props) {
         super(props)
@@ -42,16 +48,40 @@ class Login_Page extends Component {
     render() {
         return (
             <div className='container'>
-                <FormControl>
-                    <h2>login</h2>
-                    <TextField name="username" onChange={this.chgDtl} id="outlined-basic" label="User Name" variant="outlined" />
-                    <br />
-                    <TextField name="password" id="outlined-basic" type='Password' label="Password" variant="outlined" />
-                    <br />
-                    <Button name="btn-login" id="btn-login" onClick={() => { alert(this.state.username) }} variant="contained" color="primary">LOGIN</Button>
-                    <br />
-                    <Button variant="contained" color="primary" onClick={() => { this.props.history.push('/FCRegister') }}>Regiester</Button>
-                </FormControl>
+                <Paper elevation={3}>
+                    <Grid container direction='column' spacing='2'>
+                        <Grid item ><h2>Welcome to,<span>FamTrello</span></h2></Grid>
+                        <Grid item xs='12'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut expedita quia eius modi in! Voluptatibus inventore non corporis numquam corrupti velit culpa porro possimus ratione animi commodi ducimus, ipsa et?</Grid>
+                        <Grid item xs="6" spacing='1'>
+                            <h3>Login</h3>
+                        </Grid>
+                        <Grid item sm="6" spacing="0" >
+                            <TextField
+                                id="outlined-basic"
+                                label="Username"
+                                variant="outlined"
+                                name="Username" /></Grid>
+                        <Grid item spacing="1">
+                            <TextField
+                                id="outlined-basic"
+                                label="Password"
+                                variant="outlined"
+                                name="password" />
+                        </Grid>
+                        <Grid container spacing ='10'>
+                            <Grid item>
+                                <Button color="primary">Sign in</Button>
+                            </Grid>
+                            <Grid item spacing='3'>
+                                <Button>havent got a familiy yet?</Button>
+                            </Grid>
+
+                        </Grid>
+
+                    </Grid>
+
+                </Paper>
+
             </div>
         )
     }
