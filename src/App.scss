@@ -11,9 +11,14 @@
 }
 
 html {
-  background-color: rgb(223, 228, 156);
+  background-color: rgb(175, 135, 103);
 }
-
+h1{
+  font-family: 'Billion Dreams';
+  font-size: 5ch;
+  margin-bottom: 0;
+  margin-right: 80%;
+}
 h2 {
   font-size: 1.5ch;
   font-family: 'Sunday Best';
@@ -34,15 +39,15 @@ h3 {
 }
 
 .app_container {
-  margin: 2% 10%;
+  margin: 4% 10%;
   width: 80%;
   height: 80vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
-
-  border-top: black 3vh solid;
-  background-color: rosybrown;
-
+  background: rgb(73,28,11);
+  background: linear-gradient(128deg, rgba(73,28,11,1) 0%, rgba(176,43,38,1) 62%, rgba(209,61,28,1) 100%);
+  
 }
 
 .container {
@@ -52,7 +57,6 @@ h3 {
   height: 100%;
   justify-self: center;
   justify-content: center;
-  border: rgb(56, 51, 51) solid 1px;
   border-radius: 5px;
 
 }
@@ -65,14 +69,16 @@ h3 {
   min-width: 60%;
   border: rgb(56, 51, 51) solid 1px;
   border-radius: 5px;
+  justify-items: center;
   justify-content: space-around;
   box-shadow: 25px 25px black;
 
 }
 
-.MuiGrid-root {
+.MuiGrid-root.MuiGrid-container{
   padding: 1%;
   font-family: 'Roboto', sans-serif;
+  align-items: flex-start;
 }
 
 .fam {

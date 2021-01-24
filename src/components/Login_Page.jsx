@@ -61,7 +61,7 @@ class Login_Page extends Component {
                                 label="Username"
                                 variant="outlined"
                                 name="Username" /></Grid>
-                        <Grid item spacing="1">
+                        <Grid item sm="6" spacing="1">
                             <TextField
                                 id="outlined-basic"
                                 label="Password"

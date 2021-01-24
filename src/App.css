@@ -10,7 +10,14 @@
 }
 
 html {
-  background-color: #dfe49c;
+  background-color: #af8767;
+}
+
+h1 {
+  font-family: 'Billion Dreams';
+  font-size: 5ch;
+  margin-bottom: 0;
+  margin-right: 80%;
 }
 
 h2 {
@@ -34,17 +41,21 @@ h3 {
 }
 
 .app_container {
-  margin: 2% 10%;
+  margin: 4% 10%;
   width: 80%;
   height: 80vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  border-top: black 3vh solid;
-  background-color: rosybrown;
+  background: #491c0b;
+  background: linear-gradient(128deg, #491c0b 0%, #b02b26 62%, #d13d1c 100%);
 }
 
 .container {
@@ -57,7 +68,6 @@ h3 {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  border: #383333 solid 1px;
   border-radius: 5px;
 }
 
@@ -69,15 +79,19 @@ h3 {
   min-width: 60%;
   border: #383333 solid 1px;
   border-radius: 5px;
+  justify-items: center;
   -ms-flex-pack: distribute;
       justify-content: space-around;
   -webkit-box-shadow: 25px 25px black;
           box-shadow: 25px 25px black;
 }
 
-.MuiGrid-root {
+.MuiGrid-root.MuiGrid-container {
   padding: 1%;
   font-family: 'Roboto', sans-serif;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 }
 
 .fam {

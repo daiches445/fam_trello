@@ -7,15 +7,13 @@ import { Switch,Route } from 'react-router-dom'
 
 function App() {
   return (
-    <div className="App">
-     <h1>FamTrello</h1>
-      <div className ="app_container" > 
-      
+    <div className="app_container">
+      <h1>FamTrello</h1>
       <Switch>
         <Route exact path="/" render={()=><Login_Page></Login_Page>}></Route>
         <Route path = "/FCRegister" render={()=><Register></Register>}></Route>
+        <Route path = '/CCBoard' render={()=><Board></Board>}></Route>
       </Switch>
-      </div>
     </div>
   );
 }
