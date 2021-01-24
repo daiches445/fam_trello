@@ -25,16 +25,23 @@ export default class Board extends Component {
                     <Grid container direction='column' spacing=''>
                         <Grid container alignItems='center'> {/* top line ,add btn ,welcome user */}
                             <Grid item xs='3'>
-                                <IconButton>
-                                    <PostAddIcon color ='primary'></PostAddIcon>
+                                <IconButton >
+                                    <PostAddIcon color ='primary' fontSize ='large'></PostAddIcon>
                                 </IconButton>
                             </Grid>
-                            <Grid item xs='9'> welcome,user</Grid>
+                            <Grid item xs='9' style={{alignSelf:'center'}}> welcome,user</Grid>
                         </Grid>
-                        <Grid container direction = 'row'> {/* second line ,tasks */}
+                        
+                        <Grid container direction = 'row' > {/* second line ,tasks */}
                             <Grid item xs="3"> tasks</Grid>
-                            <Grid container direction='row' xs = '9'> {/* tasks container*/}
+                            <Grid container direction='row' xs = '9' style={{overflow:'hidden' ,flexWrap:'nowrap', minHeight:'min-content'}}> {/* tasks container*/}
                                 {/*map function*/}
+                                <Grid item xs='9'>task</Grid>
+                                <Grid item xs='9'>task</Grid>
+                                <Grid item xs='3'>task</Grid>
+                                <Grid item xs='3'>task</Grid>
+                                <Grid item xs='3'>task</Grid>
+                                <Grid item xs='3'>task</Grid>
                                 <Grid item xs='3'>task</Grid>
                                 <Grid item xs='3'>task</Grid>
                                 <Grid item xs='3'>task</Grid>
