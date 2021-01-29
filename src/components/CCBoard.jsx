@@ -1,4 +1,4 @@
-import { Grid, IconButton, Paper } from '@material-ui/core';
+import { Box, Grid, GridList, GridListTile, GridListTileBar, IconButton, Paper, Divider } from '@material-ui/core';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import React, { Component } from 'react'
 
@@ -21,48 +21,58 @@ export default class Board extends Component {
     render() {
         return (
             <div className='container'>
-                <Paper>
-                    <Grid container direction='column' spacing=''>
+                <Paper className='board'>
+                    <Grid container direction='column' spacing='' >
                         <Grid container alignItems='center'> {/* top line ,add btn ,welcome user */}
-                            <Grid item xs='3'>
+                            <Grid item xs='2'>
                                 <IconButton >
-                                    <PostAddIcon color ='primary' fontSize ='large'></PostAddIcon>
+                                    <PostAddIcon color='primary' style={{fontSize:'50'}}></PostAddIcon>
                                 </IconButton>
                             </Grid>
-                            <Grid item xs='9' style={{alignSelf:'center'}}> welcome,user</Grid>
+                            <Grid item xs='9' style={{ alignSelf: 'center' }}> <h1>welcome,user</h1></Grid>
                         </Grid>
-                        
-                        <Grid container direction = 'row' > {/* second line ,tasks */}
-                            <Grid item xs="3"> tasks</Grid>
-                            <Grid container direction='row' xs = '9' style={{overflow:'hidden' ,flexWrap:'nowrap', minHeight:'min-content'}}> {/* tasks container*/}
-                                {/*map function*/}
-                                <Grid item xs='9'>task</Grid>
-                                <Grid item xs='9'>task</Grid>
-                                <Grid item xs='3'>task</Grid>
-                                <Grid item xs='3'>task</Grid>
-                                <Grid item xs='3'>task</Grid>
-                                <Grid item xs='3'>task</Grid>
-                                <Grid item xs='3'>task</Grid>
-                                <Grid item xs='3'>task</Grid>
-                                <Grid item xs='3'>task</Grid>
+
+                        <Grid container direction='row' > {/* second line ,tasks */}
+                            <Grid item xs="2"><h2>tasks</h2></Grid>
+                            <Grid item xs='9'>
+                                <div className='tasks_bar' >
+                                    <li className='task'><h3>title</h3>task</li>
+                                    <li className='task'><h3>title</h3>task</li>
+                                    <li className='task'><h3>title</h3>task</li>
+                                    <li className='task'><h3>title</h3>task</li>
+                                    <li className='task'><h3>title</h3>task</li>
+                                    <li className='task'><h3>title</h3>task</li>
+                                    <li className='task'><h3>title</h3>task</li>
+                                    <li className='task'><h3>title</h3>task</li>
+                                </div>
                             </Grid>
                         </Grid>
-                        <Grid container direction = 'row'> {/* third line ,tasks */}
-                            <Grid item xs="3"> my tasks</Grid>
-                            <Grid container direction='row' xs = '9'> {/* tasks container*/}
+                        <Divider></Divider>
+                        <Grid container direction='row'> {/* third line ,tasks */}
+                            <Grid item xs="2"><h2>my tasks</h2></Grid>
+                            <Grid container direction='row' xs='9'> {/* tasks container*/}
                                 {/*map function*/}
-                                <Grid item xs='3'>my task</Grid>
-                                <Grid item xs='3'>my task</Grid>
-                                <Grid item xs='3'>my task</Grid>
+                                <div className='tasks_bar' >
+                                    <li className='task'><h3>title</h3>task</li>
+                                    <li className='task'><h3>title</h3>task</li>
+                                    <li className='task'><h3>title</h3>task</li>
+                                    <li className='task'><h3>title</h3>task</li>
+                                    <li className='task'><h3>title</h3>task</li>
+                                    <li className='task'><h3>title</h3>task</li>
+                                    <li className='task'><h3>title</h3>task</li>
+                                    <li className='task'><h3>title</h3>task</li>
+                                </div>
                             </Grid>
                         </Grid>
-                        <Grid container direction = 'row'> {/* forth line ,tasks */}
-                            <Grid item xs="3">etc. tasks</Grid>
-                            <Grid container direction='row' xs = '9'> {/* tasks container*/}
+                        <Grid container direction='row'> {/* forth line ,tasks */}
+                            <Grid item xs="2"><h2>etc. tasks</h2></Grid>
+                            <Grid container direction='row' xs='9'> {/* tasks container*/}
                                 {/*map function*/}
-                                <Grid item xs='3'>task</Grid>
-                                <Grid item xs='3'>task</Grid>
-                                <Grid item xs='3'>task</Grid>
+                                <div className='tasks_bar' >
+                                    <li className='task'>task</li>
+                                    <li className='task'>task</li>
+
+                                </div>
                             </Grid>
                         </Grid>
                     </Grid>

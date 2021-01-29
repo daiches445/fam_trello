@@ -4,7 +4,6 @@ import Register from './components/FCRegister'
 import Board from './components/CCBoard';
 import { Switch,Route } from 'react-router-dom'
 
-
 function App() {
   return (
     <div className="app_container">
@@ -14,8 +13,9 @@ function App() {
         <Route path = "/FCRegister" render={()=><Register></Register>}></Route>
         <Route path = '/CCBoard' render={()=><Board></Board>}></Route>
       </Switch>
+
     </div>
   );
 }
 
-export default App;
+export default withRouter(App);

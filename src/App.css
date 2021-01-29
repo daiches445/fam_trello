@@ -10,14 +10,15 @@
 }
 
 html {
-  background-color: #af8767;
+  background-color: #e5eef0;
 }
 
 h1 {
   font-family: 'Billion Dreams';
   font-size: 5ch;
+  margin-top: 3px;
   margin-bottom: 0;
-  margin-right: 80%;
+  margin-right: 70%;
 }
 
 h2 {
@@ -36,14 +37,12 @@ h2 span {
 }
 
 h3 {
-  font-family: 'Yusei Magic';
-  font-size: 2ch;
+  font-family: 'Sunday Best';
+  font-size: 1.3ch;
 }
 
 .app_container {
-  margin: 4% 10%;
-  width: 80%;
-  height: 80vh;
+  margin: 1% 10%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -56,6 +55,10 @@ h3 {
           align-items: center;
   background: #491c0b;
   background: linear-gradient(128deg, #491c0b 0%, #b02b26 62%, #d13d1c 100%);
+  border: black solid 3px;
+  border-radius: 5px;
+  -webkit-box-shadow: black 0px 10px 16px 7px;
+          box-shadow: black 0px 10px 16px 7px;
 }
 
 .container {
@@ -72,11 +75,11 @@ h3 {
 }
 
 .MuiPaper-root {
-  margin: 2%;
+  margin: 1%;
   width: 50%;
-  min-height: 90%;
-  max-width: 80%;
-  min-width: 60%;
+  min-height: 300px;
+  max-width: 1024px;
+  min-width: 300px;
   border: #383333 solid 1px;
   border-radius: 5px;
   justify-items: center;
@@ -84,6 +87,7 @@ h3 {
       justify-content: space-around;
   -webkit-box-shadow: 25px 25px black;
           box-shadow: 25px 25px black;
+  margin-bottom: 5%;
 }
 
 .MuiGrid-root.MuiGrid-container {
@@ -95,7 +99,57 @@ h3 {
 }
 
 .fam {
-  background-color: blue;
   height: 19vh;
+}
+
+.board {
+  background-color: brown;
+  width: 80%;
+}
+
+.tasks_bar {
+  background-color: #646464;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  overflow: auto;
+  border-radius: 5px;
+}
+
+.tasks_bar :first-child {
+  padding-left: 15px;
+}
+
+.tasks_bar -webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 5px grey;
+          box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+.tasks_bar -webkit-scrollbar-thumb {
+  background: brown;
+}
+
+.task {
+  list-style: none;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  width: 10vw;
+  height: 15vh;
+  background-color: rgba(235, 223, 223, 0.479);
+  margin: 1px;
+  border-radius: 5px;
+}
+
+.pages-enter {
+  opacity: 0.01;
+}
+
+.pages-enter.example-enter-active {
+  opacity: 1;
+  -webkit-transition: opacity 500ms ease-in;
+  transition: opacity 500ms ease-in;
 }
 /*# sourceMappingURL=App.css.map */

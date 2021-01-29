@@ -68,12 +68,12 @@ class Login_Page extends Component {
                                 variant="outlined"
                                 name="password" />
                         </Grid>
-                        <Grid container spacing ='10'>
+                        <Grid container spacing ='10' style={{marginBottom:'5%'}}>
                             <Grid item>
                                 <Button color="primary">Sign in</Button>
                             </Grid>
                             <Grid item spacing='3'>
-                                <Button>havent got a familiy yet?</Button>
+                                <Button onClick={()=>this.props.history.push('/FCRegister')}>havent got a familiy yet?</Button>
                             </Grid>
 
                         </Grid>
