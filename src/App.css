@@ -93,9 +93,6 @@ h3 {
 .MuiGrid-root.MuiGrid-container {
   padding: 1%;
   font-family: 'Roboto', sans-serif;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
 }
 
 .fam {

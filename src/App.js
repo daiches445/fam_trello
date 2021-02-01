@@ -2,7 +2,7 @@ import './App.css';
 import Login_Page from './components/Login_Page';
 import Register from './components/FCRegister'
 import Board from './components/CCBoard';
-import { Switch,Route } from 'react-router-dom'
+import { Switch,Route, withRouter } from 'react-router-dom'
 
 function App() {
   return (
