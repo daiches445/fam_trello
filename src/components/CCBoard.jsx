@@ -29,7 +29,7 @@ export default class Board extends Component {
                                     <PostAddIcon color='primary' style={{ fontSize: '50' }}></PostAddIcon>
                                 </IconButton>
                             </Grid>
-                            <Grid item xs='9' style={{ alignSelf: 'center' }}> <h1>welcome,user</h1></Grid>
+                            <Grid item xs='9' style={{ alignSelf: 'center' }}> <h1>welcome,user1</h1></Grid>
                         </Grid>
 
                         <Grid container direction='row' > {/* second line ,tasks */}
