@@ -26,7 +26,7 @@ export default class Board extends Component {
                         <Grid container alignItems='center'> {/* top line ,add btn ,welcome user */}
                             <Grid item xs='2'>
                                 <IconButton >
-                                    <PostAddIcon color='primary' style={{fontSize:'50'}}></PostAddIcon>
+                                    <PostAddIcon color='primary' style={{ fontSize: '50' }}></PostAddIcon>
                                 </IconButton>
                             </Grid>
                             <Grid item xs='9' style={{ alignSelf: 'center' }}> <h1>welcome,user</h1></Grid>
@@ -35,15 +35,24 @@ export default class Board extends Component {
                         <Grid container direction='row' > {/* second line ,tasks */}
                             <Grid item xs="2"><h2>tasks</h2></Grid>
                             <Grid item xs='9'>
+
                                 <div className='tasks_bar' >
+                                    { console.log(this.props)}
+                                    {
+                                   
+                                    this.props.family.notes.map((note, index) => 
+                                        
+                                        <li className='task'><h3>{note.title}</h3>{note.text}</li>
+
+                                    )}
+                                    {/* <li className='task'><h3>title</h3>task</li>
                                     <li className='task'><h3>title</h3>task</li>
                                     <li className='task'><h3>title</h3>task</li>
                                     <li className='task'><h3>title</h3>task</li>
                                     <li className='task'><h3>title</h3>task</li>
                                     <li className='task'><h3>title</h3>task</li>
                                     <li className='task'><h3>title</h3>task</li>
-                                    <li className='task'><h3>title</h3>task</li>
-                                    <li className='task'><h3>title</h3>task</li>
+                                    <li className='task'><h3>title</h3>task</li> */}
                                 </div>
                             </Grid>
                         </Grid>

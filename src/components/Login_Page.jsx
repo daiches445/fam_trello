@@ -45,6 +45,23 @@ class Login_Page extends Component {
                 break;
         }
     }
+    signInClick=()=>{
+        let currentUser = this.props.data.users.find(user=>user.username === this.state.username)
+         if (currentUser === undefined) {
+             alert("SORRY NOT FOUND")
+         }
+         else
+        {
+            alert("YES FOUND " + currentUser.username)
+            this.props.history.push('/CCBoard')
+        }
+            
+                
+                
+        
+           
+        
+    }
     render() {
         return (
             <div className='container'>
@@ -56,21 +73,23 @@ class Login_Page extends Component {
                             <h3>Login</h3>
                         </Grid>
                         <Grid item sm="6" spacing="0" >
-                            <TextField
+                            <TextField 
+                                onChange={this.chgDtl}
                                 id="outlined-basic"
                                 label="Username"
                                 variant="outlined"
-                                name="Username" /></Grid>
+                                name="username" /></Grid>
                         <Grid item sm="6" spacing="1">
                             <TextField
+                               onChange={this.chgDtl}
                                 id="outlined-basic"
                                 label="Password"
                                 variant="outlined"
                                 name="password" />
                         </Grid>
-                        <Grid item spacing ='10' style={{marginBottom:'5%'}}>
+                        <Grid container spacing ='10' style={{marginBottom:'5%'}}>
                             <Grid item>
-                                <Button color="primary">Sign in</Button>
+                                <Button  onClick={this.signInClick} color="primary">Sign in</Button>
                             </Grid>
                             <Grid item spacing='3'>
                                 <Button onClick={()=>this.props.history.push('/FCRegister')}>havent got a familiy yet?</Button>

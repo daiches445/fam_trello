@@ -5,7 +5,7 @@ import Board from './components/CCBoard';
 import { Switch,Route, withRouter } from 'react-router-dom'
 import { Component } from 'react';
 
-class App extends Component() {
+class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -16,21 +16,32 @@ class App extends Component() {
        family:[{
         ID:'COHEN121',
         name:'cohen',
-        notes:[{title:'hello',text:'asdad'}]
+        notes:[{title:'hello',text:'asdad'},
+        {title:'hello2',text:'asdad2'},
+        {title:'hello3',text:'asdad3'},
+        {title:'hello4',text:'asdad4'
+      }
+      ]
           }
        ]
     }
   }
   
+  catchUserToRegister=(user)=>{
+    let usersArray = this.state.users
+    usersArray.push({username:user.user_name,password:user.password,fam_id:user.family_ID})
+    this.setState({users:usersArray})
+    console.log(this.state.users)
 
+  }
   render(){
   return (
     <div className="app_container">
       <h1>FamTrello</h1>
       <Switch>
-        <Route exact path="/" render={()=><Login_Page data = {this.state}  ></Login_Page>}></Route>
-        <Route path = "/FCRegister" render={()=><Register users = {this.state.users}></Register>}></Route>
-        <Route path = '/CCBoard' render={()=><Board></Board>}></Route>
+        <Route exact path="/"  render={()=><Login_Page data = {this.state}  ></Login_Page>}></Route>
+        <Route path = "/FCRegister" render={()=><Register sendUserToRegister={this.catchUserToRegister} users = {this.state.users}></Register>}></Route>
+        <Route path = '/CCBoard'  render={()=><Board family = {this.state.family[0]}></Board>}></Route>
       </Switch>
 
     </div>
