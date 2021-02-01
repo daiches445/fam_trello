@@ -30,6 +30,31 @@ class Register extends Component {
         else
             this.setState({ got_fam: true, fam_crt_dsp: 'flex', fam_det_dsp: "none", })
     }
+
+    SetVAl = (e) => {
+        let val = e.target.value;
+        let id = e.target.name;
+
+        switch (id) {
+            case 'username':
+                this.setState({ user_name: val })
+                break;
+            case 'password':
+                this.setState({ password: val })
+                break;
+            case 're_pass':
+                this.setState({ re_pass: val })
+                break;
+
+        }
+    }
+
+    handleClick=()=>{
+        // this.props.users.find(user=>user.username == this.state.user_name)
+        console.log(
+            this.props.users)
+    }
+
     render() {
         return (
             <div className="container">
@@ -39,7 +64,7 @@ class Register extends Component {
                         <Grid item >
                             <h1>Register</h1></Grid>
                         <Grid item>
-                            <TextField name="username" id="outlined-basic" label="User Name" variant="outlined" /></Grid>
+                            <TextField name="username" id="outlined-basic" label="User Name" variant="outlined" onChange={this.SetVAl} /></Grid>
                         <Grid item>
                             <TextField name="password" id="outlined-basic" type='Password' label="Password" variant="outlined" /></Grid>
                         <Grid item>
@@ -75,7 +100,7 @@ class Register extends Component {
                         </Grid>
                         <Divider></Divider>
                         <Grid item>
-                            <Button color='primary' style={{ marginBottom: '3vh' }}>Register</Button>
+                            <Button onClick={this.handleClick} color='primary' style={{ marginBottom: '3vh' }}>Register</Button>
                         </Grid>
                         <Divider></Divider>
 
