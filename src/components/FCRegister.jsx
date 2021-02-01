@@ -10,7 +10,6 @@ class Register extends Component {
 
     constructor(props) {
         super(props)
-
         this.state = {
             user_name: "",
             password: "",
@@ -50,27 +49,29 @@ class Register extends Component {
     }
 
     handleClick=()=>{
-        // this.props.users.find(user=>user.username == this.state.user_name)
-        console.log(
-            this.props.users)
+        let currentUser = this.props.users.find(user=>user.username == this.state.user_name)
+        if (currentUser === undefined) {
+                this.props.sendUserToRegister(this.state)
+                this.props.history.push('/')
+        }
+        else
+        alert("THIS USERNAME IS TAKEN!")
     }
 
     render() {
         return (
             <div className="container">
                 <Paper>
-
                     <Grid container direction='column' spacing='3' alignItems='center'>
                         <Grid item >
                             <h1>Register</h1></Grid>
                         <Grid item>
                             <TextField name="username" id="outlined-basic" label="User Name" variant="outlined" onChange={this.SetVAl} /></Grid>
                         <Grid item>
-                            <TextField name="password" id="outlined-basic" type='Password' label="Password" variant="outlined" /></Grid>
+                            <TextField name="password" id="outlined-basic" type='Password' label="Password" variant="outlined" onChange={this.SetVAl} /></Grid>
                         <Grid item>
                             <TextField name="re_pass" id="outlined-basic" type='Password' label="ReEnter Password" variant="outlined" />
                         </Grid>
-
                         <Grid item>
                             <Grid container  >
                                 <Grid item xs='9' style={{ padding: '10px' }}>
@@ -89,7 +90,7 @@ class Register extends Component {
                         </Grid>
                         <Grid item className="fam" style={{ display: this.state.fam_det_dsp, flexDirection: 'column' }}>
                             <label htmlFor="">Enter Your family ID</label>
-                            <TextField name="family_ID" id="outlined-basic" label="Family ID" variant="outlined" />
+                            <TextField name="family_ID" id="outlined-basic" label="Family ID" variant="outlined" onChange={this.SetVAl} />
                             <br />
                         </Grid>
                         <Grid item className="fam" style={{ display: this.state.fam_crt_dsp, flexDirection: 'column' }}>
