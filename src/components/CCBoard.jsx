@@ -1,6 +1,7 @@
 import { Box, Grid, GridList, GridListTile, GridListTileBar, IconButton, Paper, Divider } from '@material-ui/core';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import React, { Component } from 'react'
+import FCAddNote from './FCAddNote';
 
 
 export default class Board extends Component {
@@ -12,7 +13,8 @@ export default class Board extends Component {
             { familyName: 'DAICHES', familyTickets: [{ title: 'throw garbage', description: 'throw the garbage givat ada', memberTaged: [] }], familyMembers: [{ memberId: 444, name: 'ely' }, { memberId: 555, name: 'ella' }, { memberId: 666, name: 'tal' }] }
             ],
             currentFamily: 'DAICHES',
-            currentMember: 'tal'
+            currentMember: 'tal1',
+            addNoteDisplay:'none'
 
 
         }
@@ -21,15 +23,17 @@ export default class Board extends Component {
     render() {
         return (
             <div className='container'>
-                <Paper className='board'>
-                    <Grid container direction='column' spacing='' >
+
+                <Paper  className='board'>
+                    <FCAddNote addNoteDisplay={this.state.addNoteDisplay} />
+                    <Grid  container direction='column' spacing='' >
                         <Grid container alignItems='center'> {/* top line ,add btn ,welcome user */}
                             <Grid item xs='2'>
-                                <IconButton >
+                                <IconButton onClick={() => {this.state.addNoteDisplay === 'none' ? this.setState({addNoteDisplay:'flex'}) : this.setState({addNoteDisplay:'none'}) }} >
                                     <PostAddIcon color='primary' style={{ fontSize: '50' }}></PostAddIcon>
                                 </IconButton>
                             </Grid>
-                            <Grid item xs='9' style={{ alignSelf: 'center' }}> <h1>welcome,user1</h1></Grid>
+                            <Grid item xs='9' style={{ alignSelf: 'center' }}> <h1>welcome,{this.state.currentMember}</h1></Grid>
                         </Grid>
 
                         <Grid container direction='row' > {/* second line ,tasks */}
@@ -37,14 +41,14 @@ export default class Board extends Component {
                             <Grid item xs='9'>
 
                                 <div className='tasks_bar' >
-                                    { console.log(this.props)}
+                                    {console.log(this.props)}
                                     {
-                                   
-                                    this.props.family.notes.map((note, index) => 
-                                        
-                                        <li className='task'><h3>{note.title}</h3>{note.text}</li>
 
-                                    )}
+                                        this.props.family.notes.map((note, index) =>
+
+                                            <li className='task'><h3>{note.title}</h3>{note.text}</li>
+
+                                        )}
                                     {/* <li className='task'><h3>title</h3>task</li>
                                     <li className='task'><h3>title</h3>task</li>
                                     <li className='task'><h3>title</h3>task</li>
@@ -57,6 +61,7 @@ export default class Board extends Component {
                             </Grid>
                         </Grid>
                         <Divider></Divider>
+
                         <Grid container direction='row'> {/* third line ,tasks */}
                             <Grid item xs="2"><h2>my tasks</h2></Grid>
                             <Grid container direction='row' xs='9'> {/* tasks container*/}
