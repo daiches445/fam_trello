@@ -13,11 +13,12 @@ import { withRouter } from 'react-router-dom';
 class Login_Page extends Component {
     constructor(props) {
         super(props)
-
+     
         this.state = {
             username: "",
             password: ""
         }
+
     }
 
     chgDtl = (e) => {
@@ -89,7 +90,7 @@ class Login_Page extends Component {
                         </Grid>
                         <Grid container spacing ='10' style={{marginBottom:'5%'}}>
                             <Grid item>
-                                <Button  onClick={this.signInClick} color="primary">Sign in</Button>
+                                <Button onClick={this.signInClick} color="primary">Sign in</Button>
                             </Grid>
                             <Grid item spacing='3'>
                                 <Button onClick={()=>this.props.history.push('/FCRegister')}>havent got a familiy yet?</Button>

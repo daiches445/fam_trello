@@ -19,17 +19,19 @@ export default class Board extends Component {
 
         }
     }
-
+ openOrCloseAddNote=()=>{
+    this.state.addNoteDisplay === '' ? this.setState({addNoteDisplay:<FCAddNote exitFunc = {this.openOrCloseAddNote}/>}) : this.setState({addNoteDisplay:''}) 
+ }
     render() {
         return (
             <div className='container'>
 
                 <Paper  className='board'>
-                    <FCAddNote addNoteDisplay={this.state.addNoteDisplay} />
+                    {this.state.addNoteDisplay}
                     <Grid  container direction='column' spacing='' >
                         <Grid container alignItems='center'> {/* top line ,add btn ,welcome user */}
                             <Grid item xs='2'>
-                                <IconButton onClick={() => {this.state.addNoteDisplay === 'none' ? this.setState({addNoteDisplay:'flex'}) : this.setState({addNoteDisplay:'none'}) }} >
+                                <IconButton onClick={this.openOrCloseAddNote} >
                                     <PostAddIcon color='primary' style={{ fontSize: '50' }}></PostAddIcon>
                                 </IconButton>
                             </Grid>
