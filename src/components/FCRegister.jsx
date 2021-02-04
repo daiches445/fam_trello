@@ -14,12 +14,16 @@ class Register extends Component {
             user_name: "",
             password: "",
             re_pass: "",
+            f_name: '',
+            l_name: '',
             family_ID: "",
             family_name: "",
             fam_det_dsp: "flex",
             fam_crt_dsp: 'none',
-            got_fam: false
-
+            got_fam: false,
+            error_username: '',
+            error_pass: '',
+            error_repass: ''
         }
     }
 
@@ -32,46 +36,80 @@ class Register extends Component {
 
     SetVAl = (e) => {
         let val = e.target.value;
-        let id = e.target.name;
-
-        switch (id) {
+        let name = e.target.name;
+        console.log(e);
+        switch (name) {
             case 'username':
                 this.setState({ user_name: val })
                 break;
             case 'password':
-                this.setState({ password: val })
+                if (val.length < 4) {
+                    this.setState({ error_pass: 'password to short' })
+                }
+                else
+                    this.setState({ password: val, error_pass: '' })
                 break;
             case 're_pass':
                 this.setState({ re_pass: val })
                 break;
+            case 'family_ID':
+
 
         }
     }
 
-    handleClick=()=>{
-        let currentUser = this.props.users.find(user=>user.username == this.state.user_name)
-        if (currentUser === undefined) {
-                this.props.sendUserToRegister(this.state)
-                this.props.history.push('/')
+    Register = () => {
+        if (this.state.password.length < 4)
+            return
+
+        if (this.state.password !== this.state.re_pass) {
+            this.setState({ error_repass: 'passwords dont match' })
+            return
         }
         else
-        alert("THIS USERNAME IS TAKEN!")
+            this.setState({ error_repass: '' })
+
+        let currentUser = this.props.users.find(user => user.username == this.state.user_name)
+        if (currentUser === undefined) {
+            this.props.sendUserToRegister(this.state)
+            this.props.history.push('/')
+        }
+        else
+            this.setState({ error_username: 'invalid user name' })
     }
 
     render() {
         return (
             <div className="container">
                 <Paper>
-                    <Grid container direction='column' spacing='3' alignItems='center'>
+                    <Grid container direction='column' spacing='3' alignItems='flex-start' style={{ marginLeft: '10%' }}>
                         <Grid item >
                             <h1>Register</h1></Grid>
-                        <Grid item>
-                            <TextField name="username" id="outlined-basic" label="User Name" variant="outlined" onChange={this.SetVAl} /></Grid>
-                        <Grid item>
-                            <TextField name="password" id="outlined-basic" type='Password' label="Password" variant="outlined" onChange={this.SetVAl} /></Grid>
-                        <Grid item>
-                            <TextField name="re_pass" id="outlined-basic" type='Password' label="ReEnter Password" variant="outlined" />
+                        <Grid item xs='6' alignItems='center'>
+                            <TextField helperText={this.state.error_username} error={this.state.error_username} name="username" id="filled-basic" label="User Name" variant="outlined" onChange={this.SetVAl} />
+
                         </Grid>
+                        <Divider></Divider>
+                        <Grid item spacing='1'>
+                            <Grid container spacing='1'>
+                                <Grid item xs='6'>
+                                    <TextField helperText={this.state.error_pass} error={this.state.error_pass} name="password" id="outlined-basic" label="password" variant="outlined" onChange={this.SetVAl} /></Grid>
+                                <Grid item xs='6'>
+                                    <TextField helperText={this.state.error_repass} error={this.state.error_repass} name="re_pass" id="outlined-basic" type='Password' label="ReEnter Password" variant="outlined" onChange={this.SetVAl} />
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <Grid item>
+                            <Grid container spacing='1'>
+                                <Grid item xs='6'>
+                                    <TextField name="f_name" id="outlined-basic" label="Name" variant="outlined" onChange={this.SetVAl} />
+                                </Grid>
+                                <Grid item xs='6'>
+                                    <TextField name="l_name" id="outlined-basic" label="Family name" variant="outlined" onChange={this.SetVAl} />
+                                </Grid>
+                            </Grid>
+                        </Grid>
+
                         <Grid item>
                             <Grid container  >
                                 <Grid item xs='9' style={{ padding: '10px' }}>
@@ -93,15 +131,23 @@ class Register extends Component {
                             <TextField name="family_ID" id="outlined-basic" label="Family ID" variant="outlined" onChange={this.SetVAl} />
                             <br />
                         </Grid>
-                        <Grid item className="fam" style={{ display: this.state.fam_crt_dsp, flexDirection: 'column' }}>
-                            <label htmlFor="">Create Your new family</label>
-                            <TextField name="family_ID" id="outlined-basic" label="Family ID" variant="outlined" />
-                            <br />
-                            <TextField name="family_name" id="outlined-basic" label="Family name" variant="outlined" />
+                        <Grid item style={{ display: this.state.fam_crt_dsp}}>
+                            <Grid container>
+                                <label htmlFor="">Create your family</label>
+                                <Grid item xs='6' className="fam" style={{ display: this.state.fam_crt_dsp }}>
+                                    
+                                    <TextField name="family_ID" id="outlined-basic" label="Family ID" variant="outlined" />
+                                </Grid>
+                                <Grid item xs='6'>
+                                    <TextField name="family_name" id="outlined-basic" label="Family name" variant="outlined" />
+                                </Grid>
+
+
+                            </Grid>
                         </Grid>
                         <Divider></Divider>
                         <Grid item>
-                            <Button onClick={this.handleClick} color='primary' style={{ marginBottom: '3vh' }}>Register</Button>
+                            <Button onClick={this.Register} color='primary' style={{ marginBottom: '3vh' }}>Register</Button>
                         </Grid>
                         <Divider></Divider>
 

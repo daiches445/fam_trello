@@ -47,6 +47,7 @@ class Login_Page extends Component {
         }
     }
     signInClick=()=>{
+        console.log('click')
         let currentUser = this.props.data.users.find(user=>user.username === this.state.username)
          if (currentUser === undefined) {
              alert("SORRY NOT FOUND")
