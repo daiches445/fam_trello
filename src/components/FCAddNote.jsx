@@ -2,18 +2,36 @@ import { React, Component } from 'react'
 import CloseIcon from '@material-ui/icons/Close';
 import { withRouter } from 'react-router-dom';
 import { TextField, Grid } from '@material-ui/core';
+import Select from '@material-ui/core/Select';
+import Input from '@material-ui/core/Input';
+import MenuItem from '@material-ui/core/MenuItem';
+
 class FCAddNote extends Component {
     constructor(props) {
         super(props)
         this.state = {
             tite: '',
             context: '',
-            usersTaged: ''
+            usersTaged: '',
+            usersVisibility:'hidden'
         }
 
     }
 
+    Try=()=>{
+this.state.usersVisibility === 'hidden' ? this.setState({usersVisibility:'visible'}) : this.setState({usersVisibility:'hidden'})
+    }
 
+    inputSelected=(e)=>{
+        
+     let userTagedString = this.state.usersTaged
+     if(userTagedString.includes(e.target.id)){
+        userTagedString = userTagedString.replace(e.target.id,'')
+     }
+     else
+     userTagedString+= e.target.id + ' '
+     this.setState({usersTaged:userTagedString})
+    }
     render() {
         return (
             <div className='container' style={{ flexDirection: 'column', borderRadius: '60px', justifyContent: 'flex-start', backgroundColor: 'pink', width: '50vw', height: '70vh', position: 'absolute', left: '25%', display: 'flex' }}>
@@ -26,25 +44,43 @@ class FCAddNote extends Component {
 
                     </Grid>
 
-                    <Grid container style={{display:'flex',flexDirection:'column'}} >
-                        <Grid xs="2" item>
+                    <Grid  container direction='column' style={{height:'100%',display:'flex',flexDirection:'column'}} >
+                        <Grid  item>
                             <TextField  label="Title" />
                             
                         </Grid>
-                        <Grid xs="3" style={{height:"10%"}} item>
-                            
+                        <Grid  item>
+                            <TextField  label="Start Date" />
                             
                         </Grid>
+                        <Grid  item>
+                            <TextField  label="Due Date" />
+                            
+                        </Grid>
+                    <div onClick={this.Try}>+</div>
+                    <div>{this.state.usersTaged === '' ? "NO USERS TAGGED":this.state.usersTaged}</div>
+                  <div  style={{visibility:this.state.usersVisibility}}>
+                  <div style={{display:'flex',flexDirection:'row'}}>
+                       <label htmlFor="">Ely</label>
+                        <input onChange={this.inputSelected} type="checkbox" name="" id="Ely"/> 
+                       </div>
+                       <div style={{display:'flex',flexDirection:'row'}}>
+                       <label htmlFor="">Nir</label>
+                        <input onChange={this.inputSelected} type="checkbox" name="" id="Nir"/> 
+                       </div>
+
+                  </div>
                         <Grid xs="5" item>
                         <TextField 
                                 id="outlined-multiline-static"
-                                label="Multiline"
+                                label="Description"
                                 multiline
                                 rows={4}
-                                defaultValue="Default Value"
+                                defaultValue="..."
                                 variant="outlined"
                             />
                     </Grid>
+                    
                 </Grid>
                     </Grid>
            
