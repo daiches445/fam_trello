@@ -23,10 +23,11 @@ this.state.usersVisibility === 'hidden' ? this.setState({usersVisibility:'visibl
     }
 
     inputSelected=(e)=>{
-        
+       
      let userTagedString = this.state.usersTaged
      if(userTagedString.includes(e.target.id)){
         userTagedString = userTagedString.replace(e.target.id,'')
+        
      }
      else
      userTagedString+= e.target.id + ' '
