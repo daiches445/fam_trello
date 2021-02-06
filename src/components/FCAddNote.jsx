@@ -2,6 +2,7 @@ import { React, Component } from 'react'
 import CloseIcon from '@material-ui/icons/Close';
 import { withRouter } from 'react-router-dom';
 import { TextField, Grid } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -12,23 +13,25 @@ class FCAddNote extends Component {
         this.state = {
             tite: '',
             context: '',
+            start_date: '',
+            due_date: '',
             usersTaged: '',
             usersVisibility: 'hidden'
-           ,date:new Date()
+            , date: new Date()
         }
-this.DateObj = new Date()
+        this.DateObj = new Date()
 
     }
 
     Try = () => {
         this.state.usersVisibility === 'hidden' ? this.setState({ usersVisibility: 'visible' }) : this.setState({ usersVisibility: 'hidden' })
     }
-    
-  
-// componentDidMount(){
-//     let todaysDate = this.DateObj.getFullYear()+"-"+(this.DateObj.getMonth()+10)+"-"+(this.DateObj.getDay()+10)
-//     this.setState({date:todaysDate})
-// }
+
+
+    // componentDidMount(){
+    //     let todaysDate = this.DateObj.getFullYear()+"-"+(this.DateObj.getMonth()+10)+"-"+(this.DateObj.getDay()+10)
+    //     this.setState({date:todaysDate})
+    // }
     inputSelected = (e) => {
 
         let userTagedString = this.state.usersTaged
@@ -39,6 +42,26 @@ this.DateObj = new Date()
         else
             userTagedString += e.target.id + ' '
         this.setState({ usersTaged: userTagedString })
+    }
+
+    chgDtl = (e) => {
+        switch (e.target.id) {
+            case "title":
+                this.setState({ title: e.target.value })
+                break;
+            case "start_date":
+                this.setState({ start_date: e.target.value })
+                break;
+            case "due_date":
+                this.setState({ due_date: e.target.value })
+                break;
+            default:
+                break;
+        }
+    }
+    handleClick=()=>{
+        this.props.sendNote(this.state)
+        this.props.exitFunc()
     }
     render() {
         return (
@@ -54,18 +77,22 @@ this.DateObj = new Date()
 
                     <Grid container direction='column' style={{ height: '100%', display: 'flex', flexDirection: 'column' }} >
                         <Grid item>
-                            <TextField label="Title" />
+                            <TextField onChange={this.chgDtl} id="title" label="Title" />
 
                         </Grid>
                         <Grid item>
                             <TextField
+                                id="start_date"
                                 label="Start Date"
                                 type="date"
-                                defaultValue="2021-01-01" />
-                           {console.log(this.state.date.getDay())}
+                                defaultValue="0001-01-01" />
+                            {console.log(this.state.date.getDay())}
                         </Grid>
                         <Grid item>
-                            <TextField label="Due Date" />
+                            <TextField
+                                id="due_date"
+                                label="Due Date" type="date"
+                                defaultValue="0001-01-01" />
 
                         </Grid>
                         <div onClick={this.Try}>+</div>
@@ -93,6 +120,8 @@ this.DateObj = new Date()
                         </Grid>
 
                     </Grid>
+
+                    <Button onClick={this.handleClick} variant="contained">ADD NOTE</Button>
                 </Grid>
 
             </div>

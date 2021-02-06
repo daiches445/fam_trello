@@ -19,8 +19,11 @@ export default class Board extends Component {
 
         }
     }
+getNoteToAdd=(note)=>{
+  this.props.sendNote(note)
+}
  openOrCloseAddNote=()=>{
-    this.state.addNoteDisplay === '' ? this.setState({addNoteDisplay:<FCAddNote exitFunc = {this.openOrCloseAddNote}/>}) : this.setState({addNoteDisplay:''}) 
+    this.state.addNoteDisplay === '' ? this.setState({addNoteDisplay:<FCAddNote sendNote={this.getNoteToAdd} exitFunc = {this.openOrCloseAddNote}/>}) : this.setState({addNoteDisplay:''}) 
  }
     render() {
         return (
