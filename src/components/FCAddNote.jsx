@@ -15,6 +15,7 @@ class FCAddNote extends Component {
             context: '',
             start_date: '',
             due_date: '',
+            text: '',
             usersTaged: '',
             usersVisibility: 'hidden'
             , date: new Date()
@@ -45,7 +46,7 @@ class FCAddNote extends Component {
     }
 
     chgDtl = (e) => {
-        switch (e.target.id) {
+        switch (e.target.name) {
             case "title":
                 this.setState({ title: e.target.value })
                 break;
@@ -55,11 +56,14 @@ class FCAddNote extends Component {
             case "due_date":
                 this.setState({ due_date: e.target.value })
                 break;
+            case "text":
+                this.setState({ text: e.target.value })
+                break;
             default:
                 break;
         }
     }
-    handleClick=()=>{
+    handleClick = () => {
         this.props.sendNote(this.state)
         this.props.exitFunc()
     }
@@ -77,12 +81,12 @@ class FCAddNote extends Component {
 
                     <Grid container direction='column' style={{ height: '100%', display: 'flex', flexDirection: 'column' }} >
                         <Grid item>
-                            <TextField onChange={this.chgDtl} id="title" label="Title" />
+                            <TextField onChange={this.chgDtl} name="title" label="Title" />
 
                         </Grid>
                         <Grid item>
                             <TextField
-                                id="start_date"
+                                name="start_date"
                                 label="Start Date"
                                 type="date"
                                 defaultValue="0001-01-01" />
@@ -90,7 +94,7 @@ class FCAddNote extends Component {
                         </Grid>
                         <Grid item>
                             <TextField
-                                id="due_date"
+                                name="due_date"
                                 label="Due Date" type="date"
                                 defaultValue="0001-01-01" />
 
@@ -110,12 +114,14 @@ class FCAddNote extends Component {
                         </div>
                         <Grid xs="5" item>
                             <TextField
+                                name="text"
                                 id="outlined-multiline-static"
                                 label="Description"
                                 multiline
                                 rows={4}
                                 defaultValue="..."
                                 variant="outlined"
+                                onChange={this.chgDtl}
                             />
                         </Grid>
 
