@@ -13,30 +13,37 @@ class FCAddNote extends Component {
             tite: '',
             context: '',
             usersTaged: '',
-            usersVisibility:'hidden'
+            usersVisibility: 'hidden'
+           ,date:new Date()
         }
+this.DateObj = new Date()
 
     }
 
-    Try=()=>{
-this.state.usersVisibility === 'hidden' ? this.setState({usersVisibility:'visible'}) : this.setState({usersVisibility:'hidden'})
+    Try = () => {
+        this.state.usersVisibility === 'hidden' ? this.setState({ usersVisibility: 'visible' }) : this.setState({ usersVisibility: 'hidden' })
     }
+    
+  
+// componentDidMount(){
+//     let todaysDate = this.DateObj.getFullYear()+"-"+(this.DateObj.getMonth()+10)+"-"+(this.DateObj.getDay()+10)
+//     this.setState({date:todaysDate})
+// }
+    inputSelected = (e) => {
 
-    inputSelected=(e)=>{
-       
-     let userTagedString = this.state.usersTaged
-     if(userTagedString.includes(e.target.id)){
-        userTagedString = userTagedString.replace(e.target.id,'')
-        
-     }
-     else
-     userTagedString+= e.target.id + ' '
-     this.setState({usersTaged:userTagedString})
+        let userTagedString = this.state.usersTaged
+        if (userTagedString.includes(e.target.id)) {
+            userTagedString = userTagedString.replace(e.target.id, '')
+
+        }
+        else
+            userTagedString += e.target.id + ' '
+        this.setState({ usersTaged: userTagedString })
     }
     render() {
         return (
             <div className='container' style={{ flexDirection: 'column', borderRadius: '60px', justifyContent: 'flex-start', backgroundColor: 'pink', width: '50vw', height: '70vh', position: 'absolute', left: '25%', display: 'flex' }}>
-                <Grid style={{ justifyContent: 'center',height:'70%' }} container>
+                <Grid style={{ justifyContent: 'center', height: '70%' }} container>
                     <Grid container >
                         <Grid item xs="11"><h2>Add Note</h2></Grid>
                         <Grid item>
@@ -45,34 +52,37 @@ this.state.usersVisibility === 'hidden' ? this.setState({usersVisibility:'visibl
 
                     </Grid>
 
-                    <Grid  container direction='column' style={{height:'100%',display:'flex',flexDirection:'column'}} >
-                        <Grid  item>
-                            <TextField  label="Title" />
-                            
-                        </Grid>
-                        <Grid  item>
-                            <TextField  label="Start Date" />
-                            
-                        </Grid>
-                        <Grid  item>
-                            <TextField  label="Due Date" />
-                            
-                        </Grid>
-                    <div onClick={this.Try}>+</div>
-                    <div>{this.state.usersTaged === '' ? "NO USERS TAGGED":this.state.usersTaged}</div>
-                  <div  style={{visibility:this.state.usersVisibility}}>
-                  <div style={{display:'flex',flexDirection:'row'}}>
-                       <label htmlFor="">Ely</label>
-                        <input onChange={this.inputSelected} type="checkbox" name="" id="Ely"/> 
-                       </div>
-                       <div style={{display:'flex',flexDirection:'row'}}>
-                       <label htmlFor="">Nir</label>
-                        <input onChange={this.inputSelected} type="checkbox" name="" id="Nir"/> 
-                       </div>
+                    <Grid container direction='column' style={{ height: '100%', display: 'flex', flexDirection: 'column' }} >
+                        <Grid item>
+                            <TextField label="Title" />
 
-                  </div>
+                        </Grid>
+                        <Grid item>
+                            <TextField
+                                label="Start Date"
+                                type="date"
+                                defaultValue="2021-01-01" />
+                           {console.log(this.state.date.getDay())}
+                        </Grid>
+                        <Grid item>
+                            <TextField label="Due Date" />
+
+                        </Grid>
+                        <div onClick={this.Try}>+</div>
+                        <div>{this.state.usersTaged === '' ? "NO USERS TAGGED" : this.state.usersTaged}</div>
+                        <div style={{ visibility: this.state.usersVisibility }}>
+                            <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                <label htmlFor="">Ely</label>
+                                <input onChange={this.inputSelected} type="checkbox" name="" id="Ely" />
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                <label htmlFor="">Nir</label>
+                                <input onChange={this.inputSelected} type="checkbox" name="" id="Nir" />
+                            </div>
+
+                        </div>
                         <Grid xs="5" item>
-                        <TextField 
+                            <TextField
                                 id="outlined-multiline-static"
                                 label="Description"
                                 multiline
@@ -80,12 +90,12 @@ this.state.usersVisibility === 'hidden' ? this.setState({usersVisibility:'visibl
                                 defaultValue="..."
                                 variant="outlined"
                             />
+                        </Grid>
+
                     </Grid>
-                    
                 </Grid>
-                    </Grid>
-           
-        </div>
+
+            </div>
         )
     }
 }
