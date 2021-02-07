@@ -23,7 +23,8 @@ class Register extends Component {
             got_fam: false,
             error_username: '',
             error_pass: '',
-            error_repass: ''
+            error_repass: '',
+            error_f_name: ''
         }
     }
 
@@ -52,8 +53,18 @@ class Register extends Component {
             case 're_pass':
                 this.setState({ re_pass: val })
                 break;
+            case 'f_name':
+                this.setState({ f_name: val })
+                break;
+            case 'l_name':
+                this.setState({ l_name: val })
+                break;
             case 'family_ID':
-
+                this.setState({ family_ID: val })
+                break;
+            case 'family_name':
+                this.setState({ family_name: val })
+                break;
 
         }
     }
@@ -69,7 +80,19 @@ class Register extends Component {
         else
             this.setState({ error_repass: '' })
 
-        let currentUser = this.props.users.find(user => user.username == this.state.user_name)
+        if (this.state.f_name === '') {
+            this.setState({ error_f_name: 'must enter a name' })
+            return
+        }
+        else
+            this.setState({ error_f_name: '' })
+
+
+
+        let currentFamily = this.props.app_data.family.find(fam => fam.ID === this.state.family_ID )
+        let currentUser = this.props.app_data.users.find(user => user.username === this.state.user_name)
+
+        if(currentFamily === undefined && )
         if (currentUser === undefined) {
             this.props.sendUserToRegister(this.state)
             this.props.history.push('/')
@@ -117,7 +140,6 @@ class Register extends Component {
                                 </Grid>
                                 <Grid item xs='3' >
                                     <Switch
-
                                         checked={this.state.got_fam}
                                         onChange={this.GotFamiliy}
                                         name="checkedA"
@@ -126,23 +148,28 @@ class Register extends Component {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item className="fam" style={{ display: this.state.fam_det_dsp, flexDirection: 'column' }}>
-                            <label htmlFor="">Enter Your family ID</label>
-                            <TextField name="family_ID" id="outlined-basic" label="Family ID" variant="outlined" onChange={this.SetVAl} />
-                            <br />
-                        </Grid>
-                        <Grid item style={{ display: this.state.fam_crt_dsp}}>
+                        <Grid item style={{ display: this.state.fam_det_dsp, flexDirection: 'column' }}>
                             <Grid container>
-                                <label htmlFor="">Create your family</label>
-                                <Grid item xs='6' className="fam" style={{ display: this.state.fam_crt_dsp }}>
-                                    
+                                <Grid item >
+                                    <label htmlFor="">Enter Your family ID</label>
+                                </Grid>
+                                <Grid item >
+                                    <TextField name="family_ID" id="outlined-basic" label="Family ID" variant="outlined" onChange={this.SetVAl} />
+                                </Grid>
+                            </Grid>
+
+                        </Grid>
+                        <Grid item style={{ display: this.state.fam_crt_dsp }}>
+                            <Grid container>
+                                <Grid item xs='12'>
+                                    <label htmlFor="">Add Your Family</label>
+                                </Grid>
+                                <Grid item xs='5' style={{ display: this.state.fam_crt_dsp }}>
                                     <TextField name="family_ID" id="outlined-basic" label="Family ID" variant="outlined" />
                                 </Grid>
-                                <Grid item xs='6'>
-                                    <TextField name="family_name" id="outlined-basic" label="Family name" variant="outlined" />
+                                <Grid item xs='5'>
+                                    <TextField name="family_name" id="outlined-basic" helperText={'Suggested :' + this.state.l_name + ' etc.'} label="Family name" variant="outlined" />
                                 </Grid>
-
-
                             </Grid>
                         </Grid>
                         <Divider></Divider>

@@ -7,9 +7,6 @@ import { withRouter } from 'react-router-dom';
 
 
 
-
-
-
 class Login_Page extends Component {
     constructor(props) {
         super(props)
@@ -29,7 +26,6 @@ class Login_Page extends Component {
             case "password":
                 this.setState({ password: e.target.value })
                 break;
-
             default:
                 break;
         }
@@ -57,11 +53,6 @@ class Login_Page extends Component {
             alert("YES FOUND " + currentUser.username)
             this.props.history.push('/CCBoard')
         }
-            
-                
-                
-        
-           
         
     }
     render() {

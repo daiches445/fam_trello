@@ -40,7 +40,7 @@ class App extends Component {
       <h1>FamTrello</h1>
       <Switch>
         <Route exact path="/"  render={()=><Login_Page data = {this.state}  ></Login_Page>}></Route>
-        <Route path = "/FCRegister" render={()=><Register sendUserToRegister={this.catchUserToRegister} users = {this.state.users}></Register>}></Route>
+        <Route path = "/FCRegister" render={()=><Register sendUserToRegister={this.catchUserToRegister} app_data = {this.state}></Register>}></Route>
         <Route path = '/CCBoard'  render={()=><Board family = {this.state.family[0]}></Board>}></Route>
       </Switch>
 
