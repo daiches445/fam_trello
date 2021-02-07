@@ -41,29 +41,22 @@ class App extends Component {
     let usersArray = this.state.users
     usersArray.push({ username: user.user_name, password: user.password, fam_id: user.family_ID })
     this.setState({ users: usersArray })
-
   }
-<<<<<<< HEAD
+
+  AddFamily = (fam)=>{
+    let famArr = this.state.family;
+    famArr.push({ID:fam.ID,name:fam.name,notes:[{title:'Welcome to FamTrello',text:'take out the trash!'}]})
+    this.setState({family:famArr})
+  }
   render(){
   return (
     <div className="app_container">
       <h1>FamTrello</h1>
       <Switch>
         <Route exact path="/"  render={()=><Login_Page data = {this.state}  ></Login_Page>}></Route>
-        <Route path = "/FCRegister" render={()=><Register sendUserToRegister={this.catchUserToRegister} app_data = {this.state}></Register>}></Route>
+        <Route path = "/FCRegister" render={()=><Register AddFamily={this.AddFamily} sendUserToRegister={this.catchUserToRegister} app_data = {this.state}></Register>}></Route>
         <Route path = '/CCBoard'  render={()=><Board family = {this.state.family[0]}></Board>}></Route>
       </Switch>
-=======
-  render() {
-    return (
-      <div className="app_container">
-        <h1>FamTrello</h1>
-        <Switch>
-          <Route exact path="/" render={() => <Login_Page data={this.state}  ></Login_Page>}></Route>
-          <Route path="/FCRegister" render={() => <Register sendUserToRegister={this.catchUserToRegister} users={this.state.users}></Register>}></Route>
-          <Route path='/CCBoard' render={() => <Board sendNote={this.catchNoteToAdd} family={this.state.family[0]}></Board>}></Route>
-        </Switch>
->>>>>>> 5184856d6be46a369fdc08978e4013f51497ce09
 
       </div>
     )

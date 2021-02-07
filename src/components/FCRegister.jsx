@@ -14,25 +14,25 @@ class Register extends Component {
             user_name: "",
             password: "",
             re_pass: "",
-            f_name: '',
             l_name: '',
             family_ID: "",
             family_name: "",
             fam_det_dsp: "flex",
             fam_crt_dsp: 'none',
-            got_fam: false,
+            create_family: false,
             error_username: '',
             error_pass: '',
             error_repass: '',
-            error_f_name: ''
+            error_f_name: '',
+            error_fam_ID: ''
         }
     }
 
     GotFamiliy = (e) => {
-        if (this.state.got_fam)
-            this.setState({ got_fam: false, fam_crt_dsp: 'none', fam_det_dsp: "flex", })
+        if (this.state.create_family)
+            this.setState({ create_family: false, fam_crt_dsp: 'none', fam_det_dsp: "flex", })
         else
-            this.setState({ got_fam: true, fam_crt_dsp: 'flex', fam_det_dsp: "none", })
+            this.setState({ create_family: true, fam_crt_dsp: 'flex', fam_det_dsp: "none", })
     }
 
     SetVAl = (e) => {
@@ -41,7 +41,7 @@ class Register extends Component {
         console.log(e);
         switch (name) {
             case 'username':
-                this.setState({ user_name: val })
+                this.setState({ user_name: val ,error_username:''})
                 break;
             case 'password':
                 if (val.length < 4) {
@@ -60,7 +60,7 @@ class Register extends Component {
                 this.setState({ l_name: val })
                 break;
             case 'family_ID':
-                this.setState({ family_ID: val })
+                this.setState({ family_ID: val ,error_fam_ID:''})
                 break;
             case 'family_name':
                 this.setState({ family_name: val })
@@ -80,7 +80,7 @@ class Register extends Component {
         else
             this.setState({ error_repass: '' })
 
-        if (this.state.f_name === '') {
+        if (this.state.family_name === '') {
             this.setState({ error_f_name: 'must enter a name' })
             return
         }
@@ -89,21 +89,38 @@ class Register extends Component {
 
 
 
-        let currentFamily = this.props.app_data.family.find(fam => fam.ID === this.state.family_ID )
+        let currentFamily = this.props.app_data.family.find(fam => fam.ID === this.state.family_ID)
         let currentUser = this.props.app_data.users.find(user => user.username === this.state.user_name)
 
-        if(currentFamily === undefined && )
-        if (currentUser === undefined) {
-            this.props.sendUserToRegister(this.state)
-            this.props.history.push('/')
+        if(currentUser === undefined){
+            if(this.state.create_family){
+                if(currentFamily === undefined){
+                    let fam = {ID:this.state.family_ID,name:this.state.family_name}
+                    this.props.AddFamily(fam)
+                }
+                else{
+                    this.setState({error_fam_ID:'Taken!'})
+                    return
+                }
+            }
+            else{
+                if(currentFamily === undefined){
+                    this.setState({error_fam_ID:'Not found,start a new family or insert valid ID'})
+                    return
+                }
+                else{}
+            }
+            
         }
         else
-            this.setState({ error_username: 'invalid user name' })
+            this.setState({error_username:'invalid user name'})
+
     }
 
     render() {
         return (
             <div className="container">
+                {console.log(this.state.got_fam)}
                 <Paper>
                     <Grid container direction='column' spacing='3' alignItems='flex-start' style={{ marginLeft: '10%' }}>
                         <Grid item >
@@ -116,7 +133,7 @@ class Register extends Component {
                         <Grid item spacing='1'>
                             <Grid container spacing='1'>
                                 <Grid item xs='6'>
-                                    <TextField helperText={this.state.error_pass} error={this.state.error_pass} name="password" id="outlined-basic" label="password" variant="outlined" onChange={this.SetVAl} /></Grid>
+                                    <TextField helperText={this.state.error_pass} error={this.state.error_pass} name="password" id="outlined-basic" type='Password' label="password" variant="outlined" onChange={this.SetVAl} /></Grid>
                                 <Grid item xs='6'>
                                     <TextField helperText={this.state.error_repass} error={this.state.error_repass} name="re_pass" id="outlined-basic" type='Password' label="ReEnter Password" variant="outlined" onChange={this.SetVAl} />
                                 </Grid>
@@ -160,15 +177,15 @@ class Register extends Component {
 
                         </Grid>
                         <Grid item style={{ display: this.state.fam_crt_dsp }}>
-                            <Grid container>
+                            <Grid container spacing='1'>
                                 <Grid item xs='12'>
                                     <label htmlFor="">Add Your Family</label>
                                 </Grid>
                                 <Grid item xs='5' style={{ display: this.state.fam_crt_dsp }}>
-                                    <TextField name="family_ID" id="outlined-basic" label="Family ID" variant="outlined" />
+                                    <TextField error={this.state.error_fam_ID} name="family_ID" id="outlined-basic" label="Family ID" variant="outlined" helperText={'Suggested :' + this.state.l_name + ' etc.'} />
                                 </Grid>
                                 <Grid item xs='5'>
-                                    <TextField name="family_name" id="outlined-basic" helperText={'Suggested :' + this.state.l_name + ' etc.'} label="Family name" variant="outlined" />
+                                    <TextField name="family_name" id="outlined-basic" Value={this.state.f_name} label="Family name" variant="outlined" />
                                 </Grid>
                             </Grid>
                         </Grid>
