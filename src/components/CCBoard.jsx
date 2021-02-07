@@ -84,7 +84,7 @@ getNoteToAdd=(note)=>{
                             </Grid>
                         </Grid>
                         <Grid container direction='row'> {/* forth line ,tasks */}
-                            <Grid item xs="2"><h2>etc. tasks</h2></Grid>
+                            <Grid item xs="2"><h2>finished tasks</h2></Grid>
                             <Grid container direction='row' xs='9'> {/* tasks container*/}
                                 {/*map function*/}
                                 <div className='tasks_bar' >
