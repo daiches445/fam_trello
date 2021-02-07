@@ -55,7 +55,7 @@ class App extends Component {
       <Switch>
         <Route exact path="/"  render={()=><Login_Page data = {this.state}  ></Login_Page>}></Route>
         <Route path = "/FCRegister" render={()=><Register AddFamily={this.AddFamily} sendUserToRegister={this.catchUserToRegister} app_data = {this.state}></Register>}></Route>
-        <Route path = '/CCBoard'  render={()=><Board family = {this.state.family[0]}></Board>}></Route>
+        <Route path = '/CCBoard'  render={()=><Board sendNote = {this.catchNoteToAdd} family = {this.state.family[0]}></Board>}></Route>
       </Switch>
 
       </div>
