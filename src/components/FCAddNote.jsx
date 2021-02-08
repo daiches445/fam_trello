@@ -69,7 +69,7 @@ class FCAddNote extends Component {
     }
     render() {
         return (
-            <div className='container' style={{ flexDirection: 'column', borderRadius: '60px', justifyContent: 'flex-start', backgroundColor: 'pink', width: '50vw', height: '70vh', position: 'absolute', left: '25%', display: 'flex' }}>
+            <div className='container-nir' style={{ flexDirection: 'column', borderRadius: '60px', justifyContent: 'flex-start',  width: '50vw', height: '70vh', position: 'absolute', left: '25%', display: 'flex',marginTop:'1.5%' }}>
                 <Grid style={{ justifyContent: 'center', height: '70%' }} container>
                     <Grid container >
                         <Grid item xs="11"><h2>Add Note</h2></Grid>
