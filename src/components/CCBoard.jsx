@@ -14,7 +14,7 @@ export default class Board extends Component {
             ],
             currentFamily: 'DAICHES',
             currentMember: 'tal1',
-            addNoteDisplay:'none'
+            addNoteDisplay:''
 
 
         }
@@ -32,7 +32,7 @@ getNoteToAdd=(note)=>{
                 <Paper  className='board'>
                     {this.state.addNoteDisplay}
                     <Grid  container direction='column' spacing='' >
-                        <Grid container alignItems='center'> {/* top line ,add btn ,welcome user */}
+                        <Grid container alignItems='center'> 
                             <Grid item xs='2'>
                                 <IconButton onClick={this.openOrCloseAddNote} >
                                     <PostAddIcon color='primary' style={{ fontSize: '50' }}></PostAddIcon>
@@ -41,7 +41,7 @@ getNoteToAdd=(note)=>{
                             <Grid item xs='9' style={{ alignSelf: 'center' }}> <h1>welcome,{this.state.currentMember}</h1></Grid>
                         </Grid>
 
-                        <Grid container direction='row' > {/* second line ,tasks */}
+                        <Grid container direction='row' > 
                             <Grid item xs="2"><h2>tasks</h2></Grid>
                             <Grid item xs='9'>
 
@@ -54,14 +54,6 @@ getNoteToAdd=(note)=>{
                                             <li className='task'><h3>{note.title}</h3>{note.text}</li>
 
                                         )}
-                                    {/* <li className='task'><h3>title</h3>task</li>
-                                    <li className='task'><h3>title</h3>task</li>
-                                    <li className='task'><h3>title</h3>task</li>
-                                    <li className='task'><h3>title</h3>task</li>
-                                    <li className='task'><h3>title</h3>task</li>
-                                    <li className='task'><h3>title</h3>task</li>
-                                    <li className='task'><h3>title</h3>task</li>
-                                    <li className='task'><h3>title</h3>task</li> */}
                                 </div>
                             </Grid>
                         </Grid>

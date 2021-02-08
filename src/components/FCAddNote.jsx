@@ -69,21 +69,20 @@ class FCAddNote extends Component {
     }
     render() {
         return (
-            <div className='container-nir' style={{ flexDirection: 'column', borderRadius: '60px', justifyContent: 'flex-start',  width: '50vw', height: '70vh', position: 'absolute', left: '25%', display: 'flex',marginTop:'1.5%' }}>
-                <Grid style={{ justifyContent: 'center', height: '70%' }} container>
+            <div className='container-nir' style={{ borderRadius: '60px', justifyContent: 'flex-start',  width: '50vw', height: '70vh', position: 'absolute', left: '25%', display: 'flex',marginTop:'1.5%' }}>
+                <Grid container alignItems='center' spacing = '12'  >
                     <Grid container >
-                        <Grid item xs="11"><h2>Add Note</h2></Grid>
+                        <Grid item xs="11"><h1>Add Note</h1></Grid>
                         <Grid item>
                             <CloseIcon onClick={this.props.exitFunc} style={{}} fontSize='large' />
                         </Grid>
-
                     </Grid>
 
-                    <Grid container direction='column' style={{ height: '100%', display: 'flex', flexDirection: 'column' }} >
-                        <Grid item>
-                            <TextField onChange={this.chgDtl} name="title" label="Title" />
-
+                    <Grid container direction='column' spacing = '1' >
+                        <Grid item  xs ='12' align = 'center'>
+                            <TextField onChange={this.chgDtl} name="title"  />
                         </Grid>
+
                         <Grid item>
                             <TextField
                                 name="start_date"

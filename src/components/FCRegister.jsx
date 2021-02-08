@@ -122,7 +122,7 @@ class Register extends Component {
             <div className="container">
                 {console.log(this.state.got_fam)}
                 <Paper>
-                    <Grid container direction='column' spacing='3' alignItems='flex-start' style={{ marginLeft: '10%' }}>
+                    <Grid container align = 'center' direction='column' spacing='3' alignItems='flex-start'>
                         <Grid item >
                             <h1>Register</h1></Grid>
                         <Grid item xs='6' alignItems='center'>

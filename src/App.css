@@ -10,19 +10,21 @@
 }
 
 html {
-  background-color: #e5eef0;
+  background: #491c0b;
+  background: linear-gradient(128deg, #491c0b 0%, #b02b26 62%, #d13d1c 100%);
+  height: 100%;
 }
 
 h1 {
   font-family: 'Billion Dreams';
-  font-size: 5ch;
+  font-size: 6ch;
   margin-top: 3px;
   margin-bottom: 0;
   margin-right: 70%;
 }
 
 h2 {
-  font-size: 1.5ch;
+  font-size: 2ch;
   font-family: 'Sunday Best';
 }
 
@@ -41,44 +43,14 @@ h3 {
   font-size: 1.3ch;
 }
 
-.app_container {
-  margin: 1% 10%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  background: #491c0b;
-  background: linear-gradient(128deg, #491c0b 0%, #b02b26 62%, #d13d1c 100%);
-  border: black solid 3px;
-  border-radius: 5px;
-  -webkit-box-shadow: black 0px 10px 16px 7px;
-          box-shadow: black 0px 10px 16px 7px;
-}
-
-.container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  width: 100%;
-  height: 100%;
-  justify-self: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  border-radius: 5px;
-}
-
 .MuiPaper-root {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   margin: 1%;
-  width: 50%;
+  width: 100%;
   min-height: 300px;
-  max-width: 1024px;
+  max-width: 1600px;
   min-width: 300px;
   border: #383333 solid 1px;
   border-radius: 5px;
@@ -101,7 +73,6 @@ h3 {
 
 .board {
   background-color: brown;
-  width: 80%;
 }
 
 .tasks_bar {
@@ -133,8 +104,8 @@ h3 {
   list-style: none;
   -ms-flex-negative: 0;
       flex-shrink: 0;
-  width: 10vw;
-  height: 15vh;
+  width: 13vw;
+  height: 17vh;
   background-color: rgba(235, 223, 223, 0.479);
   margin: 1px;
   border-radius: 5px;
