@@ -120,15 +120,14 @@ class Register extends Component {
     render() {
         return (
             <div className="container">
-                {console.log(this.state.got_fam)}
-                <Paper>
-                    <Grid container align = 'center' direction='column' spacing='3' alignItems='flex-start'>
+                <Paper style={{width:'50%'}}>
+                    <Grid container  direction='column' spacing='3' alignItems='center'>
                         <Grid item >
                             <h1>Register</h1></Grid>
-                        <Grid item xs='6' alignItems='center'>
+                        <Grid item xs='12'>
                             <TextField helperText={this.state.error_username} error={this.state.error_username} name="username" id="filled-basic" label="User Name" variant="outlined" onChange={this.SetVAl} />
-
                         </Grid>
+                      
                         <Divider></Divider>
                         <Grid item spacing='1'>
                             <Grid container spacing='1'>
@@ -150,12 +149,12 @@ class Register extends Component {
                             </Grid>
                         </Grid>
 
-                        <Grid item>
-                            <Grid container  >
+                        <Grid item xs = '12'>
+                            <Grid container direction='row' alignItems='center' >
                                 <Grid item xs='9' style={{ padding: '10px' }}>
                                     <label htmlFor="">Create A family?</label>
                                 </Grid>
-                                <Grid item xs='3' >
+                                <Grid item xs = '3'>
                                     <Switch
                                         checked={this.state.got_fam}
                                         onChange={this.GotFamiliy}
@@ -165,8 +164,8 @@ class Register extends Component {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item style={{ display: this.state.fam_det_dsp, flexDirection: 'column' }}>
-                            <Grid container>
+                        <Grid item xs='12' style={{ display: this.state.fam_det_dsp, flexDirection: 'column' }}>
+                            <Grid container direction='column' alignItems='center' spacing ='2'>
                                 <Grid item >
                                     <label htmlFor="">Enter Your family ID</label>
                                 </Grid>
@@ -176,15 +175,15 @@ class Register extends Component {
                             </Grid>
 
                         </Grid>
-                        <Grid item style={{ display: this.state.fam_crt_dsp }}>
-                            <Grid container spacing='1'>
-                                <Grid item xs='12'>
+                        <Grid item  style={{ display: this.state.fam_crt_dsp }}>
+                            <Grid container direction = 'row' alignContent='center' justify="center" spacing ='2'>
+                                <Grid item align='center' justify='center' xs='12'>
                                     <label htmlFor="">Add Your Family</label>
                                 </Grid>
-                                <Grid item xs='5' style={{ display: this.state.fam_crt_dsp }}>
+                                <Grid item >
                                     <TextField error={this.state.error_fam_ID} name="family_ID" id="outlined-basic" label="Family ID" variant="outlined" helperText={'Suggested :' + this.state.l_name + ' etc.'} />
                                 </Grid>
-                                <Grid item xs='5'>
+                                <Grid item>
                                     <TextField name="family_name" id="outlined-basic" Value={this.state.f_name} label="Family name" variant="outlined" />
                                 </Grid>
                             </Grid>

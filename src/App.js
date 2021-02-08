@@ -50,14 +50,17 @@ class App extends Component {
   }
   render(){
   return (
-    <div className="app_container">
-      <h1>FamTrello</h1>
+    <div style={{width:'100%',height:'100%'}}>
+      <header>
+         <h1>FamTrello</h1>
+      </header>
+        <div className="app_container">
       <Switch>
         <Route exact path="/"  render={()=><Login_Page data = {this.state}  ></Login_Page>}></Route>
         <Route path = "/FCRegister" render={()=><Register AddFamily={this.AddFamily} sendUserToRegister={this.catchUserToRegister} app_data = {this.state}></Register>}></Route>
         <Route path = '/CCBoard'  render={()=><Board sendNote = {this.catchNoteToAdd} family = {this.state.family[0]}></Board>}></Route>
       </Switch>
-
+        </div>
       </div>
     )
   }

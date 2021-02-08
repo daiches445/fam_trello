@@ -29,22 +29,21 @@ getNoteToAdd=(note)=>{
         return (
             <div className='container'>
 
-                <Paper  className='board'>
+                <Paper >
                     {this.state.addNoteDisplay}
                     <Grid  container direction='column' spacing='' >
                         <Grid container alignItems='center'> 
                             <Grid item xs='2'>
                                 <IconButton onClick={this.openOrCloseAddNote} >
-                                    <PostAddIcon color='primary' style={{ fontSize: '50' }}></PostAddIcon>
+                                    <PostAddIcon color='primary' style={{ fontSize: '100' }}></PostAddIcon>
                                 </IconButton>
                             </Grid>
-                            <Grid item xs='9' style={{ alignSelf: 'center' }}> <h1>welcome,{this.state.currentMember}</h1></Grid>
+                            <Grid item xs='9' style={{ alignSelf: 'center',margin:'0px'}}> <h1 style={{ alignSelf: 'center',margin:'0px'}}>welcome,{this.state.currentMember}</h1></Grid>
                         </Grid>
 
                         <Grid container direction='row' > 
                             <Grid item xs="2"><h2>tasks</h2></Grid>
-                            <Grid item xs='9'>
-
+                            <Grid container direction='row' xs='9'>
                                 <div className='tasks_bar' >
                                     {console.log(this.props)}
                                     {
@@ -75,7 +74,7 @@ getNoteToAdd=(note)=>{
                                 </div>
                             </Grid>
                         </Grid>
-                        <Grid container direction='row'> {/* forth line ,tasks */}
+                        <Grid container direction='row'> 
                             <Grid item xs="2"><h2>finished tasks</h2></Grid>
                             <Grid container direction='row' xs='9'> {/* tasks container*/}
                                 {/*map function*/}

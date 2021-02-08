@@ -72,7 +72,7 @@ class FCAddNote extends Component {
             <div className='container-nir' style={{ borderRadius: '60px', justifyContent: 'flex-start',  width: '50vw', height: '70vh', position: 'absolute', left: '25%', display: 'flex',marginTop:'1.5%' }}>
                 <Grid container alignItems='center' spacing = '12'  >
                     <Grid container >
-                        <Grid item xs="11"><h1>Add Note</h1></Grid>
+                        <Grid item xs="11"><h2>Add Note</h2></Grid>
                         <Grid item>
                             <CloseIcon onClick={this.props.exitFunc} style={{}} fontSize='large' />
                         </Grid>

@@ -10,7 +10,7 @@ import { withRouter } from 'react-router-dom';
 class Login_Page extends Component {
     constructor(props) {
         super(props)
-     
+
         this.state = {
             username: "",
             password: ""
@@ -42,53 +42,60 @@ class Login_Page extends Component {
                 break;
         }
     }
-    signInClick=()=>{
+    signInClick = () => {
         console.log('click')
-        let currentUser = this.props.data.users.find(user=>user.username === this.state.username)
-         if (currentUser === undefined) {
-             alert("SORRY NOT FOUND")
-         }
-         else
-        {
+        let currentUser = this.props.data.users.find(user => user.username === this.state.username)
+        if (currentUser === undefined) {
+            alert("SORRY NOT FOUND")
+        }
+        else {
             alert("YES FOUND " + currentUser.username)
             this.props.history.push('/CCBoard')
         }
-        
+
     }
     render() {
         return (
             <div className='container'>
-                <Paper elevation={3}>
-                    <Grid container direction='column' spacing='2'>
+                <Paper style={{ width: '50%' }}>
+                    <Grid container direction='column' spacing='2' alignItems='center'>
                         <Grid item ><h2>Welcome to,<span>FamTrello</span></h2></Grid>
                         <Grid item xs='12'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut expedita quia eius modi in! Voluptatibus inventore non corporis numquam corrupti velit culpa porro possimus ratione animi commodi ducimus, ipsa et?</Grid>
-                        <Grid item xs="6" spacing='1'>
-                            <h3>Login</h3>
-                        </Grid>
-                        <Grid item sm="6" spacing="0" >
-                            <TextField 
-                                onChange={this.chgDtl}
-                                id="outlined-basic"
-                                label="Username"
-                                variant="outlined"
-                                name="username" /></Grid>
-                        <Grid item sm="6" spacing="1">
-                            <TextField
-                               onChange={this.chgDtl}
-                                id="outlined-basic"
-                                label="Password"
-                                variant="outlined"
-                                name="password" />
-                        </Grid>
-                        <Grid container spacing ='10' style={{marginBottom:'5%'}}>
-                            <Grid item>
-                                <Button onClick={this.signInClick} color="primary">Sign in</Button>
+                        <Grid item xs='7' justify='center'>
+                            <Grid container direction='column' justify="center" alignItems='center' spacing='1'>
+                                <Grid item xs="12" >
+                                    <h3 style={{ fontSize: '3ch' }}>Login</h3>
+                                </Grid>
+                                <Grid item sm="8" spacing="0" >
+                                    <TextField
+                                        onChange={this.chgDtl}
+                                        id="outlined-basic"
+                                        label="Username"
+                                        variant="outlined"
+                                        name="username" /></Grid>
+                                <Grid item sm="8" spacing="1">
+                                    <TextField
+                                        onChange={this.chgDtl}
+                                        id="outlined-basic"
+                                        label="Password"
+                                        variant="outlined"
+                                        name="password" />
+                                </Grid>
                             </Grid>
-                            <Grid item spacing='3'>
-                                <Button onClick={()=>this.props.history.push('/FCRegister')}>havent got a familiy yet?</Button>
+                            <Grid item xs ='12'>
+                            <Grid container  justify="center" alignItems='center' spacing='5' >
+                                <Grid item>
+                                    <Button onClick={this.signInClick} variant='contained' color="primary">Sign in</Button>
+                                </Grid>
+                                <Grid item >
+                                    <Button onClick={() => this.props.history.push('/FCRegister')}>havent got a familiy yet?</Button>
+                                </Grid>
+                            </Grid>
                             </Grid>
 
                         </Grid>
+
+
 
                     </Grid>
 
