@@ -5,7 +5,8 @@ import FCAddNote from './FCAddNote';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-
+import AlertDialog from './AlertDialog'
+import AlertDialogSlide from './AlertDialog';
 export default class Board extends Component {
     constructor(props) {
         super(props)
@@ -20,7 +21,7 @@ export default class Board extends Component {
             options: [
                 'Edit',
                 'Delete',
-                'Info',
+                // 'Info',
 
             ],
             anchorEl: '',
@@ -46,23 +47,28 @@ export default class Board extends Component {
 
     }
 
-    handleClick = (event) => {
-        console.log(event);
-        this.setState({ open: !this.state.open, currentTasksIndex: event.target.id })
+    handleClick = async (event) => {
         this.setAnchorEl(event.currentTarget);
+        console.log(event);
+        this.setState({ open: !this.state.open })
+        await this.setState({ currentTasksIndex: event.target.id })
+
+        console.log(this.state.currentTasksIndex);
     };
 
     handleClose = (e) => {
         console.log(e.target.title)
         console.log(this.taskRef.current);
         this.setAnchorEl(null);
-        this.setState({ open: false })
+        this.setState({ open: false, currentTasksIndex: 0 })
 
         switch (e.target.id) {
             case 'Delete':
                 this.props.deleteTask(this.props.family.notes[this.state.currentTasksIndex])
                 break;
+            case 'Info':
 
+                break;
             default:
                 break;
         }
@@ -93,6 +99,7 @@ export default class Board extends Component {
                             <Grid container direction='row' xs='9'>
                                 <div className='tasks_bar' >
                                     {
+                                        this.props.family.notes.length === 0 ? "NO TASKS":
                                         this.props.family.notes.map((note, index) => (
                                             <li className='task'>
                                                 <Grid container >
@@ -116,7 +123,8 @@ export default class Board extends Component {
                                             </li>
                                         )
 
-                                        )}
+                                        )
+                                        }
                                     <Menu
                                         id="long-menu"
                                         anchorEl={this.state.anchorEl}
@@ -135,7 +143,11 @@ export default class Board extends Component {
 
                                                 {option}
                                             </MenuItem>
+
                                         ))}
+                                        <MenuItem>
+                                            <AlertDialog handleClose = {()=>this.setState({open:false})} name="Info" info={this.props.family.notes[this.state.currentTasksIndex] === undefined ? "" : this.props.family.notes[this.state.currentTasksIndex]}></AlertDialog>
+                                        </MenuItem>
                                     </Menu>
                                 </div>
                             </Grid>
