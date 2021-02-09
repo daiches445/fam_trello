@@ -1,4 +1,4 @@
-import { Box, Grid, GridList, GridListTile, GridListTileBar, IconButton, Paper, Divider } from '@material-ui/core';
+import { Box, Grid, GridList, GridListTile, GridListTileBar, IconButton, Paper, Divider, Button } from '@material-ui/core';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import React, { Component } from 'react'
 import FCAddNote from './FCAddNote';
@@ -25,7 +25,8 @@ export default class Board extends Component {
             ],
             anchorEl: '',
             open: false,
-            currentTasksIndex:0
+            currentTasksIndex: 0,
+            board_z_index: 0
 
         }
 
@@ -37,12 +38,8 @@ export default class Board extends Component {
         this.props.sendNote(note)
     }
     openOrCloseAddNote = () => {
-        this.state.addNoteDisplay === '' ? this.setState({ addNoteDisplay: <FCAddNote sendNote={this.getNoteToAdd} exitFunc={this.openOrCloseAddNote} /> }) : this.setState({ addNoteDisplay: '' })
+        this.state.addNoteDisplay === '' ? this.setState({ addNoteDisplay: <FCAddNote sendNote={this.getNoteToAdd} exitFunc={this.openOrCloseAddNote} />, board_z_index: -1 }) : this.setState({ addNoteDisplay: '', board_z_index: 0 })
     }
-
-
-
-
 
     setAnchorEl = (data) => {
         this.setState({ anchorEl: data })
@@ -51,7 +48,7 @@ export default class Board extends Component {
 
     handleClick = (event) => {
         console.log(event);
-        this.setState({ open: !this.state.open,currentTasksIndex:event.target.id })
+        this.setState({ open: !this.state.open, currentTasksIndex: event.target.id })
         this.setAnchorEl(event.currentTarget);
     };
 
@@ -63,7 +60,7 @@ export default class Board extends Component {
 
         switch (e.target.id) {
             case 'Delete':
-               this.props.deleteTask(this.props.family.notes[this.state.currentTasksIndex])
+                this.props.deleteTask(this.props.family.notes[this.state.currentTasksIndex])
                 break;
 
             default:
@@ -77,10 +74,10 @@ export default class Board extends Component {
 
     render() {
         return (
-            <div className='container'>
+            <div className='container' >
+                {this.state.addNoteDisplay}
+                <Paper style={{ zIndex: this.state.board_z_index }}>
 
-                <Paper >
-                    {this.state.addNoteDisplay}
                     <Grid container direction='column' spacing='' >
                         <Grid container alignItems='center'>
                             <Grid item xs='2'>
@@ -95,26 +92,28 @@ export default class Board extends Component {
                             <Grid item xs="2"><h2>tasks</h2></Grid>
                             <Grid container direction='row' xs='9'>
                                 <div className='tasks_bar' >
-                                    {console.log(this.props)}
                                     {
-
                                         this.props.family.notes.map((note, index) => (
+                                            <li className='task'>
+                                                <Grid container >
+                                                    <Grid item xs={10}><h3 id={note.title} >{note.title}</h3>
+                                                    </Grid>
+                                                    <Grid item xs={2}>
+                                                        <IconButton
+                                                            className='info_dots_btn'
+                                                            aria-label="more"
+                                                            aria-controls="long-menu"
+                                                            aria-haspopup="true"
 
-                                            <li className='task'><h3 id={note.title} >{note.title}</h3>{note.text}
-
-
-
-                                                <IconButton
-                                                    aria-label="more"
-                                                    aria-controls="long-menu"
-                                                    aria-haspopup="true"
-
-                                                >
-                                                    <MoreVertIcon id={index}
-                                                        onClick={this.handleClick} />
-                                                </IconButton>
+                                                        >
+                                                            <MoreVertIcon id={index}
+                                                                onClick={this.handleClick} />
+                                                        </IconButton>
+                                                    </Grid>
+                                                </Grid>
+                                                <p style={{ padding: '1px' }}>{note.text}</p>
+                                                <Button>aa</Button>
                                             </li>
-
                                         )
 
                                         )}

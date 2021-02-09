@@ -137,6 +137,8 @@ h3 {
 }
 
 .task {
+  display: flex;
+  flex-direction: column;
   list-style: none;
   flex-shrink: 0;
   width: 13vw;
@@ -144,10 +146,12 @@ h3 {
   background-color: rgba(235, 223, 223, 0.479);
   margin: 1px;
   border-radius: 5px;
+  .info_dots_btn{
+    width: 10%;
+  }
 }
 
 
-.container-nir {
+// .container-nir {
 
-  background: linear-gradient(128deg, #eb5f2a 0%, #e1544fe3 62%, #9b1c0042 100%);
-}
+// }
