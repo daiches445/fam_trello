@@ -3,9 +3,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import { withRouter } from 'react-router-dom';
 import { TextField, Grid } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import Select from '@material-ui/core/Select';
-import Input from '@material-ui/core/Input';
-import MenuItem from '@material-ui/core/MenuItem';
+
+
 
 class FCAddNote extends Component {
     constructor(props) {

@@ -2,7 +2,9 @@ import { Box, Grid, GridList, GridListTile, GridListTileBar, IconButton, Paper, 
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import React, { Component } from 'react'
 import FCAddNote from './FCAddNote';
-
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 export default class Board extends Component {
     constructor(props) {
@@ -14,45 +16,128 @@ export default class Board extends Component {
             ],
             currentFamily: 'DAICHES',
             currentMember: 'tal1',
-            addNoteDisplay:''
+            addNoteDisplay: '',
+            options: [
+                'Edit',
+                'Delete',
+                'Info',
 
+            ],
+            anchorEl: '',
+            open: false,
+            currentTasksIndex:''
 
         }
+
+
+        var ITEM_HEIGHT = 48;
+        this.taskRef = React.createRef();
     }
-getNoteToAdd=(note)=>{
-  this.props.sendNote(note)
-}
- openOrCloseAddNote=()=>{
-    this.state.addNoteDisplay === '' ? this.setState({addNoteDisplay:<FCAddNote sendNote={this.getNoteToAdd} exitFunc = {this.openOrCloseAddNote}/>}) : this.setState({addNoteDisplay:''}) 
- }
+    getNoteToAdd = (note) => {
+        this.props.sendNote(note)
+    }
+    openOrCloseAddNote = () => {
+        this.state.addNoteDisplay === '' ? this.setState({ addNoteDisplay: <FCAddNote sendNote={this.getNoteToAdd} exitFunc={this.openOrCloseAddNote} /> }) : this.setState({ addNoteDisplay: '' })
+    }
+
+
+
+
+
+    setAnchorEl = (data) => {
+        this.setState({ anchorEl: data })
+
+    }
+
+    handleClick = (event) => {
+        console.log(event);
+        this.setState({ open: !this.state.open,currentTasksIndex:event.target.id })
+        this.setAnchorEl(event.currentTarget);
+    };
+
+    handleClose = (e) => {
+        console.log(e.target.title)
+        console.log(this.taskRef.current);
+        this.setAnchorEl(null);
+        this.setState({ open: false })
+alert(this.props.family.notes[this.state.currentTasksIndex].title)
+        switch (e.target.id) {
+            case 'Delete':
+
+                break;
+
+            default:
+                break;
+        }
+
+    }
+
+
+
+
     render() {
         return (
             <div className='container'>
 
                 <Paper >
                     {this.state.addNoteDisplay}
-                    <Grid  container direction='column' spacing='' >
-                        <Grid container alignItems='center'> 
+                    <Grid container direction='column' spacing='' >
+                        <Grid container alignItems='center'>
                             <Grid item xs='2'>
                                 <IconButton onClick={this.openOrCloseAddNote} >
                                     <PostAddIcon color='primary' style={{ fontSize: '100' }}></PostAddIcon>
                                 </IconButton>
                             </Grid>
-                            <Grid item xs='9' style={{ alignSelf: 'center',margin:'0px'}}> <h1 style={{ alignSelf: 'center',margin:'0px'}}>welcome,{this.state.currentMember}</h1></Grid>
+                            <Grid item xs='9' style={{ alignSelf: 'center', margin: '0px' }}> <h1 style={{ alignSelf: 'center', margin: '0px' }}>welcome,{this.state.currentMember}</h1></Grid>
                         </Grid>
 
-                        <Grid container direction='row' > 
+                        <Grid container direction='row' >
                             <Grid item xs="2"><h2>tasks</h2></Grid>
                             <Grid container direction='row' xs='9'>
                                 <div className='tasks_bar' >
                                     {console.log(this.props)}
                                     {
 
-                                        this.props.family.notes.map((note, index) =>
+                                        this.props.family.notes.map((note, index) => (
 
-                                            <li className='task'><h3>{note.title}</h3>{note.text}</li>
+                                            <li className='task'><h3 id={note.title} >{note.title}</h3>{note.text}
+
+
+
+                                                <IconButton
+                                                    aria-label="more"
+                                                    aria-controls="long-menu"
+                                                    aria-haspopup="true"
+
+                                                >
+                                                    <MoreVertIcon id={index}
+                                                        onClick={this.handleClick} />
+                                                </IconButton>
+                                            </li>
+
+                                        )
 
                                         )}
+                                    <Menu
+                                        id="long-menu"
+                                        anchorEl={this.state.anchorEl}
+                                        keepMounted
+                                        open={this.state.open}
+                                        onClose={this.handleClose}
+                                        PaperProps={{
+                                            style: {
+                                                maxHeight: this.ITEM_HEIGHT * 4.5,
+                                                width: '20ch',
+                                            },
+                                        }}
+                                    >
+                                        {this.state.options.map((option) => (
+                                            <MenuItem key={option} id={option} onClick={this.handleClose}>
+
+                                                {option}
+                                            </MenuItem>
+                                        ))}
+                                    </Menu>
                                 </div>
                             </Grid>
                         </Grid>
@@ -74,7 +159,7 @@ getNoteToAdd=(note)=>{
                                 </div>
                             </Grid>
                         </Grid>
-                        <Grid container direction='row'> 
+                        <Grid container direction='row'>
                             <Grid item xs="2"><h2>finished tasks</h2></Grid>
                             <Grid container direction='row' xs='9'> {/* tasks container*/}
                                 {/*map function*/}
@@ -88,7 +173,7 @@ getNoteToAdd=(note)=>{
                     </Grid>
                 </Paper>
 
-            </div>
+            </div >
         )
     }
 }
