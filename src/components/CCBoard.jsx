@@ -25,7 +25,7 @@ export default class Board extends Component {
             ],
             anchorEl: '',
             open: false,
-            currentTasksIndex:''
+            currentTasksIndex:0
 
         }
 
