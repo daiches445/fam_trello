@@ -48,6 +48,14 @@ class App extends Component {
     famArr.push({ID:fam.ID,name:fam.name,notes:[{title:'Welcome to FamTrello',text:'take out the trash!'}]})
     this.setState({family:famArr})
   }
+ catchNoteToDelete=(note)=>{
+  let families = this.state.family
+  let family = families[0]
+  family.notes = family.notes.filter(singleNote=>singleNote.title != note.title)
+  families[0] = family
+  console.log(family);
+  this.setState({family:families})
+  }
   render(){
   return (
     <div style={{width:'100%',height:'100%'}}>
@@ -58,7 +66,7 @@ class App extends Component {
       <Switch>
         <Route exact path="/"  render={()=><Login_Page data = {this.state}  ></Login_Page>}></Route>
         <Route path = "/FCRegister" render={()=><Register AddFamily={this.AddFamily} sendUserToRegister={this.catchUserToRegister} app_data = {this.state}></Register>}></Route>
-        <Route path = '/CCBoard'  render={()=><Board sendNote = {this.catchNoteToAdd} family = {this.state.family[0]}></Board>}></Route>
+        <Route path = '/CCBoard'  render={()=><Board deleteTask = {this.catchNoteToDelete} sendNote = {this.catchNoteToAdd} family = {this.state.family[0]}></Board>}></Route>
       </Switch>
         </div>
       </div>

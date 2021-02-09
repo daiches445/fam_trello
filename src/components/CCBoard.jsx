@@ -60,10 +60,10 @@ export default class Board extends Component {
         console.log(this.taskRef.current);
         this.setAnchorEl(null);
         this.setState({ open: false })
-alert(this.props.family.notes[this.state.currentTasksIndex].title)
+
         switch (e.target.id) {
             case 'Delete':
-
+               this.props.deleteTask(this.props.family.notes[this.state.currentTasksIndex])
                 break;
 
             default:
