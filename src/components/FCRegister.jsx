@@ -14,31 +14,34 @@ class Register extends Component {
             user_name: "",
             password: "",
             re_pass: "",
-            l_name: '',
+            name: '',
             family_ID: "",
             family_name: "",
+
             fam_det_dsp: "flex",
             fam_crt_dsp: 'none',
             create_family: false,
+
             error_username: '',
             error_pass: '',
             error_repass: '',
-            error_f_name: '',
-            error_fam_ID: ''
+            error_name: '',
+            error_family_name:'',
+            error_fam_ID: '',
+            form_disabled:true
         }
     }
 
     GotFamiliy = (e) => {
         if (this.state.create_family)
-            this.setState({ create_family: false, fam_crt_dsp: 'none', fam_det_dsp: "flex", })
+            this.setState({ create_family: false, fam_crt_dsp: 'none', fam_det_dsp: "flex", error_fam_ID:''})
         else
-            this.setState({ create_family: true, fam_crt_dsp: 'flex', fam_det_dsp: "none", })
+            this.setState({ create_family: true, fam_crt_dsp: 'flex', fam_det_dsp: "none", error_fam_ID:''})
     }
 
     SetVAl = (e) => {
         let val = e.target.value;
         let name = e.target.name;
-        console.log(e);
         switch (name) {
             case 'username':
                 this.setState({ user_name: val ,error_username:''})
@@ -53,25 +56,41 @@ class Register extends Component {
             case 're_pass':
                 this.setState({ re_pass: val })
                 break;
-            case 'f_name':
-                this.setState({ f_name: val })
-                break;
-            case 'l_name':
-                this.setState({ l_name: val })
-                break;
-            case 'family_ID':
-                this.setState({ family_ID: val ,error_fam_ID:''})
+            case 'name':
+                this.setState({ name: val })
                 break;
             case 'family_name':
                 this.setState({ family_name: val })
                 break;
+            case 'family_ID':
+                this.setState({ family_ID: val ,error_fam_ID:''})
+                break;
+
 
         }
+        this.EnableForm()
+    }
+
+    EnableForm = ()=>{
+        let fields_arr = [this.state.family_ID,this.state.family_name,this.state.name,this.state.password,this.state.re_pass,this.state.user_name]
+        if(fields_arr.findIndex((e) => e === '' ) !== -1)
+            return;
+        this.setState({form_disabled:false})
     }
 
     Register = () => {
-        if (this.state.password.length < 4)
+
+        debugger
+        if(this.state.user_name.length < 2){
+            this.setState({error_username:'invalid user'})
             return
+        }
+
+        if (this.state.password.length < 4){
+            this.setState({error_pass:'must enter a pass'})
+            return
+        }
+            
 
         if (this.state.password !== this.state.re_pass) {
             this.setState({ error_repass: 'passwords dont match' })
@@ -81,11 +100,11 @@ class Register extends Component {
             this.setState({ error_repass: '' })
 
         if (this.state.family_name === '') {
-            this.setState({ error_f_name: 'must enter a name' })
+            this.setState({ error_family_name: 'must enter a name' })
             return
         }
         else
-            this.setState({ error_f_name: '' })
+            this.setState({ error_family_name: '' })
 
 
 
@@ -95,8 +114,10 @@ class Register extends Component {
         if(currentUser === undefined){
             if(this.state.create_family){
                 if(currentFamily === undefined){
-                    let fam = {ID:this.state.family_ID,name:this.state.family_name}
+                    let fam = {ID:this.state.family_ID, name:this.state.family_name}
                     this.props.AddFamily(fam)
+                    alert('Hi,'+this.state.name+' Welcome to the family.' )
+                    this.props.history.push('/')
                 }
                 else{
                     this.setState({error_fam_ID:'Taken!'})
@@ -105,10 +126,14 @@ class Register extends Component {
             }
             else{
                 if(currentFamily === undefined){
-                    this.setState({error_fam_ID:'Not found,start a new family or insert valid ID'})
+                    this.setState({error_fam_ID:'start a new family or insert valid ID'})
                     return
                 }
-                else{}
+                else{
+                    alert('Hi,'+this.state.name+' Welcome to the family.' )
+                    this.props.history.push('/')
+
+                }
             }
             
         }
@@ -117,15 +142,18 @@ class Register extends Component {
 
     }
 
+
+
     render() {
+        
         return (
             <div className="container">
-                <Paper style={{width:'50%'}}>
+                <Paper elevation='6' style={{width:'50%'}}>
                     <Grid container  direction='column' spacing='3' alignItems='center'>
                         <Grid item >
                             <h1>Register</h1></Grid>
                         <Grid item xs='12'>
-                            <TextField helperText={this.state.error_username} error={this.state.error_username} name="username" id="filled-basic" label="User Name" variant="outlined" onChange={this.SetVAl} />
+                            <TextField required  helperText={this.state.error_username} error={this.state.error_username} name="username" id="filled-basic" label="User Name" variant="outlined" onChange={this.SetVAl} />
                         </Grid>
                       
                         <Divider></Divider>
@@ -141,20 +169,20 @@ class Register extends Component {
                         <Grid item>
                             <Grid container spacing='1'>
                                 <Grid item xs='6'>
-                                    <TextField name="f_name" id="outlined-basic" label="Name" variant="outlined" onChange={this.SetVAl} />
+                                    <TextField error={this.state.e} name="name" id="outlined-basic" label="Name" variant="outlined" onChange={this.SetVAl} />
                                 </Grid>
                                 <Grid item xs='6'>
-                                    <TextField name="l_name" id="outlined-basic" label="Family name" variant="outlined" onChange={this.SetVAl} />
+                                    <TextField name="family_name" id="outlined-basic" label="Family name" variant="outlined" onChange={this.SetVAl} />
                                 </Grid>
                             </Grid>
                         </Grid>
 
                         <Grid item xs = '12'>
                             <Grid container direction='row' alignItems='center' >
-                                <Grid item xs='9' style={{ padding: '10px' }}>
-                                    <label htmlFor="">Create A family?</label>
+                                <Grid item style={{ padding: '10px' }}>
+                                    <h2 htmlFor="">Create A family?</h2>
                                 </Grid>
-                                <Grid item xs = '3'>
+                                <Grid item xs = '2'>
                                     <Switch
                                         checked={this.state.got_fam}
                                         onChange={this.GotFamiliy}
@@ -170,7 +198,7 @@ class Register extends Component {
                                     <label htmlFor="">Enter Your family ID</label>
                                 </Grid>
                                 <Grid item >
-                                    <TextField name="family_ID" id="outlined-basic" label="Family ID" variant="outlined" onChange={this.SetVAl} />
+                                    <TextField error={this.state.error_fam_ID} helperText={this.state.error_fam_ID} name="family_ID"  id="outlined-basic" label="Family ID" variant="outlined" onChange={this.SetVAl} />
                                 </Grid>
                             </Grid>
 
@@ -181,16 +209,16 @@ class Register extends Component {
                                     <label htmlFor="">Add Your Family</label>
                                 </Grid>
                                 <Grid item >
-                                    <TextField error={this.state.error_fam_ID} name="family_ID" id="outlined-basic" label="Family ID" variant="outlined" helperText={'Suggested :' + this.state.l_name + ' etc.'} />
+                                    <TextField error={this.state.error_fam_ID} name="family_ID" id="outlined-basic" label="Family ID" variant="outlined" helperText={this.state.error_fam_ID === ''?'Suggested :' +' \' ' + this.state.family_name +'\'+' + ' some number.':this.state.error_fam_ID} onChange={this.SetVAl}/>
                                 </Grid>
                                 <Grid item>
-                                    <TextField name="family_name" id="outlined-basic" Value={this.state.f_name} label="Family name" variant="outlined" />
+                                    <TextField  defaultValue={this.state.family_name} Value={this.state.family_name} name="famCreate_fam_name" id="outlined-basic"  label="Family name" variant="outlined" onChange={this.SetVAl}/>
                                 </Grid>
                             </Grid>
                         </Grid>
                         <Divider></Divider>
                         <Grid item>
-                            <Button onClick={this.Register} color='primary' style={{ marginBottom: '3vh' }}>Register</Button>
+                            <Button disabled = {this.state.form_disabled} onClick={this.Register} color='primary' style={{ marginBottom: '3vh' }}>Register</Button>
                         </Grid>
                         <Divider></Divider>
 

@@ -60,7 +60,7 @@ class Login_Page extends Component {
                 <Paper style={{ width: '50%' }}>
                     <Grid container direction='column' spacing='2' alignItems='center'>
                         <Grid item ><h2>Welcome to,<span>FamTrello</span></h2></Grid>
-                        <Grid item xs='12'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut expedita quia eius modi in! Voluptatibus inventore non corporis numquam corrupti velit culpa porro possimus ratione animi commodi ducimus, ipsa et?</Grid>
+                        <Grid item xs='12'><p className='stay_home_font'>Hi,There! welcome to FamTrello. </p></Grid>
                         <Grid item xs='7' justify='center'>
                             <Grid container direction='column' justify="center" alignItems='center' spacing='1'>
                                 <Grid item xs="12" >

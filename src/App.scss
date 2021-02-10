@@ -13,6 +13,14 @@
   font-family: 'Rashkey';
   src: url('/src/fonts/Rashkey.ttf');
 }
+@font-face {
+  font-family: 'Stay Home';
+  src: url('/src/fonts/STAYHOME.otf');
+}
+
+.stay_home_font{
+  font-family: 'Stay Home';
+}
 
 html {
   background: rgb(73, 28, 11);
