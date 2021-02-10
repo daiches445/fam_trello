@@ -14,6 +14,17 @@
   src: url("/src/fonts/Rashkey.ttf");
 }
 
+@font-face {
+  font-family: 'Stay Home';
+  src: url("/src/fonts/STAYHOMERegular.ttf") format("truetype"), url("/src/fonts/STAYHOMERegular.woff") format("woff"), url("/src/fonts/STAYHOMERegular.woff2") format("woff2");
+}
+
+.stay_home_font {
+  font-family: 'Stay Home';
+  font-weight: bold;
+  font-size: 3ch;
+}
+
 html {
   background: #491c0b;
   background: linear-gradient(128deg, #491c0b 0%, #b02b26 62%, #d13d1c 100%);
@@ -56,13 +67,14 @@ h2 {
 }
 
 h2 span {
-  font-family: 'Billion Dreams';
+  font-family: 'Rashkey';
   background: -webkit-gradient(linear, left top, right top, from(#5cdf83), color-stop(88%, #195774), to(#0c3034));
   background: linear-gradient(90deg, #5cdf83 0%, #195774 88%, #0c3034 100%);
   background-clip: border-box;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-size: 3ch;
+  font-size: 2.5ch;
+  position: relative;
 }
 
 h3 {

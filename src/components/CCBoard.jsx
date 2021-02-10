@@ -1,4 +1,4 @@
-import { Box, Grid, GridList, GridListTile, GridListTileBar, IconButton, Paper, Divider, Button } from '@material-ui/core';
+import { Grid, IconButton, Paper, Divider, Button } from '@material-ui/core';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import React, { Component } from 'react'
 import FCAddNote from './FCAddNote';
@@ -12,11 +12,8 @@ export default class Board extends Component {
         super(props)
 
         this.state = {
-            Families: [{ familyName: 'TATCHER', familyTickets: [{ title: 'throw garbage', description: 'throw the garbage kfar hassidim', memberTaged: [] }], familyMembers: [{ memberId: 111, name: 'nir' }, { memberId: 222, name: 'naama' }, { memberId: 333, name: 'amir' }] },
-            { familyName: 'DAICHES', familyTickets: [{ title: 'throw garbage', description: 'throw the garbage givat ada', memberTaged: [] }], familyMembers: [{ memberId: 444, name: 'ely' }, { memberId: 555, name: 'ella' }, { memberId: 666, name: 'tal' }] }
-            ],
-            currentFamily: 'DAICHES',
-            currentMember: 'tal1',
+            currentFamily: this.props.data.family,
+            currentMember: this.props.data.user,
             addNoteDisplay: '',
             options: [
                 'Edit',
@@ -64,7 +61,7 @@ export default class Board extends Component {
 
         switch (e.target.id) {
             case 'Delete':
-                this.props.deleteTask(this.props.family.notes[this.state.currentTasksIndex])
+                this.props.deleteTask(this.props.data.family.notes[this.state.currentTasksIndex])
                 break;
             case 'Info':
 
@@ -82,6 +79,7 @@ export default class Board extends Component {
         return (
             <div className='container' >
                 {this.state.addNoteDisplay}
+                {console.log(this.state)}
                 <Paper style={{ zIndex: this.state.board_z_index }}>
 
                     <Grid container direction='column' spacing='' >
@@ -91,7 +89,7 @@ export default class Board extends Component {
                                     <PostAddIcon color='primary' style={{ fontSize: '100' }}></PostAddIcon>
                                 </IconButton>
                             </Grid>
-                            <Grid item xs='9' style={{ alignSelf: 'center', margin: '0px' }}> <h1 style={{ alignSelf: 'center', margin: '0px' }}>welcome,{this.state.currentMember}</h1></Grid>
+                            <Grid item xs='9' style={{ alignSelf: 'center', margin: '0px' }}> <h1 style={{ alignSelf: 'center', margin: '0px' }}>welcome,{this.state.currentMember.username}</h1></Grid>
                         </Grid>
 
                         <Grid container direction='row' >
@@ -99,8 +97,8 @@ export default class Board extends Component {
                             <Grid container direction='row' xs='9'>
                                 <div className='tasks_bar' >
                                     {
-                                        this.props.family.notes.length === 0 ? "NO TASKS":
-                                        this.props.family.notes.map((note, index) => (
+                                        this.props.data.family.notes.length === 0 ? "NO TASKS":
+                                        this.props.data.family.notes.map((note, index) => (
                                             <li className='task'>
                                                 <Grid container >
                                                     <Grid item xs={10}><h3 id={note.title} >{note.title}</h3>
@@ -119,7 +117,6 @@ export default class Board extends Component {
                                                     </Grid>
                                                 </Grid>
                                                 <p style={{ padding: '1px' }}>{note.text}</p>
-                                                <Button>aa</Button>
                                             </li>
                                         )
 
@@ -146,7 +143,7 @@ export default class Board extends Component {
 
                                         ))}
                                         <MenuItem>
-                                            <AlertDialog handleClose = {()=>this.setState({open:false})} name="Info" info={this.props.family.notes[this.state.currentTasksIndex] === undefined ? "" : this.props.family.notes[this.state.currentTasksIndex]}></AlertDialog>
+                                            <AlertDialog handleClose = {()=>this.setState({open:false})} name="Info" info={this.props.data.family.notes[this.state.currentTasksIndex] === undefined ? "" : this.props.data.family.notes[this.state.currentTasksIndex]}></AlertDialog>
                                         </MenuItem>
                                     </Menu>
                                 </div>

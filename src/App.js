@@ -9,19 +9,22 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      data:'',
       users: [
         { username: 'guy1', password: '1234', fam_id: 'COHEN121' },
-        { username: 'guy2', password: '1234', fam_id: 'COHEN333' }
+        { username: 'guy2', password: '1234', fam_id: 'COHEN121' }
       ],
       family: [{
         ID: 'COHEN121',
         name: 'cohen',
-        notes: [{ title: 'hello', text: 'asdad' },
-        { title: 'hello2', text: 'asdad2' },
-        { title: 'hello3', text: 'asdad3' },
-        {
-          title: 'hello4', text: 'asdad4'
-        }
+        members:[
+          this.state.users[1]
+        ],
+        notes: [
+          { title: 'hello', text: 'asdad'},
+          { title: 'hello2', text: 'asdad2'},
+          { title: 'hello3', text: 'asdad3'},
+          { title: 'hello4', text: 'asdad4'}
         ]
       }
       ]
@@ -34,7 +37,6 @@ class App extends Component {
     families[0] = family
     console.log(family);
     this.setState({family:families})
-
 
   }
   catchUserToRegister = (user) => {
@@ -56,6 +58,17 @@ class App extends Component {
   console.log(family);
   this.setState({family:families})
   }
+
+  SetCurrentUser=(user)=>{
+    let data = {user:user,family:this.state.family.find( f => f.ID === user.fam_id)}
+    console.log(data);
+    this.setState({data:data})
+  }
+
+
+
+
+
   render(){
   return (
     <div style={{width:'100%',height:'100%'}}>
@@ -64,9 +77,9 @@ class App extends Component {
       </header>
         <div className="app_container">
       <Switch>
-        <Route exact path="/"  render={()=><Login_Page data = {this.state}  ></Login_Page>}></Route>
+        <Route exact path="/"  render={()=><Login_Page data = {this.state}  SetCurrentUser={this.SetCurrentUser}></Login_Page>}></Route>
         <Route path = "/FCRegister" render={()=><Register AddFamily={this.AddFamily} sendUserToRegister={this.catchUserToRegister} app_data = {this.state}></Register>}></Route>
-        <Route path = '/CCBoard'  render={()=><Board deleteTask = {this.catchNoteToDelete} sendNote = {this.catchNoteToAdd} family = {this.state.family[0]}></Board>}></Route>
+        <Route path = '/CCBoard'  render={()=><Board deleteTask = {this.catchNoteToDelete} sendNote = {this.catchNoteToAdd} data = {this.state.data} ></Board>}></Route>
       </Switch>
         </div>
       </div>
