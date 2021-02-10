@@ -13,7 +13,9 @@ class Login_Page extends Component {
 
         this.state = {
             username: "",
-            password: ""
+            password: "",
+            error_username: "",
+            error_password: "",
         }
 
     }
@@ -21,10 +23,10 @@ class Login_Page extends Component {
     chgDtl = (e) => {
         switch (e.target.name) {
             case "username":
-                this.setState({ username: e.target.value })
+                this.setState({ username: e.target.value,error_username:'' })
                 break;
             case "password":
-                this.setState({ password: e.target.value })
+                this.setState({ password: e.target.value ,error_password:''})
                 break;
             default:
                 break;
@@ -43,15 +45,16 @@ class Login_Page extends Component {
         }
     }
     signInClick = () => {
-        console.log('click')
         let currentUser = this.props.data.users.find(user => user.username === this.state.username)
         if (currentUser === undefined) {
-            alert("SORRY NOT FOUND")
+            this.setState({error_username:'Invalid username'})
         }
-        else {
-            alert("YES FOUND " + currentUser.username)
+        else if(currentUser.password === this.state.password){
+            this.props.SetCurrentUser(currentUser)
             this.props.history.push('/CCBoard')
         }
+        else
+            this.setState({error_password:'incorrect password'})
 
     }
     render() {
@@ -59,8 +62,8 @@ class Login_Page extends Component {
             <div className='container'>
                 <Paper style={{ width: '50%' }}>
                     <Grid container direction='column' spacing='2' alignItems='center'>
-                        <Grid item ><h2>Welcome to,<span>FamTrello</span></h2></Grid>
-                        <Grid item xs='12'><p className='stay_home_font'>Hi,There! welcome to FamTrello. </p></Grid>
+                        <Grid item xs={9}><h2>Welcome to,<span> FamTrello&emsp;</span> </h2></Grid>
+                        <Grid item xs='12'><p >Hi,There! welcome to FamTrello.</p></Grid>
                         <Grid item xs='7' justify='center'>
                             <Grid container direction='column' justify="center" alignItems='center' spacing='1'>
                                 <Grid item xs="12" >
@@ -72,25 +75,31 @@ class Login_Page extends Component {
                                         id="outlined-basic"
                                         label="Username"
                                         variant="outlined"
-                                        name="username" /></Grid>
+                                        name="username"
+                                        error={this.state.error_username}
+                                        helperText ={this.state.error_username} />
+                                </Grid>
                                 <Grid item sm="8" spacing="1">
                                     <TextField
                                         onChange={this.chgDtl}
                                         id="outlined-basic"
                                         label="Password"
+                                        type='Password'
                                         variant="outlined"
-                                        name="password" />
+                                        name="password"
+                                        error={this.state.error_password} 
+                                        helperText ={this.state.error_password}/>
                                 </Grid>
                             </Grid>
-                            <Grid item xs ='12'>
-                            <Grid container  justify="center" alignItems='center' spacing='5' >
-                                <Grid item>
-                                    <Button onClick={this.signInClick} variant='contained' color="primary">Sign in</Button>
+                            <Grid item xs='12'>
+                                <Grid container justify="center" alignItems='center' spacing='5' >
+                                    <Grid item>
+                                        <Button onClick={this.signInClick} variant='contained' color="primary">Sign in</Button>
+                                    </Grid>
+                                    <Grid item >
+                                        <Button onClick={() => this.props.history.push('/FCRegister')}>havent got a familiy yet?</Button>
+                                    </Grid>
                                 </Grid>
-                                <Grid item >
-                                    <Button onClick={() => this.props.history.push('/FCRegister')}>havent got a familiy yet?</Button>
-                                </Grid>
-                            </Grid>
                             </Grid>
 
                         </Grid>
