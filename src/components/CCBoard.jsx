@@ -81,103 +81,119 @@ export default class Board extends Component {
                 {this.state.addNoteDisplay}
                 {console.log(this.state)}
                 <Paper style={{ zIndex: this.state.board_z_index }}>
+                    <Grid container direction='column' spacing={3}>
 
-                    <Grid container direction='column' spacing='' >
-                        <Grid container alignItems='center'>
-                            <Grid item xs='2'>
-                                <IconButton onClick={this.openOrCloseAddNote} >
-                                    <PostAddIcon color='primary' style={{ fontSize: '100' }}></PostAddIcon>
-                                </IconButton>
-                            </Grid>
-                            <Grid item xs='9' style={{ alignSelf: 'center', margin: '0px' }}> <h1 style={{ alignSelf: 'center', margin: '0px' }}>welcome,{this.state.currentMember.username}</h1></Grid>
+                        <Grid item >
+                                <Grid container >
+                                    <Grid item xs='2'>
+                                        <IconButton onClick={this.openOrCloseAddNote} >
+                                            <PostAddIcon color='primary' style={{ fontSize: '70' }}></PostAddIcon>
+                                        </IconButton>
+                                    </Grid>
+                                    <Grid item xs='9' style={{ alignSelf: 'center', margin: '0px' }}> <h1 style={{ alignSelf: 'center', margin: '0px' }}>welcome,{this.state.currentMember.username}</h1></Grid>
+                                </Grid>
                         </Grid>
 
-                        <Grid container direction='row' >
-                            <Grid item xs="2"><h2>tasks</h2></Grid>
-                            <Grid container direction='row' xs='9'>
-                                <div className='tasks_bar' >
-                                    {
-                                        this.props.data.family.notes.length === 0 ? "NO TASKS":
-                                        this.props.data.family.notes.map((note, index) => (
-                                            <li className='task'>
-                                                <Grid container >
-                                                    <Grid item xs={10}><h3 id={note.title} >{note.title}</h3>
-                                                    </Grid>
-                                                    <Grid item xs={2}>
-                                                        <IconButton
-                                                            className='info_dots_btn'
-                                                            aria-label="more"
-                                                            aria-controls="long-menu"
-                                                            aria-haspopup="true"
+                        <Grid item xs = {12}>
+                            <Grid container direction='row' >
+                                <Grid item xs="2"><h2>tasks</h2></Grid>
+                                <Grid container direction='row' xs='9'>
+                                    <div className='tasks_bar' >
+                                        {
+                                            this.props.data.family.notes.length === 0 ? "NO TASKS" :
+                                                this.props.data.family.notes.map((note, index) => (
+                                                    <li className='task'>
+                                                        <Grid container >
+                                                            <Grid item xs={10}><h3 id={note.title} >{note.title}</h3>
+                                                            </Grid>
+                                                            <Grid item xs={2}>
+                                                                <IconButton
+                                                                    className='info_dots_btn'
+                                                                    aria-label="more"
+                                                                    aria-controls="long-menu"
+                                                                    aria-haspopup="true"
 
-                                                        >
-                                                            <MoreVertIcon id={index}
-                                                                onClick={this.handleClick} />
-                                                        </IconButton>
-                                                    </Grid>
-                                                </Grid>
-                                                <p style={{ padding: '1px' }}>{note.text}</p>
-                                            </li>
-                                        )
+                                                                >
+                                                                    <MoreVertIcon id={index}
+                                                                        onClick={this.handleClick} />
+                                                                </IconButton>
+                                                            </Grid>
+                                                        </Grid>
+                                                        <p style={{ padding: '1px' }}>{note.text}</p>
+                                                    </li>
+                                                )
 
-                                        )
+                                                )
                                         }
-                                    <Menu
-                                        id="long-menu"
-                                        anchorEl={this.state.anchorEl}
-                                        keepMounted
-                                        open={this.state.open}
-                                        onClose={this.handleClose}
-                                        PaperProps={{
-                                            style: {
-                                                maxHeight: this.ITEM_HEIGHT * 4.5,
-                                                width: '20ch',
-                                            },
-                                        }}
-                                    >
-                                        {this.state.options.map((option) => (
-                                            <MenuItem key={option} id={option} onClick={this.handleClose}>
+                                        <Menu
+                                            id="long-menu"
+                                            anchorEl={this.state.anchorEl}
+                                            keepMounted
+                                            open={this.state.open}
+                                            onClose={this.handleClose}
+                                            PaperProps={{
+                                                style: {
+                                                    maxHeight: this.ITEM_HEIGHT * 4.5,
+                                                    width: '20ch',
+                                                },
+                                            }}
+                                        >
+                                            {this.state.options.map((option) => (
+                                                <MenuItem key={option} id={option} onClick={this.handleClose}>
 
-                                                {option}
+                                                    {option}
+                                                </MenuItem>
+
+                                            ))}
+                                            <MenuItem>
+                                                <AlertDialog handleClose={() => this.setState({ open: false })} name="Info" info={this.props.data.family.notes[this.state.currentTasksIndex] === undefined ? "" : this.props.data.family.notes[this.state.currentTasksIndex]}></AlertDialog>
                                             </MenuItem>
-
-                                        ))}
-                                        <MenuItem>
-                                            <AlertDialog handleClose = {()=>this.setState({open:false})} name="Info" info={this.props.data.family.notes[this.state.currentTasksIndex] === undefined ? "" : this.props.data.family.notes[this.state.currentTasksIndex]}></AlertDialog>
-                                        </MenuItem>
-                                    </Menu>
-                                </div>
+                                        </Menu>
+                                    </div>
+                                </Grid>
                             </Grid>
                         </Grid>
+
+
                         <Divider></Divider>
 
-                        <Grid container direction='row'> {/* third line ,tasks */}
-                            <Grid item xs="2"><h2>my tasks</h2></Grid>
-                            <Grid container direction='row' xs='9'> {/* tasks container*/}
-                                {/*map function*/}
-                                <div className='tasks_bar' >
-                                    <li className='task'><h3>title</h3>task</li>
-                                    <li className='task'><h3>title</h3>task</li>
-                                    <li className='task'><h3>title</h3>task</li>
-                                    <li className='task'><h3>title</h3>task</li>
-                                    <li className='task'><h3>title</h3>task</li>
-                                    <li className='task'><h3>title</h3>task</li>
-                                    <li className='task'><h3>title</h3>task</li>
-                                    <li className='task'><h3>title</h3>task</li>
-                                </div>
+                        <Grid item xs = {12}>
+                            <Grid container direction='row' > {/* third line ,tasks */}
+                                <Grid item xs="2"><h2>my tasks</h2></Grid>
+                                <Grid container direction='row' xs='9'> {/* tasks container*/}
+                                    {/*map function*/}
+                                    <div className='tasks_bar' >
+                                        <li className='task'><h3>title</h3>task</li>
+                                        <li className='task'><h3>title</h3>task</li>
+                                        <li className='task'><h3>title</h3>task</li>
+                                        <li className='task'><h3>title</h3>task</li>
+                                        <li className='task'><h3>title</h3>task</li>
+                                        <li className='task'><h3>title</h3>task</li>
+                                        <li className='task'><h3>title</h3>task</li>
+                                        <li className='task'><h3>title</h3>task</li>
+                                    </div>
+                                </Grid>
                             </Grid>
                         </Grid>
-                        <Grid container direction='row'>
-                            <Grid item xs="2"><h2>finished tasks</h2></Grid>
-                            <Grid container direction='row' xs='9'> {/* tasks container*/}
-                                {/*map function*/}
-                                <div className='tasks_bar' >
-                                    <li className='task'>task</li>
-                                    <li className='task'>task</li>
 
-                                </div>
+
+
+                        <Divider></Divider>
+
+                        <Grid item xs = {12}>
+                            <Grid container direction='row'>
+                                <Grid item xs="2"><h2>finished tasks</h2></Grid>
+                                <Grid container direction='row' xs='9'> {/* tasks container*/}
+                                    {/*map function*/}
+                                    <div className='tasks_bar' >
+                                        <li className='task'>task</li>
+                                        <li className='task'>task</li>
+                                    </div>
+                                </Grid>
                             </Grid>
                         </Grid>
+
+
                     </Grid>
                 </Paper>
 

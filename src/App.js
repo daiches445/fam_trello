@@ -17,9 +17,7 @@ class App extends Component {
       family: [{
         ID: 'COHEN121',
         name: 'cohen',
-        members:[
-          this.state.users[1]
-        ],
+
         notes: [
           { title: 'hello', text: 'asdad'},
           { title: 'hello2', text: 'asdad2'},

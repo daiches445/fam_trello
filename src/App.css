@@ -113,11 +113,6 @@ h3 {
           box-shadow: 25px 25px black;
 }
 
-.MuiGrid-root.MuiGrid-container {
-  padding: 1%;
-  font-family: 'Roboto', sans-serif;
-}
-
 .fam {
   height: 19vh;
 }
