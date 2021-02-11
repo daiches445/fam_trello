@@ -7,6 +7,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import AlertDialog from './AlertDialog'
 import AlertDialogSlide from './AlertDialog';
+
+
 export default class Board extends Component {
     constructor(props) {
         super(props)
@@ -96,13 +98,13 @@ export default class Board extends Component {
 
                         <Grid item xs = {12}>
                             <Grid container direction='row' >
-                                <Grid item xs="2"><h2>tasks</h2></Grid>
+                                <Grid item xs="2" align='center'><h2>tasks</h2></Grid>
                                 <Grid container direction='row' xs='9'>
                                     <div className='tasks_bar' >
                                         {
                                             this.props.data.family.notes.length === 0 ? "NO TASKS" :
                                                 this.props.data.family.notes.map((note, index) => (
-                                                    <li className='task'>
+                                                    <li key = {index} className='task'>
                                                         <Grid container >
                                                             <Grid item xs={10}><h3 id={note.title} >{note.title}</h3>
                                                             </Grid>
@@ -159,7 +161,7 @@ export default class Board extends Component {
 
                         <Grid item xs = {12}>
                             <Grid container direction='row' > {/* third line ,tasks */}
-                                <Grid item xs="2"><h2>my tasks</h2></Grid>
+                                <Grid item xs="2" align='center'><h2>my tasks</h2></Grid>
                                 <Grid container direction='row' xs='9'> {/* tasks container*/}
                                     {/*map function*/}
                                     <div className='tasks_bar' >
@@ -182,7 +184,7 @@ export default class Board extends Component {
 
                         <Grid item xs = {12}>
                             <Grid container direction='row'>
-                                <Grid item xs="2"><h2>finished tasks</h2></Grid>
+                                <Grid item xs="2" align='center'><h2>finished tasks</h2></Grid>
                                 <Grid container direction='row' xs='9'> {/* tasks container*/}
                                     {/*map function*/}
                                     <div className='tasks_bar' >

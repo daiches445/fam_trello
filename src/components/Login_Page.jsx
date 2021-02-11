@@ -60,8 +60,8 @@ class Login_Page extends Component {
     render() {
         return (
             <div className='container'>
-                <Paper style={{ width: '50%' }}>
-                    <Grid container direction='column' spacing='2' alignItems='center'>
+                <Paper style={{ width: '30%' }}>
+                    <Grid container direction='column' spacing='3' alignItems='center'>
                         <Grid item xs={9}><h2>Welcome to,<span> FamTrello&emsp;</span> </h2></Grid>
                         <Grid item xs='12'><p >Hi,There! welcome to FamTrello.</p></Grid>
                         <Grid item xs='7' justify='center'>
@@ -69,7 +69,7 @@ class Login_Page extends Component {
                                 <Grid item xs="12" >
                                     <h3 style={{ fontSize: '3ch' }}>Login</h3>
                                 </Grid>
-                                <Grid item sm="8" spacing="0" >
+                                <Grid item xs='12' spacing="0" >
                                     <TextField
                                         onChange={this.chgDtl}
                                         id="outlined-basic"
@@ -79,7 +79,7 @@ class Login_Page extends Component {
                                         error={this.state.error_username}
                                         helperText ={this.state.error_username} />
                                 </Grid>
-                                <Grid item sm="8" spacing="1">
+                                <Grid item xs='12' spacing="1">
                                     <TextField
                                         onChange={this.chgDtl}
                                         id="outlined-basic"
@@ -92,8 +92,8 @@ class Login_Page extends Component {
                                 </Grid>
                             </Grid>
                             <Grid item xs='12'>
-                                <Grid container justify="center" alignItems='center' spacing='5' >
-                                    <Grid item>
+                                <Grid container direction = 'column' justify="center" alignItems='center' spacing='4' >
+                                    <Grid item >
                                         <Button onClick={this.signInClick} variant='contained' color="primary">Sign in</Button>
                                     </Grid>
                                     <Grid item >

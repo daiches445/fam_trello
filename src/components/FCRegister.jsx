@@ -151,10 +151,10 @@ class Register extends Component {
         
         return (
             <div className="container">
-                <Paper elevation='6' style={{width:'50%'}}>
+                <Paper elevation='6' style={{width:'30%'}}>
                     <Grid container  direction='column' spacing='3' alignItems='center'>
                         <Grid item >
-                            <h1>Register</h1></Grid>
+                            <h2 style={{fontSize:'4ch'}}>Register</h2></Grid>
                         <Grid item xs='12'>
                             <TextField required  helperText={this.state.error_username} error={this.state.error_username} name="username" id="filled-basic" label="User Name" variant="outlined" onChange={this.SetVAl} />
                         </Grid>
