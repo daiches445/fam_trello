@@ -27,7 +27,7 @@ export default function FormDialog(props) {
 
   return (
     <div>
-      <ListItemText size  onClick={handleClickOpen} primary="Description" secondary={props.desc === "" ? "Add tasks decription" : props.desc.substring(0,5) + "..."} />
+      <ListItemText size  onClick={handleClickOpen} primary="Description" secondary={props.desc === "" ? "Add tasks decription" : props.desc.substring(0,(props.desc.length < 5 ? props.desc.length/2:5)) + "..."} />
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Description</DialogTitle>
         <DialogContent>
