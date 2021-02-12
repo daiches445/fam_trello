@@ -43,12 +43,10 @@ export default class Board extends Component {
 
     setAnchorEl = (data) => {
         this.setState({ anchorEl: data })
-
     }
 
     handleClick = async (event) => {
         this.setAnchorEl(event.currentTarget);
-        console.log(event);
         this.setState({ open: !this.state.open })
         await this.setState({ currentTasksIndex: event.target.id })
 
@@ -106,18 +104,14 @@ export default class Board extends Component {
                                                 this.props.data.family.notes.map((note, index) => (
                                                     <li key = {index} className='task'>
                                                         <Grid container >
-                                                            <Grid item xs={10}><h3 id={note.title} >{note.title}</h3>
-                                                            </Grid>
+                                                            <Grid item xs={10}><h3 id={note.title} >{note.title}</h3></Grid>
                                                             <Grid item xs={2}>
                                                                 <IconButton
                                                                     className='info_dots_btn'
                                                                     aria-label="more"
                                                                     aria-controls="long-menu"
-                                                                    aria-haspopup="true"
-
-                                                                >
-                                                                    <MoreVertIcon id={index}
-                                                                        onClick={this.handleClick} />
+                                                                    aria-haspopup="true">
+                                                                    <MoreVertIcon id={index} onClick={this.handleClick} />
                                                                 </IconButton>
                                                             </Grid>
                                                         </Grid>
@@ -125,8 +119,9 @@ export default class Board extends Component {
                                                     </li>
                                                 )
 
-                                                )
+                                            )
                                         }
+
                                         <Menu
                                             id="long-menu"
                                             anchorEl={this.state.anchorEl}
@@ -148,7 +143,7 @@ export default class Board extends Component {
 
                                             ))}
                                             <MenuItem>
-                                                <AlertDialog handleClose={() => this.setState({ open: false })} name="Info" info={this.props.data.family.notes[this.state.currentTasksIndex] === undefined ? "" : this.props.data.family.notes[this.state.currentTasksIndex]}></AlertDialog>
+                                                <AlertDialog handleClose={() => this.setState({ open: false })}  name="Info" info={this.props.data.family.notes[this.state.currentTasksIndex] === undefined ? "" : this.props.data.family.notes[this.state.currentTasksIndex]}></AlertDialog>
                                             </MenuItem>
                                         </Menu>
                                     </div>

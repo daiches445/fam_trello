@@ -212,10 +212,10 @@ class Register extends Component {
                                     <label htmlFor="">Add Your Family</label>
                                 </Grid>
                                 <Grid item >
-                                    <TextField error={this.state.error_fam_ID} name="family_ID" id="outlined-basic" label="Family ID" variant="outlined" helperText={this.state.error_fam_ID === ''?'Suggested :' +' \' ' + this.state.family_name +'\'+' + ' some number.':this.state.error_fam_ID} onChange={this.SetVAl}/>
+                                    <TextField  error={this.state.error_fam_ID} name="family_ID" id="outlined-basic" label="Family ID" variant="outlined" helperText={this.state.error_fam_ID === ''?'Suggested :' +' \' ' + this.state.family_name +'\'+' + ' some number.':this.state.error_fam_ID} onChange={this.SetVAl}/>
                                 </Grid>
                                 <Grid item>
-                                    <TextField  defaultValue={this.state.family_name} Value={this.state.family_name} name="famCreate_fam_name" id="outlined-basic"  label="Family name" variant="outlined" onChange={this.SetVAl}/>
+                                    <TextField noWarp defaultValue={this.state.family_name} Value={this.state.family_name} name="famCreate_fam_name" id="outlined-basic"  label="Family name" variant="outlined" onChange={this.SetVAl}/>
                                 </Grid>
                             </Grid>
                         </Grid>
