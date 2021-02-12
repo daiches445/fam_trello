@@ -7,7 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import AlertDialog from './AlertDialog'
 import AlertDialogSlide from './AlertDialog';
-
+import FCAddNoteDialog from './AddNoteDialog'
 
 export default class Board extends Component {
     constructor(props) {
@@ -38,7 +38,7 @@ export default class Board extends Component {
         this.props.sendNote(note)
     }
     openOrCloseAddNote = () => {
-        this.state.addNoteDisplay === '' ? this.setState({ addNoteDisplay: <FCAddNote sendNote={this.getNoteToAdd} exitFunc={this.openOrCloseAddNote} />, board_z_index: -1 }) : this.setState({ addNoteDisplay: '', board_z_index: 0 })
+        this.state.addNoteDisplay === '' ? this.setState({ addNoteDisplay: <FCAddNoteDialog sendNote={this.getNoteToAdd} exitFunc={this.openOrCloseAddNote} />, board_z_index: -1 }) : this.setState({ addNoteDisplay: '', board_z_index: 0 })
     }
 
     setAnchorEl = (data) => {
@@ -78,23 +78,24 @@ export default class Board extends Component {
     render() {
         return (
             <div className='container' >
-                {this.state.addNoteDisplay}
+                
                 {console.log(this.state)}
                 <Paper style={{ zIndex: this.state.board_z_index }}>
                     <Grid container direction='column' spacing={3}>
 
                         <Grid item >
-                                <Grid container >
-                                    <Grid item xs='2'>
-                                        <IconButton onClick={this.openOrCloseAddNote} >
-                                            <PostAddIcon color='primary' style={{ fontSize: '70' }}></PostAddIcon>
-                                        </IconButton>
-                                    </Grid>
-                                    <Grid item xs='9' style={{ alignSelf: 'center', margin: '0px' }}> <h1 style={{ alignSelf: 'center', margin: '0px' }}>welcome,{this.state.currentMember.username}</h1></Grid>
+                            <Grid container >
+
+                                <Grid item xs='2'>
+                               
+                                 <FCAddNoteDialog sendNote={this.getNoteToAdd} exitFunc={this.openOrCloseAddNote} />
                                 </Grid>
+                                <Grid item xs='9' style={{ alignSelf: 'center', margin: '0px' }}>
+                                    <h1 style={{ alignSelf: 'center', margin: '0px' }}>welcome</h1></Grid>
+                            </Grid>
                         </Grid>
 
-                        <Grid item xs = {12}>
+                        <Grid item xs={12}>
                             <Grid container direction='row' >
                                 <Grid item xs="2" align='center'><h2>tasks</h2></Grid>
                                 <Grid container direction='row' xs='9'>
@@ -102,7 +103,7 @@ export default class Board extends Component {
                                         {
                                             this.props.data.family.notes.length === 0 ? "NO TASKS" :
                                                 this.props.data.family.notes.map((note, index) => (
-                                                    <li key = {index} className='task'>
+                                                    <li key={index} className='task'>
                                                         <Grid container >
                                                             <Grid item xs={10}><h3 id={note.title} >{note.title}</h3></Grid>
                                                             <Grid item xs={2}>
@@ -119,7 +120,7 @@ export default class Board extends Component {
                                                     </li>
                                                 )
 
-                                            )
+                                                )
                                         }
 
                                         <Menu
@@ -143,7 +144,7 @@ export default class Board extends Component {
 
                                             ))}
                                             <MenuItem>
-                                                <AlertDialog handleClose={() => this.setState({ open: false })}  name="Info" info={this.props.data.family.notes[this.state.currentTasksIndex] === undefined ? "" : this.props.data.family.notes[this.state.currentTasksIndex]}></AlertDialog>
+                                                <AlertDialog handleClose={() => this.setState({ open: false })} name="Info" info={this.props.data.family.notes[this.state.currentTasksIndex] === undefined ? "" : this.props.data.family.notes[this.state.currentTasksIndex]}></AlertDialog>
                                             </MenuItem>
                                         </Menu>
                                     </div>
@@ -154,7 +155,7 @@ export default class Board extends Component {
 
                         <Divider></Divider>
 
-                        <Grid item xs = {12}>
+                        <Grid item xs={12}>
                             <Grid container direction='row' > {/* third line ,tasks */}
                                 <Grid item xs="2" align='center'><h2>my tasks</h2></Grid>
                                 <Grid container direction='row' xs='9'> {/* tasks container*/}
@@ -177,7 +178,7 @@ export default class Board extends Component {
 
                         <Divider></Divider>
 
-                        <Grid item xs = {12}>
+                        <Grid item xs={12}>
                             <Grid container direction='row'>
                                 <Grid item xs="2" align='center'><h2>finished tasks</h2></Grid>
                                 <Grid container direction='row' xs='9'> {/* tasks container*/}
