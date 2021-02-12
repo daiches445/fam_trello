@@ -47,8 +47,18 @@ export default function FullScreenDialog(props) {
         setOpenFull(true);
     };
 
-    const handleClose = () => {
+    const handleClose = (e) => {
         setOpenFull(false);
+        if (e.target.innerText === "SAVE") {
+    setOpenFull(false)
+    setOpenUsers(false)
+    setTitle("")
+    setStart("")
+    setEnd("")
+    setUserTag([])
+    setDesc("")
+
+        }
     };
 
     return (
