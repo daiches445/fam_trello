@@ -26,7 +26,7 @@ if (e.target.innerText === "SAVE") {
   return (
     <div>
         {props.info === "" ?  <ListItemText  onClick={handleClickOpen} primary="Title"  secondary="Add tasks title"    />
-:      <ListItemText  onClick={handleClickOpen} primary="Title"  secondary={props.info.title}    />
+:      <ListItemText  onClick={handleClickOpen} primary="Title"  secondary={props.info}    />
 }
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Title</DialogTitle>
@@ -36,7 +36,7 @@ if (e.target.innerText === "SAVE") {
             occasionally.
           </DialogContentText>
           <TextField
-            placeholder={props.info.title}
+            placeholder={props.info}
             autoFocus
             margin="dense"
             id="name"
@@ -45,6 +45,7 @@ if (e.target.innerText === "SAVE") {
             fullWidth
             multiline
             onChange={(e)=>setTitle(e.target.value)}
+           
           />
         </DialogContent>
         <DialogActions>
