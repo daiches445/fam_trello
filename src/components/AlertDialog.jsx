@@ -42,7 +42,9 @@ export default function AlertDialogSlide(props) {
         <DialogTitle id="alert-dialog-slide-title">{props.info.title}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            {props.info.text}
+          {props.info.start_date!="" ? props.info.start_date:""} -     {props.info.end_date!="" ? props.info.end_date:""}<br/>
+            {props.info.text}<br/>
+            {props.info.tagged_users === undefined ? "" : props.info.tagged_users.map((user,index)=>index != 0 ? ", " + user:user)}
           </DialogContentText>
         </DialogContent>
         <DialogActions>

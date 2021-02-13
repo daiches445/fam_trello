@@ -8,7 +8,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import AlertDialog from './AlertDialog'
 import AlertDialogSlide from './AlertDialog';
 import FCAddNoteDialog from './AddNoteDialog'
-
+import EditAlertDialog from './EditAlertDialog'
 export default class Board extends Component {
     constructor(props) {
         super(props)
@@ -18,7 +18,6 @@ export default class Board extends Component {
             currentMember: this.props.data.user,
             addNoteDisplay: '',
             options: [
-                'Edit',
                 'Delete',
                 // 'Info',
 
@@ -36,6 +35,9 @@ export default class Board extends Component {
     }
     getNoteToAdd = (note) => {
         this.props.sendNote(note)
+    }
+    getNoteToEdit = (note) => {
+        this.props.editNote(note)
     }
     openOrCloseAddNote = () => {
         this.state.addNoteDisplay === '' ? this.setState({ addNoteDisplay: <FCAddNoteDialog sendNote={this.getNoteToAdd} exitFunc={this.openOrCloseAddNote} />, board_z_index: -1 }) : this.setState({ addNoteDisplay: '', board_z_index: 0 })
@@ -64,7 +66,7 @@ export default class Board extends Component {
                 this.props.deleteTask(this.props.data.family.notes[this.state.currentTasksIndex])
                 break;
             case 'Info':
-
+                   
                 break;
             default:
                 break;
@@ -116,7 +118,12 @@ export default class Board extends Component {
                                                                 </IconButton>
                                                             </Grid>
                                                         </Grid>
-                                                        <p style={{ padding: '1px' }}>{note.text}</p>
+                                                        
+                                                        <p style={{ padding: '1px' }}>
+                                                        {note.start_date!=undefined?note.start_date:""} -  {note.end_date!=undefined?note.end_date:""} 
+                                                        <br/>
+                                                            {note.text}
+                                                            </p>
                                                     </li>
                                                 )
 
@@ -145,6 +152,9 @@ export default class Board extends Component {
                                             ))}
                                             <MenuItem>
                                                 <AlertDialog handleClose={() => this.setState({ open: false })} name="Info" info={this.props.data.family.notes[this.state.currentTasksIndex] === undefined ? "" : this.props.data.family.notes[this.state.currentTasksIndex]}></AlertDialog>
+                                            </MenuItem>
+                                            <MenuItem>
+                                            <EditAlertDialog note = {this.props.data.family.notes[this.state.currentTasksIndex]} sendNote={this.getNoteToAdd} getNoteToEdit1 = {this.getNoteToEdit} exitFunc={this.openOrCloseAddNote} />
                                             </MenuItem>
                                         </Menu>
                                     </div>

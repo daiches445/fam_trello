@@ -45,6 +45,7 @@ export default function FormDialog(props) {
             multiline
             rows={5}
             onChange={(e)=>setDescription(e.target.value)}
+            placeholder={props.desc}
           />
         </DialogContent>
         <DialogActions>

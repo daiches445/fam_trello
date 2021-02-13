@@ -33,7 +33,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function FullScreenDialog(props) {
+export default function  FullScreenDialog(props)   {
     const classes = useStyles();
     const [openFull, setOpenFull] = React.useState(false);
     const [openUsers, setOpenUsers] = React.useState(false);
@@ -42,23 +42,27 @@ export default function FullScreenDialog(props) {
     const [noteEndDate, setEnd] = React.useState("");
     const [usersTagged, setUserTag] = React.useState([]);
     const [noteDescription, setDesc] = React.useState("");
-
+    const [noteId, setId] = React.useState();
     const handleClickOpen = () => {
         setOpenFull(true);
     };
 
-    const handleClose = (e) => {
+    const handleClose = async (e) => {
         setOpenFull(false);
+        setUserTag([])
         if (e.target.innerText === "SAVE") {
-    setOpenFull(false)
-    setOpenUsers(false)
-    setTitle("")
-    setStart("")
-    setEnd("")
-    setUserTag([])
-    setDesc("")
-    let note = {title:noteTitle,start_date:noteStartDate,end_date:noteEndDate,tagged_users:usersTagged,text:noteDescription}
-    props.sendNote(note)
+            setOpenFull(false)
+            setOpenUsers(false)
+            setTitle("")
+            setStart("")
+            setEnd("")
+            setUserTag([])
+            setDesc("")
+             setId(props.note.id)
+             console.log(noteId)
+                let note = {id:noteId, title: noteTitle, start_date: noteStartDate, end_date: noteEndDate, tagged_users: usersTagged, text: noteDescription }
+            console.log(note)
+              props.getNoteToEdit1(note)
         }
     };
 
@@ -67,13 +71,7 @@ export default function FullScreenDialog(props) {
             <Tooltip title="Add Task">
 
                 <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-                    <IconButton  >
-
-
-                        <PostAddIcon color='primary' style={{ fontSize: '70' }}></PostAddIcon>
-
-
-                    </IconButton>
+                    Edit
                 </Button>
             </Tooltip>
             <Dialog fullScreen open={openFull} onClose={handleClose} TransitionComponent={Transition}>
@@ -83,7 +81,7 @@ export default function FullScreenDialog(props) {
                             <CloseIcon />
                         </IconButton>
                         <Typography variant="h6" className={classes.title}>
-                            New Note
+                            Edit Note
             </Typography>
                         <Button autoFocus color="inherit" onClick={handleClose}>
                             save
@@ -92,47 +90,64 @@ export default function FullScreenDialog(props) {
                 </AppBar>
                 <List style={{ marginTop: '-5%' }}>
                     <ListItem button>
-                        <TitleAlert info={noteTitle} sendTitle={(val) => setTitle(val)}></TitleAlert>
+                        <TitleAlert info={props.note.title === "" ? noteTitle : props.note} sendTitle={(val) => setTitle(val)}></TitleAlert>
 
                     </ListItem>
                     <Divider />
                     <ListItem button>
-                        <DatesAlert start={noteStartDate} end = {noteEndDate} sendDates={(valStart,valEnd) => {
+                        <DatesAlert start={props.note.start_date === "" ? noteStartDate : props.note.start_date} end={props.note.end_date === "" ? noteEndDate : props.note.end_date} sendDates={(valStart, valEnd) => {
                             setStart(valStart)
                             setEnd(valEnd)
-                            }}></DatesAlert>
+                        }}></DatesAlert>
                     </ListItem>
                     <ListItem button>
-                        <ListItemText onClick={() => { setOpenUsers(!openUsers) }} primary="Users Tagged" secondary={usersTagged.length === 0 ? "Tag a user on a task!" : usersTagged.map((user,index)=> 
-                            index === 0 ?   user : ", " +user
-                            )} />
+                        <ListItemText onClick={() => { setOpenUsers(!openUsers) }} primary="Users Tagged" secondary={usersTagged.length === 0 ? "Tag a user on a task!" : usersTagged.map((user, index) =>
+                            index === 0 ? user : ", " + user
+                        )} />
                     </ListItem>
-                    <ListItem button >
+                    {props.note.tagged_users === undefined ? <ListItem button >
                         {openUsers === false ? "" :
 
                             <FormControlLabel
-                                onClick={(e)=>{e.target.checked === true ? setUserTag([...usersTagged,e.target.name]) : setUserTag(usersTagged.filter(item=>e.target.name !== item)) }}
+                                onClick={(e) => { e.target.checked === true ? setUserTag([...usersTagged, e.target.name]) : setUserTag(usersTagged.filter(item => e.target.name !== item)) }}
                                 control={<Checkbox name="Nir" />}
-                                label="Nir"
-                             
+                                label="Nir1"
+
                             />
 
                         }
                         {openUsers === false ? "" :
 
                             <FormControlLabel
-                            onClick={(e)=>{e.target.checked === true ? setUserTag([...usersTagged,e.target.name]) : setUserTag(usersTagged.filter(item=>e.target.name !== item)) }}
+                                onClick={(e) => { e.target.checked === true ? setUserTag([...usersTagged, e.target.name]) : setUserTag(usersTagged.filter(item => e.target.name !== item)) }}
 
                                 control={<Checkbox name="Ely" />}
-                                label="Ely"
+                                label="Ely1"
                             />
 
                         }
-                    </ListItem>
+                    </ListItem> :
+
+                        <ListItem button>
+                          
+                            {
+                                props.note.tagged_users.map(user => <FormControlLabel
+                                    onClick={(e) => { e.target.checked === true ? setUserTag([...usersTagged, e.target.name]) : setUserTag(usersTagged.filter(item => e.target.name !== item)) }}
+                                    control={<Checkbox name={user} />}
+                                    label={user}
+                                    
+                                />)
+
+                            }
+                        </ListItem>
+
+
+                    }
 
                     <ListItem button>
-                        <DescriptionAlert setDescInParent ={(description1)=> setDesc(description1)} desc ={noteDescription} style={{ height: '200px' }} />
+                        <DescriptionAlert   setDescInParent={(description1) => setDesc(description1)} desc={props.note.text === "" ? noteDescription : props.note.text} style={{ height: '200px' }} />
                     </ListItem>
+                 
                 </List>
 
             </Dialog>

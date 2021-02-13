@@ -19,10 +19,10 @@ class App extends Component {
         name: 'cohen',
 
         notes: [
-          { title: 'hello', text: 'asdad'},
-          { title: 'hello2', text: 'asdad2'},
-          { title: 'hello3', text: 'asdad3'},
-          { title: 'hello4', text: 'asdad4'}
+          { id:0, title: 'hello', text: 'asdad'},
+          {id:1, title: 'hello2', text: 'asdad2'},
+          {id:2,title: 'hello3', text: 'asdad3'},
+          {id:3, title: 'hello4', text: 'asdad4'}
         ]
       }
       ]
@@ -31,10 +31,11 @@ class App extends Component {
   catchNoteToAdd = (note) => {
     let families = this.state.family
     let family = families[0]
+    note.id = family.notes[family.notes.length-1].id+1
     family.notes.push(note)
     families[0] = family
     console.log(family);
-    this.setState({family:families})
+    this.setState({family:families})  
 
   }
   catchUserToRegister = (user) => {
@@ -64,7 +65,21 @@ class App extends Component {
   }
 
 
+  catchNoteToEdit=(note)=>{
+    let families = this.state.family
+    let family = families[0]
+    console.log(note.id)
+    let noteIndex = family.notes.map((noteTemp,index)=>noteTemp.id === note.id ? index : "" )
+    noteIndex = noteIndex.filter(note1=>note1 !== "")
+    
+    console.log(noteIndex)
+    family.notes[noteIndex[0]] = note
+    
+    families[0] = family
+    console.log(family);
+    this.setState({family:families})
 
+  }
 
 
   render(){
@@ -77,7 +92,7 @@ class App extends Component {
       <Switch>
         <Route exact path="/"  render={()=><Login_Page data = {this.state}  SetCurrentUser={this.SetCurrentUser}></Login_Page>}></Route>
         <Route path = "/FCRegister" render={()=><Register AddFamily={this.AddFamily} sendUserToRegister={this.catchUserToRegister} app_data = {this.state}></Register>}></Route>
-        <Route path = '/CCBoard'  render={()=><Board deleteTask = {this.catchNoteToDelete} sendNote = {this.catchNoteToAdd} data = {this.state.data} ></Board>}></Route>
+        <Route path = '/CCBoard'  render={()=><Board deleteTask = {this.catchNoteToDelete} editNote={this.catchNoteToEdit} sendNote = {this.catchNoteToAdd} data = {this.state.data} ></Board>}></Route>
       </Switch>
         </div>
       </div>

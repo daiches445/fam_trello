@@ -26,7 +26,7 @@ if (e.target.innerText === "SAVE") {
   return (
     <div>
         {props.info === "" ?  <ListItemText  onClick={handleClickOpen} primary="Title"  secondary="Add tasks title"    />
-:      <ListItemText  onClick={handleClickOpen} primary="Title"  secondary={props.info}    />
+:      <ListItemText  onClick={handleClickOpen} primary="Title"  secondary={props.info.title}    />
 }
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Title</DialogTitle>
@@ -36,6 +36,7 @@ if (e.target.innerText === "SAVE") {
             occasionally.
           </DialogContentText>
           <TextField
+            placeholder={props.info.title}
             autoFocus
             margin="dense"
             id="name"
