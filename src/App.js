@@ -29,7 +29,7 @@ class App extends Component {
           { title: 'hello3',created:'3-2-2020', text: 'asdad3',tagged:[{username:'guy1',name:"guy"}]},
           { title: 'hello4',created:'4-2-2020', text: 'asdad4',tagged:[{username:'guy1',name:"guy"}]}
         ],
-        finished_notes:[ { title: 'hello' ,created:'1-2-2020', text: 'asdad1',tagged:[{username:'guy1'}]}]
+        finished_notes:[ { title: 'hello' ,created:'1-2-2020', text: 'asdad1',tagged:[{username:'guy1',name:"guy"}]}]
       }
       ]
     }
@@ -92,12 +92,12 @@ class App extends Component {
   catchNoteToEdit=(note)=>{
     let families = this.state.family
     let family = families[this.state.fam_index]
-    console.log(note.id)
-    let noteIndex = family.notes.map((noteTemp,index)=>noteTemp.created === note.id ? index : "" )
-    noteIndex = noteIndex.filter(note1=>note1 !== "")
+    console.log(note)
+    let noteIndex = family.notes.findIndex(n=>n.created === note.created)
+    // noteIndex = noteIndex.filter(note1=>note1 !== "")
     
     console.log(noteIndex)
-    family.notes[noteIndex[0]] = note
+    family.notes[noteIndex] = note
     
     families[this.state.fam_index] = family
     console.log(family);
@@ -105,6 +105,17 @@ class App extends Component {
 
   }
 
+  catchFinishedNote=(index)=>{
+    let families = this.state.family
+    let family = this.state.family[this.state.fam_index]
+    console.log(families[this.state.fam_index])
+
+      family.finished_notes.push(family.notes.splice(index,1)[0])
+      families[this.state.fam_index] = family
+      console.log(families[this.state.fam_index])
+      this.setState({family:families})
+
+  }
 
 
   render(){
@@ -117,7 +128,7 @@ class App extends Component {
       <Switch>
         <Route exact path="/"  render={()=><Login_Page data = {this.state}  SetCurrentUser={this.SetCurrentUser}></Login_Page>}></Route>
         <Route path = "/FCRegister" render={()=><Register AddFamily={this.AddFamily} sendUserToRegister={this.catchUserToRegister} app_data = {this.state}></Register>}></Route>
-        <Route path = '/CCBoard'  render={()=><Board deleteTask = {this.catchNoteToDelete} editNote={this.catchNoteToEdit} sendNote = {this.catchNoteToAdd} data = {this.state} InitUserNotes = {this.InitUserNotes}></Board>}></Route>
+        <Route path = '/CCBoard'  render={()=><Board moveNoteToFinished={this.catchFinishedNote} deleteTask = {this.catchNoteToDelete} editNote={this.catchNoteToEdit} sendNote = {this.catchNoteToAdd} data = {this.state} InitUserNotes = {this.InitUserNotes}></Board>}></Route>
       </Switch>
         </div>
       </div>

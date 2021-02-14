@@ -61,7 +61,6 @@ export default function  FullScreenDialog(props)   {
             setTitle("")
             setUserTag([])
             setDesc("")
-             console.log(noteId)
         }
     };
 
@@ -70,7 +69,7 @@ export default function  FullScreenDialog(props)   {
     return (
         <div>
   
-                <Button color="primary" onClick={handleClickOpen}>
+                <Button disabled={props.disabled1} color="primary" onClick={handleClickOpen}>
                     Edit
                 </Button>
            
@@ -88,7 +87,7 @@ export default function  FullScreenDialog(props)   {
             </Button>
                     </Toolbar>
                 </AppBar>
-                {props.note === undefined ? "":
+                {props.note === undefined ? console.log(props):
                 <List style={{ marginTop: '-5%' }}>
                     <ListItem button>
                         <TitleAlert info={props.note === "" ? noteTitle : props.note.title} sendTitle={(val) => setTitle(val)}></TitleAlert>

@@ -26,8 +26,9 @@ export default class Board extends Component {
             ],
             anchorEl: '',
             open: false,
-            currentTasksID:'',
-            board_z_index: 0
+            currentTasksID: '',
+            board_z_index: 0,
+            btnDisabled: true
 
         }
 
@@ -63,10 +64,20 @@ export default class Board extends Component {
         this.setState({ anchorEl: data })
     }
 
-    handleClick =(event) => {
+    handleClick = (event) => {
+        let btnDis;
+        if (event.target.id === 'history') {
+            btnDis = true
+        }
+        else
+            btnDis = false
+
         this.setAnchorEl(event.currentTarget);
-        this.setState({ open: !this.state.open })
-        this.setState({ currentTasksID: event.target.id })
+        console.log(event);
+        let index = this.state.currentFamily.notes.findIndex(n => n.created == event.target.id)
+        console.log(index);
+        this.setState({ currentTasksID: event.target.id, open: !this.state.open, currentTaskIndex: index,btnDisabled:btnDis })
+
     };
 
     handleClose = (e) => {
@@ -77,16 +88,18 @@ export default class Board extends Component {
         console.log(this.state.currentTasksID);
         console.log(e.target.innerText);
 
-        if (e.target.id === 'delete') {
+        if (e.target.innerText === 'DELETE') {
+
             this.props.deleteTask(index)
         }
-        this.setState({ open: false})
+        this.setState({ open: false })
     }
 
 
     render() {
         return (
             <div className='container' >
+
                 <Paper style={{ zIndex: this.state.board_z_index }}>
                     <Grid container direction='column' spacing={3}>
 
@@ -120,10 +133,24 @@ export default class Board extends Component {
                                                             <MoreVertIcon id={n.created} onClick={this.handleClick} />
                                                         </IconButton>
                                                     </Grid>
-                                                    <Grid item>
+                                                    <Grid item xs={12}>
                                                         <p className='text' style={{ padding: '1px' }}>{n.text}</p>
-                                                        <p>{n.tagged.map(user => user.name)}</p>
                                                     </Grid>
+                                                    <Grid item>
+                                                        <Grid container>
+                                                            <Grid item xs={6} >
+                                                                <p>{n.tagged.map(user => user.name)}</p>
+
+                                                            </Grid>
+                                                            <Grid item xs={6}>
+                                                                <Button onClick={() => this.props.moveNoteToFinished(this.state.currentTaskIndex !== undefined ? this.state.currentTaskIndex : 0)}>
+                                                                    V
+                                                                </Button>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Grid>
+
+
                                                 </Grid>
 
                                             </li>
@@ -143,13 +170,13 @@ export default class Board extends Component {
                                             }}
                                         >
                                             <MenuItem>
-                                                <Button color="primary" id = 'delete' onClick={this.handleClose} >delete</Button>
+                                                <Button disabled={this.state.btnDisabled} color="primary" id='delete' onClick={this.handleClose} >delete</Button>
                                             </MenuItem>
                                             <MenuItem>
-                                                <AlertDialog handleClose={() => this.setState({ open: false })} name="Info" info={this.state.currentFamily.notes[this.state.currentTasksIndex] === undefined ? "" : this.state.currentFamily.notes[this.state.currentTasksIndex]}></AlertDialog>
+                                                <AlertDialog handleClose={() => this.setState({ open: false })} name="Info" info={this.state.currentFamily.notes[this.state.currentTaskIndex] === undefined ? "" : this.state.currentFamily.notes[this.state.currentTaskIndex]}></AlertDialog>
                                             </MenuItem>
                                             <MenuItem>
-                                                <EditAlertDialog note={this.state.currentFamily.notes[this.state.currentTasksIndex]} sendNote={this.getNoteToAdd} getNoteToEdit1={this.getNoteToEdit} exitFunc={this.openOrCloseAddNote} family={this.state.currentFamily} />
+                                                <EditAlertDialog disabled1={this.state.btnDisabled} note={this.state.currentFamily.notes[this.state.currentTaskIndex !== undefined ? this.state.currentTaskIndex : 0]} sendNote={this.getNoteToAdd} getNoteToEdit1={this.getNoteToEdit} exitFunc={this.openOrCloseAddNote} family={this.state.currentFamily} />
                                             </MenuItem>
                                         </Menu>
                                     </div>
@@ -201,11 +228,29 @@ export default class Board extends Component {
                             <Grid container direction='row'>
                                 <Grid item xs="2" align='center'><h2>history</h2></Grid>
                                 <Grid container direction='row' xs='9'> {/* tasks container*/}
-                                    {/*map function*/}
-                                    <div className='tasks_bar' >
-                                        <li className='task'>task</li>
-                                        <li className='task'>task</li>
-                                    </div>
+                                    {this.state.currentFamily.finished_notes.map((n, index) => {
+
+                                        return (
+                                            <li key={index} className='task'>
+                                                <Grid container >
+                                                    <Grid item xs={10}><h3 id={n.title} >{n.title}</h3></Grid>
+                                                    <Grid item xs={2}>
+                                                        <IconButton
+                                                            className='info_dots_btn'
+                                                            aria-label="more"
+                                                            aria-controls="long-menu"
+                                                            aria-haspopup="true">
+                                                            <MoreVertIcon id="history" onClick={this.handleClick} />
+                                                        </IconButton>
+                                                    </Grid>
+                                                    <Grid item>
+                                                        <p className='text' style={{ padding: '1px' }}>{n.text}</p>
+                                                        {/* <p>{n.tagged.map(user => user.name)}</p> */}
+                                                    </Grid>
+                                                </Grid>
+
+                                            </li>)
+                                    })}
                                 </Grid>
                             </Grid>
                         </Grid>
