@@ -89,7 +89,7 @@ export default function  FullScreenDialog(props)   {
                 </AppBar>
                 {props.note === undefined ? console.log(props):
                 <List style={{ marginTop: '-5%' }}>
-                    <ListItem button>
+                    <ListItem button style={{marginTop:'2%'}}>
                         <TitleAlert info={props.note === "" ? noteTitle : props.note.title} sendTitle={(val) => setTitle(val)}></TitleAlert>
 
                     </ListItem>
