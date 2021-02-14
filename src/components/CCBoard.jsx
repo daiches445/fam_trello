@@ -113,9 +113,16 @@ export default class Board extends Component {
                                 <Grid item xs="2" align='center'><h2>my notes</h2></Grid>
                                 <Grid container direction='row' xs='9'>
                                     <div className='tasks_bar' >
-                                        {this.GetUserNotes(this.state.currentFamily.notes).map((n, index) => {
-                                            return (
+                                        {console.log(this.state.currentFamily)}
+                                        {this.state.currentFamily.notes.forEach((n,index)=>{
+                                           n.tagged.map((u)=>{
+                                              
+                                           })
+                                        })}
+                                        {this.state.currentFamily.notes.map((n, index) =>
+                                            n.tagged.includes(this.state.currentFamily.username) === false ? "" :
                                                 <li key={index} className='task'>
+
                                                     <Grid container >
                                                         <Grid item xs={10}>
                                                             <h3 id={n.title} >{n.title}</h3>
@@ -130,12 +137,12 @@ export default class Board extends Component {
                                                             </IconButton>
                                                         </Grid>
                                                         <Grid item className='text'>
-                                                            <p style={{backgroundColor:'red',color:'red'}} style={{ padding: '1px' }}>{n.text}</p>
+                                                            <p style={{ backgroundColor: 'red', color: 'red' }} style={{ padding: '1px' }}>{n.text}</p>
                                                         </Grid>
                                                     </Grid>
 
-                                                </li>)
-                                        })
+                                                </li>
+                                        )
 
 
                                         }
@@ -163,7 +170,7 @@ export default class Board extends Component {
                                                 <AlertDialog handleClose={() => this.setState({ open: false })} name="Info" info={this.state.currentFamily.notes[this.state.currentTasksIndex] === undefined ? "" : this.state.currentFamily.notes[this.state.currentTasksIndex]}></AlertDialog>
                                             </MenuItem>
                                             <MenuItem>
-                                                <EditAlertDialog note={this.state.currentFamily.notes[this.state.currentTasksIndex]} sendNote={this.getNoteToAdd} getNoteToEdit1={this.getNoteToEdit} exitFunc={this.openOrCloseAddNote} family={this.state.currentFamily}/>
+                                                <EditAlertDialog note={this.state.currentFamily.notes[this.state.currentTasksIndex]} sendNote={this.getNoteToAdd} getNoteToEdit1={this.getNoteToEdit} exitFunc={this.openOrCloseAddNote} family={this.state.currentFamily} />
                                             </MenuItem>
                                         </Menu>
                                     </div>
@@ -195,10 +202,11 @@ export default class Board extends Component {
                                                             </IconButton>
                                                         </Grid>
                                                         <Grid item>
-                                                        <p className='text' style={{ padding: '1px' }}>{n.text}</p>
+                                                            <p className='text' style={{ padding: '1px' }}>{n.text}</p>
+                                                            <p>{n.tagged.map(user => user.name)}</p>
                                                         </Grid>
                                                     </Grid>
-                                                    
+
                                                 </li>)
                                         })}
                                     </div>

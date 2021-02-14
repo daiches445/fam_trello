@@ -50,24 +50,22 @@ export default function  FullScreenDialog(props)   {
 
     const handleClose = async (e) => {
         setOpenFull(false);
-        setUserTag([])
+        
         if (e.target.innerText === "SAVE") {
+            let note = { title: noteTitle,created:props.note.created,tagged: usersTagged, text: noteDescription }
+            console.log(note)
+              props.getNoteToEdit1(note)
+
             setOpenFull(false)
             setOpenUsers(false)
             setTitle("")
             setUserTag([])
             setDesc("")
              console.log(noteId)
-                let note = { title: noteTitle,created:props.note.created,tagged: usersTagged, text: noteDescription }
-            console.log(note)
-              props.getNoteToEdit1(note)
         }
     };
 
-    useEffect(()=>{
-        setUserTag(props.note.tagged=== undefined?'':props.note.tagged)
-        console.log(usersTagged);
-    })
+ 
 
     return (
         <div>
@@ -104,15 +102,16 @@ export default function  FullScreenDialog(props)   {
                             
                         )} />
                     </ListItem>
+                    {console.log(usersTagged)}
                     {props.family.members === undefined ? " ":
 
                         <ListItem button>
                             {
                                 props.family.members.map(user => <FormControlLabel
-                                    onClick={(e) => { e.target.checked === true ? setUserTag([...usersTagged,{name:e.target.id,username:e.target.name}]) : setUserTag(usersTagged.filter(item => e.target.id !== item.name)) }}
+                                    onClick={(e) => { e.target.checked === true ? setUserTag([...usersTagged,{username:e.target.name,name:e.target.id}]) : setUserTag(usersTagged.filter(item => e.target.id !== item.name)) }}
                                     control={<Checkbox  name={user.username} id = {user.name} />}
                                     label={user.name}
-                                    
+                                  
                                 />)
                             }
                         </ListItem>

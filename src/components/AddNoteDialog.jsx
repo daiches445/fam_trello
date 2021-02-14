@@ -41,7 +41,7 @@ export default function FullScreenDialog(props) {
     const [openFull, setOpenFull] = React.useState(false);
     const [openUsers, setOpenUsers] = React.useState(false);
     const [noteTitle, setTitle] = React.useState("");  
-    const [usersTagged, setUserTag] = React.useState([{}]);
+    const [usersTagged, setUserTag] = React.useState([]);
     const [noteDescription, setDesc] = React.useState("");
 
     const handleClickOpen = () => {
