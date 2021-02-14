@@ -13,20 +13,19 @@ class App extends Component {
       user_index: 0,
       users: [
         { username: 'guy1',name:'guy the first' ,age:'18', password: '1234', fam_id: 'COHEN121' },
-        { username: 'guy2',name :'guy the second' ,age:'17', password: '1234', fam_id: 'COHEN121' }
+        { username: 'avi2',name :'avi' ,age:'17', password: '1234', fam_id: 'COHEN121' }
       ],
       family: [{
         ID: 'COHEN121',
         name: 'Cohen',
         members:[
-          {username:'moshe2',name:'moshe',age:'43',role:'father'},
           {username:'guy1',name:'guy',age:'13',role:'son'},
-          {username:'guy2',name:'guy',age:'18',role:'son'}
+          {username:'avi2',name:'avi',age:'18',role:'son'}
         ],
         //we can just go over family and check name not username whats the odds families will have 2 persons with the same name?
         notes: [
-          { title: 'hello1' ,created:'1-2-2020', text: 'asdad1',tagged:['guy2']},
-          { title: 'hello2',created:'1-2-2020', text: 'asdad2',tagged:['guy2']},
+          { title: 'hello1',created:'1-2-2020', text: 'asdad1',tagged:['avi2']},
+          { title: 'hello2',created:'1-2-2020', text: 'asdad2',tagged:['avi2']},
           { title: 'hello3',created:'1-2-2020', text: 'asdad3',tagged:['guy1']},
           { title: 'hello4',created:'1-2-2020', text: 'asdad4',tagged:['guy1']}
         ],
@@ -63,11 +62,12 @@ class App extends Component {
     this.setState({family:famArr})
   }
 
- catchNoteToDelete=(note,ID)=>{
+ catchNoteToDelete=(note)=>{
+   console.log(note);
   let families = this.state.family
-  let family = families[0]
-  family.notes = family.notes.filter(singleNote=>singleNote.title != note.title)
-  families[0] = family
+  let family = families[this.state.fam_index]
+  family.notes = family.notes.filter(singleNote=>singleNote.created != note.created)
+  families[this.state.fam_index] = family
   console.log(family);
   this.setState({family:families})
   }

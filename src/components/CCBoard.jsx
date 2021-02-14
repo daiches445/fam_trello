@@ -54,7 +54,7 @@ export default class Board extends Component {
     }
 
     openOrCloseAddNote = () => {
-        this.state.addNoteDisplay === '' ? this.setState({ addNoteDisplay: <FCAddNoteDialog sendNote={this.getNoteToAdd} exitFunc={this.openOrCloseAddNote} />, board_z_index: -1 }) : this.setState({ addNoteDisplay: '', board_z_index: 0 })
+        this.state.addNoteDisplay === '' ? this.setState({ addNoteDisplay: <FCAddNoteDialog members={this.state.currentFamily.members} sendNote={this.getNoteToAdd} exitFunc={this.openOrCloseAddNote} />, board_z_index: -1 }) : this.setState({ addNoteDisplay: '', board_z_index: 0 })
     }
 
     setAnchorEl = (data) => {
@@ -77,7 +77,7 @@ export default class Board extends Component {
 
         switch (e.target.id) {
             case 'Delete':
-                this.props.deleteTask(this.props.data.family.notes[this.state.currentTasksIndex])
+                this.props.deleteTask(this.state.currentFamily.notes[this.state.currentTasksIndex])
                 break;
             case 'Info':
 
@@ -101,7 +101,7 @@ export default class Board extends Component {
 
                                 <Grid item xs='2' justify='center' align='center'>
 
-                                    <FCAddNoteDialog familyMembers={this.state.currentFamily.members} sendNote={this.getNoteToAdd} exitFunc={this.openOrCloseAddNote} />
+                                    <FCAddNoteDialog members={this.state.currentFamily.members} sendNote={this.getNoteToAdd} exitFunc={this.openOrCloseAddNote} />
                                 </Grid>
                                 <Grid item xs='9' style={{ alignSelf: 'center', margin: '0px' }}>
                                     <h1 style={{ alignSelf: 'center', margin: '0px', borderLeft: '2px solid black', paddingLeft: '1%' }}>welcome</h1></Grid>
@@ -163,7 +163,7 @@ export default class Board extends Component {
                                                 <AlertDialog handleClose={() => this.setState({ open: false })} name="Info" info={this.state.currentFamily.notes[this.state.currentTasksIndex] === undefined ? "" : this.state.currentFamily.notes[this.state.currentTasksIndex]}></AlertDialog>
                                             </MenuItem>
                                             <MenuItem>
-                                                <EditAlertDialog note={this.state.currentFamily.notes[this.state.currentTasksIndex]} sendNote={this.getNoteToAdd} getNoteToEdit1={this.getNoteToEdit} exitFunc={this.openOrCloseAddNote} />
+                                                <EditAlertDialog note={this.state.currentFamily.notes[this.state.currentTasksIndex]} sendNote={this.getNoteToAdd} getNoteToEdit1={this.getNoteToEdit} exitFunc={this.openOrCloseAddNote} family={this.state.currentFamily}/>
                                             </MenuItem>
                                         </Menu>
                                     </div>

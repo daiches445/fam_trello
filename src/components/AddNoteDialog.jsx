@@ -36,13 +36,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function FullScreenDialog(props) {
+
     const classes = useStyles();
     const [openFull, setOpenFull] = React.useState(false);
     const [openUsers, setOpenUsers] = React.useState(false);
-    const [noteTitle, setTitle] = React.useState("");
-    const [noteStartDate, setStart] = React.useState("");
-    const [noteEndDate, setEnd] = React.useState("");
-    const [usersTagged, setUserTag] = React.useState([]);
+    const [noteTitle, setTitle] = React.useState("");  
+    const [usersTagged, setUserTag] = React.useState([{}]);
     const [noteDescription, setDesc] = React.useState("");
 
     const handleClickOpen = () => {
@@ -51,16 +50,18 @@ export default function FullScreenDialog(props) {
 
     const handleClose = (e) => {
         setOpenFull(false);
+        setUserTag([])
         if (e.target.innerText === "SAVE") {
+            let created  = new Date();
+            let note = { title: noteTitle, created: created, tagged: usersTagged, text: noteDescription }
+            console.log(note);
+            props.sendNote(note)
             setOpenFull(false)
             setOpenUsers(false)
             setTitle("")
-            setStart("")
-            setEnd("")
             setUserTag([])
             setDesc("")
-            let note = { title: noteTitle, start_date: noteStartDate, end_date: noteEndDate, tagged: usersTagged, text: noteDescription }
-            props.sendNote(note)
+
         }
     };
 
@@ -75,8 +76,9 @@ export default function FullScreenDialog(props) {
                 </Button>
             </Tooltip>
 
-            
-            <Dialog  open={openFull} onClose={handleClose} TransitionComponent={Transition} style={{position:'absolute'}}>
+
+            <Dialog open={openFull} onClose={handleClose} TransitionComponent={Transition} >
+                {console.log(props.members)}
                 <AppBar style={{ minHeight: "0", marginTop: '-2%', right: '1%' }} className={classes.appBar}>
                     <Toolbar>
                         <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
@@ -91,42 +93,33 @@ export default function FullScreenDialog(props) {
                     </Toolbar>
                 </AppBar>
                 <List style={{ marginTop: '-5%' }} >
-                    <ListItem button>
+                    <ListItem button style={{marginTop:'2%'}}>
                         <TitleAlert info={noteTitle} sendTitle={(val) => setTitle(val)}></TitleAlert>
 
                     </ListItem>
                     <Divider />
-                    <ListItem button>
-                        <DatesAlert start={noteStartDate} end={noteEndDate} sendDates={(valStart, valEnd) => {
-                            setStart(valStart)
-                            setEnd(valEnd)
-                        }}></DatesAlert>
-                    </ListItem>
+                    
                     <ListItem button>
                         <ListItemText onClick={() => { setOpenUsers(!openUsers) }} primary="Users Tagged" secondary={usersTagged.length === 0 ? "Tag a user on a task!" : usersTagged.map((user, index) =>
-                            index === 0 ? user : ", " + user
+                            index === 0 ? user.name : ", " + user.name
                         )} />
                     </ListItem>
                     <ListItem button >
                         {openUsers === false ? "" :
+                            props.members.map((m, index) => {
+                                return (
 
-                            <FormControlLabel
-                                onClick={(e) => { e.target.checked === true ? setUserTag([...usersTagged, e.target.name]) : setUserTag(usersTagged.filter(item => e.target.name !== item)) }}
-                                control={<Checkbox name="Nir" />}
-                                label="Nir"
-
-                            />
-
-                        }
-                        {openUsers === false ? "" :
-
-                            <FormControlLabel
-                                onClick={(e) => { e.target.checked === true ? setUserTag([...usersTagged, e.target.name]) : setUserTag(usersTagged.filter(item => e.target.name !== item)) }}
-                                control={<Checkbox name="Ely" />}
-                                label="Ely"
-                            />
+                                    <FormControlLabel
+                                        key={index}
+                                        onClick={(e) => { e.target.checked === true ? setUserTag([...usersTagged, {name:e.target.id,username:e.target.name}]) : setUserTag(usersTagged.filter(item => e.target.id !== item.name)) }}
+                                        control={<Checkbox name={m.username} id={m.name}/>}
+                                        label={m.name}
+                                    />
+                                )
+                            })
 
                         }
+
                     </ListItem>
 
                     <ListItem button>

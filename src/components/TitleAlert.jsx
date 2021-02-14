@@ -18,7 +18,6 @@ export default function FormDialog(props) {
   const handleClose = (e) => {
     setOpen(false);
 if (e.target.innerText === "SAVE") {
-    alert(title1)
     props.sendTitle(title1)
 }
   };
