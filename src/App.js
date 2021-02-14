@@ -24,10 +24,10 @@ class App extends Component {
         ],
         //we can just go over family and check name not username whats the odds families will have 2 persons with the same name?
         notes: [
-          { title: 'hello1',created:'1-2-2020', text: 'asdad1',tagged:['avi2']},
-          { title: 'hello2',created:'1-2-2020', text: 'asdad2',tagged:['avi2']},
-          { title: 'hello3',created:'1-2-2020', text: 'asdad3',tagged:['guy1']},
-          { title: 'hello4',created:'1-2-2020', text: 'asdad4',tagged:['guy1']}
+          { title: 'hello1',created:'1-2-2020', text: 'asdad1',tagged:[{uesrname:'avi2',name:"avi"}]},
+          { title: 'hello2',created:'1-2-2020', text: 'asdad2',tagged:[{uesrname:'avi2',name:"avi"}]},
+          { title: 'hello3',created:'1-2-2020', text: 'asdad3',tagged:[{uesrname:'guy1',name:"guy"}]},
+          { title: 'hello4',created:'1-2-2020', text: 'asdad4',tagged:[{uesrname:'guy1',name:"guy"}]}
         ],
         finished_notes:[ { title: 'hello' ,created:'1-2-2020', text: 'asdad1',tagged:[{username:'guy1'}]}]
       }
@@ -42,6 +42,7 @@ class App extends Component {
     families[this.state.fam_index] = family
     console.log(family);
     this.setState({family:families})
+    console.log(this.state.family[0].notes)
 
   }
 
@@ -83,7 +84,7 @@ class App extends Component {
 
   InitUserNotes=()=>{
     console.log(this.state);
-    let user_notes = this.state.data.family.notes.filter(n=>n.tagged.includes(this.state.data.user.username))
+    let user_notes = this.state.data.family.notes
     return user_notes;
   }
 
@@ -91,7 +92,7 @@ class App extends Component {
     let families = this.state.family
     let family = families[this.state.fam_index]
     console.log(note.id)
-    let noteIndex = family.notes.map((noteTemp,index)=>noteTemp.id === note.id ? index : "" )
+    let noteIndex = family.notes.map((noteTemp,index)=>noteTemp.created === note.id ? index : "" )
     noteIndex = noteIndex.filter(note1=>note1 !== "")
     
     console.log(noteIndex)
