@@ -101,10 +101,10 @@ export default class Board extends Component {
 
                                 <Grid item xs='2' justify='center' align='center'>
 
-                                    <FCAddNoteDialog familyMembers = {this.state.currentFamily.members} sendNote={this.getNoteToAdd} exitFunc={this.openOrCloseAddNote} />
+                                    <FCAddNoteDialog familyMembers={this.state.currentFamily.members} sendNote={this.getNoteToAdd} exitFunc={this.openOrCloseAddNote} />
                                 </Grid>
                                 <Grid item xs='9' style={{ alignSelf: 'center', margin: '0px' }}>
-                                    <h1 style={{ alignSelf: 'center', margin: '0px',borderLeft:'2px solid black' ,paddingLeft:'1%'}}>welcome</h1></Grid>
+                                    <h1 style={{ alignSelf: 'center', margin: '0px', borderLeft: '2px solid black', paddingLeft: '1%' }}>welcome</h1></Grid>
                             </Grid>
                         </Grid>
 
@@ -117,7 +117,9 @@ export default class Board extends Component {
                                             return (
                                                 <li key={index} className='task'>
                                                     <Grid container >
-                                                        <Grid item xs={10}><h3 id={n.title} >{n.title}</h3></Grid>
+                                                        <Grid item xs={10}>
+                                                            <h3 id={n.title} >{n.title}</h3>
+                                                        </Grid>
                                                         <Grid item xs={2}>
                                                             <IconButton
                                                                 className='info_dots_btn'
@@ -127,8 +129,11 @@ export default class Board extends Component {
                                                                 <MoreVertIcon id={index} onClick={this.handleClick} />
                                                             </IconButton>
                                                         </Grid>
+                                                        <Grid item className='text'>
+                                                            <p style={{backgroundColor:'red',color:'red'}} style={{ padding: '1px' }}>{n.text}</p>
+                                                        </Grid>
                                                     </Grid>
-                                                    <p style={{ padding: '1px' }}>{n.text}</p>
+
                                                 </li>)
                                         })
 
@@ -175,8 +180,8 @@ export default class Board extends Component {
                                 <Grid container direction='row' xs='9'> {/* tasks container*/}
                                     {/*map function*/}
                                     <div className='tasks_bar' >
-                                        {this.state.currentFamily.notes.map((n,index)=>{
-                                            return(
+                                        {this.state.currentFamily.notes.map((n, index) => {
+                                            return (
                                                 <li key={index} className='task'>
                                                     <Grid container >
                                                         <Grid item xs={10}><h3 id={n.title} >{n.title}</h3></Grid>
@@ -189,8 +194,11 @@ export default class Board extends Component {
                                                                 <MoreVertIcon id={index} onClick={this.handleClick} />
                                                             </IconButton>
                                                         </Grid>
+                                                        <Grid item>
+                                                        <p className='text' style={{ padding: '1px' }}>{n.text}</p>
+                                                        </Grid>
                                                     </Grid>
-                                                    <p style={{ padding: '1px' }}>{n.text}</p>
+                                                    
                                                 </li>)
                                         })}
                                     </div>

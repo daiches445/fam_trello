@@ -143,6 +143,8 @@ h3 {
       -ms-flex-direction: column;
           flex-direction: column;
   list-style: none;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   -ms-flex-negative: 0;
       flex-shrink: 0;
   width: 13vw;
@@ -150,6 +152,12 @@ h3 {
   background-color: rgba(102, 102, 102, 0.979);
   margin: 2px;
   border-radius: 5px;
+}
+
+.task .text {
+  width: 100%;
+  word-wrap: break-word;
+  background-color: aqua;
 }
 
 .task .info_dots_btn {
