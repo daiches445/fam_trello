@@ -112,12 +112,12 @@ class Register extends Component {
         let currentUser = this.props.app_data.users.find(user => user.username === this.state.user_name)
 
         if(currentUser === undefined){
-            let user = {user_name: this.state.user_name, password: this.state.password, fam_id: this.state.family_ID }
+            let user = {user_name: this.state.user_name,name:this.state.name, password: this.state.password, fam_id: this.state.family_ID }
             if(this.state.create_family){
                 if(currentFamily === undefined){
-                    let fam = {ID:this.state.family_ID, name:this.state.family_name}
-                    this.props.AddFamily(fam)
+                    let fam = {ID:this.state.family_ID, name:this.state.family_name,members:[{username:this.state.user_name,name:this.state.name}]}
                     this.props.sendUserToRegister(user)
+                    this.props.AddFamily(fam)
                     alert('Hi,'+this.state.name+' Welcome to the family.' )
                     this.props.history.push('/')
                 }

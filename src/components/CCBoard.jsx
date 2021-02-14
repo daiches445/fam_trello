@@ -9,18 +9,20 @@ import AlertDialog from './AlertDialog'
 import AlertDialogSlide from './AlertDialog';
 import FCAddNoteDialog from './AddNoteDialog'
 import EditAlertDialog from './EditAlertDialog'
+
+
 export default class Board extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            currentFamily: this.props.data.family,
-            currentMember: this.props.data.user,
+            currentFamily: this.props.data.family[this.props.data.fam_index],
+            currentMember: this.props.data.users[this.props.data.user_index],
+            user_notes: this.props.InitUserNotes,
             addNoteDisplay: '',
             options: [
                 'Delete',
                 // 'Info',
-
             ],
             anchorEl: '',
             open: false,
@@ -33,12 +35,24 @@ export default class Board extends Component {
         var ITEM_HEIGHT = 48;
         this.taskRef = React.createRef();
     }
+
+    GetUserNotes = (notes) => {
+        let user_notes = [];
+        notes.forEach(note => {
+            if (note.tagged.includes(this.state.currentMember.username))
+                user_notes.push(note)
+        });
+        return user_notes;
+    }
+
     getNoteToAdd = (note) => {
         this.props.sendNote(note)
     }
+
     getNoteToEdit = (note) => {
         this.props.editNote(note)
     }
+
     openOrCloseAddNote = () => {
         this.state.addNoteDisplay === '' ? this.setState({ addNoteDisplay: <FCAddNoteDialog sendNote={this.getNoteToAdd} exitFunc={this.openOrCloseAddNote} />, board_z_index: -1 }) : this.setState({ addNoteDisplay: '', board_z_index: 0 })
     }
@@ -66,7 +80,7 @@ export default class Board extends Component {
                 this.props.deleteTask(this.props.data.family.notes[this.state.currentTasksIndex])
                 break;
             case 'Info':
-                   
+
                 break;
             default:
                 break;
@@ -75,61 +89,51 @@ export default class Board extends Component {
     }
 
 
-
-
     render() {
         return (
             <div className='container' >
-                
-                {console.log(this.state)}
+                {console.log(this.state.currentFamily)}
                 <Paper style={{ zIndex: this.state.board_z_index }}>
                     <Grid container direction='column' spacing={3}>
 
                         <Grid item >
-                            <Grid container >
+                            <Grid container className='border_bottom'>
 
-                                <Grid item xs='2'>
-                               
-                                 <FCAddNoteDialog sendNote={this.getNoteToAdd} exitFunc={this.openOrCloseAddNote} />
+                                <Grid item xs='2' justify='center' align='center'>
+
+                                    <FCAddNoteDialog familyMembers = {this.state.currentFamily.members} sendNote={this.getNoteToAdd} exitFunc={this.openOrCloseAddNote} />
                                 </Grid>
                                 <Grid item xs='9' style={{ alignSelf: 'center', margin: '0px' }}>
-                                    <h1 style={{ alignSelf: 'center', margin: '0px' }}>welcome</h1></Grid>
+                                    <h1 style={{ alignSelf: 'center', margin: '0px',borderLeft:'2px solid black' ,paddingLeft:'1%'}}>welcome</h1></Grid>
                             </Grid>
                         </Grid>
 
                         <Grid item xs={12}>
                             <Grid container direction='row' >
-                                <Grid item xs="2" align='center'><h2>tasks</h2></Grid>
+                                <Grid item xs="2" align='center'><h2>my notes</h2></Grid>
                                 <Grid container direction='row' xs='9'>
                                     <div className='tasks_bar' >
-                                        {
-                                            this.props.data.family.notes.length === 0 ? "NO TASKS" :
-                                                this.props.data.family.notes.map((note, index) => (
-                                                    <li key={index} className='task'>
-                                                        <Grid container >
-                                                            <Grid item xs={10}><h3 id={note.title} >{note.title}</h3></Grid>
-                                                            <Grid item xs={2}>
-                                                                <IconButton
-                                                                    className='info_dots_btn'
-                                                                    aria-label="more"
-                                                                    aria-controls="long-menu"
-                                                                    aria-haspopup="true">
-                                                                    <MoreVertIcon id={index} onClick={this.handleClick} />
-                                                                </IconButton>
-                                                            </Grid>
+                                        {this.GetUserNotes(this.state.currentFamily.notes).map((n, index) => {
+                                            return (
+                                                <li key={index} className='task'>
+                                                    <Grid container >
+                                                        <Grid item xs={10}><h3 id={n.title} >{n.title}</h3></Grid>
+                                                        <Grid item xs={2}>
+                                                            <IconButton
+                                                                className='info_dots_btn'
+                                                                aria-label="more"
+                                                                aria-controls="long-menu"
+                                                                aria-haspopup="true">
+                                                                <MoreVertIcon id={index} onClick={this.handleClick} />
+                                                            </IconButton>
                                                         </Grid>
-                                                        
-                                                        <p style={{ padding: '1px' }}>
-                                                        {note.start_date!=undefined?note.start_date:""} -  {note.end_date!=undefined?note.end_date:""} 
-                                                        <br/>
-                                                            {note.text}
-                                                            </p>
-                                                    </li>
-                                                )
+                                                    </Grid>
+                                                    <p style={{ padding: '1px' }}>{n.text}</p>
+                                                </li>)
+                                        })
 
-                                                )
+
                                         }
-
                                         <Menu
                                             id="long-menu"
                                             anchorEl={this.state.anchorEl}
@@ -151,10 +155,10 @@ export default class Board extends Component {
 
                                             ))}
                                             <MenuItem>
-                                                <AlertDialog handleClose={() => this.setState({ open: false })} name="Info" info={this.props.data.family.notes[this.state.currentTasksIndex] === undefined ? "" : this.props.data.family.notes[this.state.currentTasksIndex]}></AlertDialog>
+                                                <AlertDialog handleClose={() => this.setState({ open: false })} name="Info" info={this.state.currentFamily.notes[this.state.currentTasksIndex] === undefined ? "" : this.state.currentFamily.notes[this.state.currentTasksIndex]}></AlertDialog>
                                             </MenuItem>
                                             <MenuItem>
-                                            <EditAlertDialog note = {this.props.data.family.notes[this.state.currentTasksIndex]} sendNote={this.getNoteToAdd} getNoteToEdit1 = {this.getNoteToEdit} exitFunc={this.openOrCloseAddNote} />
+                                                <EditAlertDialog note={this.state.currentFamily.notes[this.state.currentTasksIndex]} sendNote={this.getNoteToAdd} getNoteToEdit1={this.getNoteToEdit} exitFunc={this.openOrCloseAddNote} />
                                             </MenuItem>
                                         </Menu>
                                     </div>
@@ -167,18 +171,28 @@ export default class Board extends Component {
 
                         <Grid item xs={12}>
                             <Grid container direction='row' > {/* third line ,tasks */}
-                                <Grid item xs="2" align='center'><h2>my tasks</h2></Grid>
+                                <Grid item xs="2" align='center'><h2>family notes</h2></Grid>
                                 <Grid container direction='row' xs='9'> {/* tasks container*/}
                                     {/*map function*/}
                                     <div className='tasks_bar' >
-                                        <li className='task'><h3>title</h3>task</li>
-                                        <li className='task'><h3>title</h3>task</li>
-                                        <li className='task'><h3>title</h3>task</li>
-                                        <li className='task'><h3>title</h3>task</li>
-                                        <li className='task'><h3>title</h3>task</li>
-                                        <li className='task'><h3>title</h3>task</li>
-                                        <li className='task'><h3>title</h3>task</li>
-                                        <li className='task'><h3>title</h3>task</li>
+                                        {this.state.currentFamily.notes.map((n,index)=>{
+                                            return(
+                                                <li key={index} className='task'>
+                                                    <Grid container >
+                                                        <Grid item xs={10}><h3 id={n.title} >{n.title}</h3></Grid>
+                                                        <Grid item xs={2}>
+                                                            <IconButton
+                                                                className='info_dots_btn'
+                                                                aria-label="more"
+                                                                aria-controls="long-menu"
+                                                                aria-haspopup="true">
+                                                                <MoreVertIcon id={index} onClick={this.handleClick} />
+                                                            </IconButton>
+                                                        </Grid>
+                                                    </Grid>
+                                                    <p style={{ padding: '1px' }}>{n.text}</p>
+                                                </li>)
+                                        })}
                                     </div>
                                 </Grid>
                             </Grid>
@@ -190,7 +204,7 @@ export default class Board extends Component {
 
                         <Grid item xs={12}>
                             <Grid container direction='row'>
-                                <Grid item xs="2" align='center'><h2>finished tasks</h2></Grid>
+                                <Grid item xs="2" align='center'><h2>history</h2></Grid>
                                 <Grid container direction='row' xs='9'> {/* tasks container*/}
                                     {/*map function*/}
                                     <div className='tasks_bar' >

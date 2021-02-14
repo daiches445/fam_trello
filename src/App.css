@@ -36,7 +36,7 @@ header {
   width: 100%;
   -webkit-box-shadow: black 0px 5px 12px;
           box-shadow: black 0px 5px 12px;
-  background-color: rgba(250, 235, 215, 0.767);
+  background-color: rgba(0, 183, 255, 0.048);
   border-radius: 5px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -48,8 +48,9 @@ header {
       align-content: flex-end;
 }
 
-body {
-  width: 100%;
+.border_bottom {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.425);
+  border-bottom-left-radius: 5px;
 }
 
 h1 {
@@ -99,7 +100,6 @@ h3 {
   margin: 1%;
   width: 100%;
   min-height: 300px;
-  max-width: 1600px;
   min-width: 300px;
   border: #383333 solid 1px;
   border-radius: 5px;
@@ -115,7 +115,6 @@ h3 {
 }
 
 .tasks_bar {
-  background-color: #646464;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -148,8 +147,8 @@ h3 {
       flex-shrink: 0;
   width: 13vw;
   height: 17vh;
-  background-color: rgba(235, 223, 223, 0.479);
-  margin: 1px;
+  background-color: rgba(102, 102, 102, 0.979);
+  margin: 2px;
   border-radius: 5px;
 }
 
