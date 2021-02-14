@@ -18,7 +18,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Tooltip from '@material-ui/core/Tooltip';
 import TitleAlert from './TitleAlert'
-import DatesAlert from './DatesAlert'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -67,6 +66,7 @@ export default function FullScreenDialog(props) {
 
     return (
         <div >
+            {console.log(props.members)}
             <Tooltip title="Add Task" style={{ border: 'none' }}>
 
                 <Button variant="outlined" color="primary" onClick={handleClickOpen}>

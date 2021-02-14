@@ -51,9 +51,8 @@ class App extends Component {
     let family = this.state.family
     
     let famIndex = this.state.family.findIndex(fam=>fam.ID === user.fam_id)
-    console.log(famIndex);
     family[famIndex].members.push(user)
-    usersArray.push({ username: user.user_name,name:user.name, password: user.password, fam_id: user.fam_id })
+    usersArray.push({ username: user.username,name:user.name, password: user.password, fam_id: user.fam_id })
    
     this.setState({ users: usersArray ,family:family})
   }

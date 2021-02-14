@@ -1,13 +1,10 @@
 import { Grid, IconButton, Paper, Divider, Button } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/Check';
-import PostAddIcon from '@material-ui/icons/PostAdd';
 import React, { Component } from 'react'
-import FCAddNote from './FCAddNote';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import AlertDialog from './AlertDialog'
-import AlertDialogSlide from './AlertDialog';
 import FCAddNoteDialog from './AddNoteDialog'
 import EditAlertDialog from './EditAlertDialog'
 
@@ -85,7 +82,7 @@ export default class Board extends Component {
     handleClose = (e) => {
 
         this.setAnchorEl(null);
-        let index = this.state.currentFamily.notes.findIndex(n => n.created == this.state.currentTasksID)
+        let index = this.state.currentFamily.notes.findIndex(n => n.created === this.state.currentTasksID)
         console.log(index);
         console.log(this.state.currentTasksID);
         console.log(e.target.innerText);
@@ -97,16 +94,6 @@ export default class Board extends Component {
         this.setState({ open: false })
     }
 
-    GetInfo = () => {
-
-        // if(this.state.finishedTaskID !== undefined){
-        //    console.log("fin")
-        //     return(<AlertDialog handleClose={() => this.setState({ open: false })} name="Info" info={this.state.currentFamily.finished_notes[this.state.finishedTaskID]}></AlertDialog> ) 
-        // }
-        // else
-        //     return (<AlertDialog handleClose={() => this.setState({ open: false })} name="Info" info={ this.state.currentFamily.notes[this.state.currentTaskIndex] === undefined ? "" : this.state.currentFamily.notes[this.state.currentTaskIndex]}></AlertDialog>  )
-
-    }
 
     render() {
         return (
@@ -123,7 +110,7 @@ export default class Board extends Component {
                                     <FCAddNoteDialog members={this.state.currentFamily.members} sendNote={this.getNoteToAdd} exitFunc={this.openOrCloseAddNote} />
                                 </Grid>
                                 <Grid item xs='9' style={{ alignSelf: 'center', margin: '0px' }}>
-                                    <h1 style={{ alignSelf: 'center', margin: '0px', borderLeft: '2px solid black', paddingLeft: '1%' }}>welcome, {this.state.currentMember.username}</h1></Grid>
+                                    <h1 style={{ alignSelf: 'center', margin: '0px', borderLeft: '2px solid black', paddingLeft: '1%' }}>welcome, {this.state.currentMember.name}</h1></Grid>
                             </Grid>
                         </Grid>
 
@@ -181,6 +168,7 @@ export default class Board extends Component {
                                                 <Button disabled={this.state.btnDisabled} color="primary" id='delete' onClick={this.handleClose} >delete</Button>
                                             </MenuItem>
                                             <MenuItem>
+                                            {console.log(this.state)}
                                                 {this.state.finishedTaskID === undefined ? <AlertDialog handleClose={() => this.setState({ open: false })} name="Info" info={this.state.currentFamily.notes[this.state.currentTaskIndex] === undefined ? "" : this.state.currentFamily.notes[this.state.currentTaskIndex]}></AlertDialog>
 
 

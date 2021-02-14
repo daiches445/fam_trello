@@ -13,12 +13,15 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 
 export default function AlertDialogSlide(props) {
+
   const [open, setOpen] = React.useState(false);
   const name = React.useState(props.name)
  
   
   const handleClickOpen = () => {
+    
     setOpen(true);
+    console.log(props);
   };
 
   const handleClose = () => {
@@ -31,7 +34,8 @@ export default function AlertDialogSlide(props) {
       <Button color="primary" onClick={handleClickOpen}>
         {name}
       </Button>
-      {props.info.title === "" ? "":
+      {console.log(props)}
+      {props.info.title === undefined ? "":
       <Dialog
         open={open}
         TransitionComponent={Transition}
@@ -43,12 +47,7 @@ export default function AlertDialogSlide(props) {
         <DialogTitle id="alert-dialog-slide-title">{props.info.title} </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            <h2 style={{fontSize:'1.2ch'}}>Desc</h2>{props.info.text}<br/>
-            <h2 style={{fontSize:'1.2ch'}}>Users Tagged</h2>{props.info.tagged === undefined ? "NO USERS TAGGED" : props.info.tagged.map((user,index)=>index != 0 ? ", " + user.name:user.name)}<br/>
-            {console.log(props.info.tagged)}
-            <h2 style={{fontSize:'1.2ch'}}>Date Created</h2> {props.info.created}<br/>
-           
-
+            <b>desc: </b> {props.info.text} <br/>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
