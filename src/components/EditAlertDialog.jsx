@@ -88,9 +88,10 @@ export default function  FullScreenDialog(props)   {
             </Button>
                     </Toolbar>
                 </AppBar>
+                {props.note === undefined ? "":
                 <List style={{ marginTop: '-5%' }}>
                     <ListItem button>
-                        <TitleAlert info={props.note.title === "" ? noteTitle : props.note.title} sendTitle={(val) => setTitle(val)}></TitleAlert>
+                        <TitleAlert info={props.note === "" ? noteTitle : props.note.title} sendTitle={(val) => setTitle(val)}></TitleAlert>
 
                     </ListItem>
                     <Divider />
@@ -149,8 +150,9 @@ export default function  FullScreenDialog(props)   {
                     </ListItem>
                  
                 </List>
-
+            }
             </Dialog>
+            
         </div>
     );
 }

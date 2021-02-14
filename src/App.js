@@ -23,6 +23,7 @@ class App extends Component {
           {username:'guy1',name:'guy',age:'13',role:'son'},
           {username:'guy2',name:'guy',age:'18',role:'son'}
         ],
+        //we can just go over family and check name not username whats the odds families will have 2 persons with the same name?
         notes: [
           { title: 'hello1' ,created:'1-2-2020', text: 'asdad1',tagged:['guy2']},
           { title: 'hello2',created:'1-2-2020', text: 'asdad2',tagged:['guy2']},

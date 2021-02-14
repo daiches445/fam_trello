@@ -31,6 +31,7 @@ export default function AlertDialogSlide(props) {
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
         {name}
       </Button>
+      {props.info.title === "" ? "":
       <Dialog
         open={open}
         TransitionComponent={Transition}
@@ -56,6 +57,7 @@ export default function AlertDialogSlide(props) {
           </Button>
         </DialogActions>
       </Dialog>
+      }
     </div>
   );
 }
