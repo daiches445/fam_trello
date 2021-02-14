@@ -68,12 +68,12 @@ export default function  FullScreenDialog(props)   {
 
     return (
         <div>
-            <Tooltip title="Add Task">
+  
 
                 <Button variant="outlined" color="primary" onClick={handleClickOpen}>
                     Edit
                 </Button>
-            </Tooltip>
+           
             <Dialog fullScreen open={openFull} onClose={handleClose} TransitionComponent={Transition}>
                 <AppBar style={{ minHeight: "0", marginTop: '-2%', right: '1%' }} className={classes.appBar}>
                     <Toolbar>
