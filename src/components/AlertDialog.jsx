@@ -28,7 +28,7 @@ export default function AlertDialogSlide(props) {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <Button color="primary" onClick={handleClickOpen}>
         {name}
       </Button>
       {props.info.title === "" ? "":

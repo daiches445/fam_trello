@@ -26,7 +26,7 @@ export default class Board extends Component {
             ],
             anchorEl: '',
             open: false,
-            currentTasksIndex: 0,
+            currentTasksID:'',
             board_z_index: 0
 
         }
@@ -39,8 +39,10 @@ export default class Board extends Component {
     GetUserNotes = (notes) => {
         let user_notes = [];
         notes.forEach(note => {
-            if (note.tagged.includes(this.state.currentMember.username))
-                user_notes.push(note)
+            note.tagged.forEach(t => {
+                if (t.username === this.state.currentMember.username)
+                    user_notes.push(note)
+            })
         });
         return user_notes;
     }
@@ -61,38 +63,30 @@ export default class Board extends Component {
         this.setState({ anchorEl: data })
     }
 
-    handleClick = async (event) => {
+    handleClick =(event) => {
         this.setAnchorEl(event.currentTarget);
         this.setState({ open: !this.state.open })
-        await this.setState({ currentTasksIndex: event.target.id })
-
-        console.log(this.state.currentTasksIndex);
+        this.setState({ currentTasksID: event.target.id })
     };
 
     handleClose = (e) => {
-        console.log(e.target.title)
-        console.log(this.taskRef.current);
+
         this.setAnchorEl(null);
-        this.setState({ open: false, currentTasksIndex: 0 })
+        let index = this.state.currentFamily.notes.findIndex(n => n.created == this.state.currentTasksID)
+        console.log(index);
+        console.log(this.state.currentTasksID);
+        console.log(e.target.innerText);
 
-        switch (e.target.id) {
-            case 'Delete':
-                this.props.deleteTask(this.state.currentFamily.notes[this.state.currentTasksIndex])
-                break;
-            case 'Info':
-
-                break;
-            default:
-                break;
+        if (e.target.id === 'delete') {
+            this.props.deleteTask(index)
         }
-
+        this.setState({ open: false})
     }
 
 
     render() {
         return (
             <div className='container' >
-                {console.log(this.state.currentFamily)}
                 <Paper style={{ zIndex: this.state.board_z_index }}>
                     <Grid container direction='column' spacing={3}>
 
@@ -113,39 +107,28 @@ export default class Board extends Component {
                                 <Grid item xs="2" align='center'><h2>my notes</h2></Grid>
                                 <Grid container direction='row' xs='9'>
                                     <div className='tasks_bar' >
-                                        {console.log(this.state.currentFamily)}
-                                        {this.state.currentFamily.notes.forEach((n,index)=>{
-                                           n.tagged.map((u)=>{
-                                              
-                                           })
-                                        })}
-                                        {this.state.currentFamily.notes.map((n, index) =>
-                                            n.tagged.includes(this.state.currentFamily.username) === false ? "" :
-                                                <li key={index} className='task'>
-
-                                                    <Grid container >
-                                                        <Grid item xs={10}>
-                                                            <h3 id={n.title} >{n.title}</h3>
-                                                        </Grid>
-                                                        <Grid item xs={2}>
-                                                            <IconButton
-                                                                className='info_dots_btn'
-                                                                aria-label="more"
-                                                                aria-controls="long-menu"
-                                                                aria-haspopup="true">
-                                                                <MoreVertIcon id={index} onClick={this.handleClick} />
-                                                            </IconButton>
-                                                        </Grid>
-                                                        <Grid item className='text'>
-                                                            <p style={{ backgroundColor: 'red', color: 'red' }} style={{ padding: '1px' }}>{n.text}</p>
-                                                        </Grid>
+                                        {(this.GetUserNotes(this.state.currentFamily.notes)).map((n, index) =>
+                                            <li key={index} className='task'>
+                                                <Grid container >
+                                                    <Grid item xs={10}><h3 id={n.title} >{n.title}</h3></Grid>
+                                                    <Grid item xs={2}>
+                                                        <IconButton
+                                                            className='info_dots_btn'
+                                                            aria-label="more"
+                                                            aria-controls="long-menu"
+                                                            aria-haspopup="true">
+                                                            <MoreVertIcon id={n.created} onClick={this.handleClick} />
+                                                        </IconButton>
                                                     </Grid>
+                                                    <Grid item>
+                                                        <p className='text' style={{ padding: '1px' }}>{n.text}</p>
+                                                        <p>{n.tagged.map(user => user.name)}</p>
+                                                    </Grid>
+                                                </Grid>
 
-                                                </li>
-                                        )
+                                            </li>
+                                        )}
 
-
-                                        }
                                         <Menu
                                             id="long-menu"
                                             anchorEl={this.state.anchorEl}
@@ -159,13 +142,9 @@ export default class Board extends Component {
                                                 },
                                             }}
                                         >
-                                            {this.state.options.map((option) => (
-                                                <MenuItem key={option} id={option} onClick={this.handleClose}>
-
-                                                    {option}
-                                                </MenuItem>
-
-                                            ))}
+                                            <MenuItem>
+                                                <Button color="primary" id = 'delete' onClick={this.handleClose} >delete</Button>
+                                            </MenuItem>
                                             <MenuItem>
                                                 <AlertDialog handleClose={() => this.setState({ open: false })} name="Info" info={this.state.currentFamily.notes[this.state.currentTasksIndex] === undefined ? "" : this.state.currentFamily.notes[this.state.currentTasksIndex]}></AlertDialog>
                                             </MenuItem>
@@ -198,7 +177,7 @@ export default class Board extends Component {
                                                                 aria-label="more"
                                                                 aria-controls="long-menu"
                                                                 aria-haspopup="true">
-                                                                <MoreVertIcon id={index} onClick={this.handleClick} />
+                                                                <MoreVertIcon id={n.created} onClick={this.handleClick} />
                                                             </IconButton>
                                                         </Grid>
                                                         <Grid item>

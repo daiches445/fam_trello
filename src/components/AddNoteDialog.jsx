@@ -78,7 +78,6 @@ export default function FullScreenDialog(props) {
 
 
             <Dialog open={openFull} onClose={handleClose} TransitionComponent={Transition} >
-                {console.log(props.members)}
                 <AppBar style={{ minHeight: "0", marginTop: '-2%', right: '1%' }} className={classes.appBar}>
                     <Toolbar>
                         <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">

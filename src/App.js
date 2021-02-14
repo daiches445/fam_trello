@@ -24,10 +24,10 @@ class App extends Component {
         ],
         //we can just go over family and check name not username whats the odds families will have 2 persons with the same name?
         notes: [
-          { title: 'hello1',created:'1-2-2020', text: 'asdad1',tagged:[{uesrname:'avi2',name:"avi"}]},
-          { title: 'hello2',created:'1-2-2020', text: 'asdad2',tagged:[{uesrname:'avi2',name:"avi"}]},
-          { title: 'hello3',created:'1-2-2020', text: 'asdad3',tagged:[{uesrname:'guy1',name:"guy"}]},
-          { title: 'hello4',created:'1-2-2020', text: 'asdad4',tagged:[{uesrname:'guy1',name:"guy"}]}
+          { title: 'hello1',created:'1-2-2020', text: 'asdad1',tagged:[{username:'avi2',name:"avi"}]},
+          { title: 'hello2',created:'2-2-2020', text: 'asdad2',tagged:[{username:'avi2',name:"avi"}]},
+          { title: 'hello3',created:'3-2-2020', text: 'asdad3',tagged:[{username:'guy1',name:"guy"}]},
+          { title: 'hello4',created:'4-2-2020', text: 'asdad4',tagged:[{username:'guy1',name:"guy"}]}
         ],
         finished_notes:[ { title: 'hello' ,created:'1-2-2020', text: 'asdad1',tagged:[{username:'guy1'}]}]
       }
@@ -63,14 +63,15 @@ class App extends Component {
     this.setState({family:famArr})
   }
 
- catchNoteToDelete=(note)=>{
-   console.log(note);
-  let families = this.state.family
-  let family = families[this.state.fam_index]
-  family.notes = family.notes.filter(singleNote=>singleNote.created != note.created)
-  families[this.state.fam_index] = family
-  console.log(family);
-  this.setState({family:families})
+ catchNoteToDelete=(index)=>{
+
+    let families = this.state.family
+    let current_family = families[this.state.fam_index]
+    current_family.notes.splice(index,1)
+    console.log(current_family);
+    families[this.state.fam_index] = current_family
+    this.setState({family:families})
+
   }
 
   SetCurrentUser=(user)=>{

@@ -70,7 +70,7 @@ export default function  FullScreenDialog(props)   {
     return (
         <div>
   
-                <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+                <Button color="primary" onClick={handleClickOpen}>
                     Edit
                 </Button>
            
