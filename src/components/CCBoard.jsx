@@ -1,4 +1,5 @@
 import { Grid, IconButton, Paper, Divider, Button } from '@material-ui/core';
+import CheckIcon from '@material-ui/icons/Check';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import React, { Component } from 'react'
 import FCAddNote from './FCAddNote';
@@ -27,7 +28,7 @@ export default class Board extends Component {
             anchorEl: '',
             open: false,
             currentTasksID: '',
-            finishedTaskID:'',
+            finishedTaskID: '',
             board_z_index: 0,
             btnDisabled: true
 
@@ -76,7 +77,7 @@ export default class Board extends Component {
         this.setAnchorEl(event.currentTarget);
         console.log(event.target.dataset.index);
         let index = this.state.currentFamily.notes.findIndex(n => n.created == event.target.id)
-        this.setState({ currentTasksID: event.target.id, open: !this.state.open, currentTaskIndex: index, btnDisabled: btnDis ,finishedTaskID:event.target.dataset.index})
+        this.setState({ currentTasksID: event.target.id, open: !this.state.open, currentTaskIndex: index, btnDisabled: btnDis, finishedTaskID: event.target.dataset.index })
 
     };
 
@@ -95,8 +96,8 @@ export default class Board extends Component {
         this.setState({ open: false })
     }
 
-    GetInfo=()=>{
-        
+    GetInfo = () => {
+
         // if(this.state.finishedTaskID !== undefined){
         //    console.log("fin")
         //     return(<AlertDialog handleClose={() => this.setState({ open: false })} name="Info" info={this.state.currentFamily.finished_notes[this.state.finishedTaskID]}></AlertDialog> ) 
@@ -128,12 +129,12 @@ export default class Board extends Component {
                         <Grid item xs={12}>
                             <Grid container direction='row' >
                                 <Grid item xs="2" align='center'><h2>my notes</h2></Grid>
-                                <Grid container direction='row' xs='10' style={{borderLeft:'solid black 1px'}}>
+                                <Grid container direction='row' xs='10' style={{ borderLeft: 'solid black 1px',overflowY:'hidden' }}>
                                     <div className='tasks_bar' >
                                         {(this.GetUserNotes(this.state.currentFamily.notes)).map((n, index) =>
                                             <li key={index} className='task'>
                                                 <Grid container >
-                                                    <Grid item xs={11}><h3 id={n.title} style={{borderBottom:'solid black 1px'}} >{n.title}</h3></Grid>
+                                                    <Grid item xs={11}><h3 id={n.title} style={{ borderBottom: 'solid black 1px' }} >{n.title}</h3></Grid>
                                                     <Grid item xs={1}>
                                                         <IconButton
                                                             className='info_dots_btn'
@@ -147,14 +148,13 @@ export default class Board extends Component {
                                                         <p className='text'>{n.text}</p>
                                                     </Grid>
                                                     <Grid item>
-                                                        <Grid container alignItems='center'>
+                                                        <Grid container alignItems='center' spacing={1}>
                                                             <Grid item xs={11} >
-                                                                <p>{n.tagged.map((user,index) => index === 0?user.name:user.name+',')}</p>
-
+                                                                <p className="h2_font">{n.tagged.map((user, index) => index === 0 ? user.name : user.name + ',')}</p>
                                                             </Grid>
                                                             <Grid item xs={1}>
                                                                 <Button onClick={() => this.props.moveNoteToFinished(this.state.currentTaskIndex !== undefined ? this.state.currentTaskIndex : 0)}>
-                                                                    V
+                                                                    <CheckIcon></CheckIcon>
                                                                 </Button>
                                                             </Grid>
                                                         </Grid>
@@ -180,10 +180,10 @@ export default class Board extends Component {
                                                 <Button disabled={this.state.btnDisabled} color="primary" id='delete' onClick={this.handleClose} >delete</Button>
                                             </MenuItem>
                                             <MenuItem>
-                                                {this.state.finishedTaskID === undefined?<AlertDialog handleClose={() => this.setState({ open: false })} name="Info"  info={ this.state.currentFamily.notes[this.state.currentTaskIndex] === undefined ? "" : this.state.currentFamily.notes[this.state.currentTaskIndex]}></AlertDialog> 
- 
- 
-                                                :<AlertDialog handleClose={() => this.setState({ open: false })} name="Info" info={this.state.currentFamily.finished_notes[this.state.finishedTaskID] === undefined?'':this.state.currentFamily.finished_notes[this.state.finishedTaskID]}></AlertDialog>}
+                                                {this.state.finishedTaskID === undefined ? <AlertDialog handleClose={() => this.setState({ open: false })} name="Info" info={this.state.currentFamily.notes[this.state.currentTaskIndex] === undefined ? "" : this.state.currentFamily.notes[this.state.currentTaskIndex]}></AlertDialog>
+
+
+                                                    : <AlertDialog handleClose={() => this.setState({ open: false })} name="Info" info={this.state.currentFamily.finished_notes[this.state.finishedTaskID] === undefined ? '' : this.state.currentFamily.finished_notes[this.state.finishedTaskID]}></AlertDialog>}
                                             </MenuItem>
                                             <MenuItem>
                                                 <EditAlertDialog disabled1={this.state.btnDisabled} note={this.state.currentFamily.notes[this.state.currentTaskIndex !== undefined ? this.state.currentTaskIndex : 0]} sendNote={this.getNoteToAdd} getNoteToEdit1={this.getNoteToEdit} exitFunc={this.openOrCloseAddNote} family={this.state.currentFamily} />
@@ -197,17 +197,17 @@ export default class Board extends Component {
 
                         <Divider></Divider>
 
-                        <Grid item xs={12}>
+                        <Grid item xs={12} >
                             <Grid container direction='row' > {/* third line ,tasks */}
                                 <Grid item xs="2" align='center'><h2>family notes</h2></Grid>
-                                <Grid container direction='row' xs='10' style={{borderLeft:'solid black 1px'}}> {/* tasks container*/}
+                                <Grid container direction='row' xs='10' style={{ borderLeft: 'solid black 1px' }}> {/* tasks container*/}
                                     {/*map function*/}
                                     <div className='tasks_bar' >
                                         {this.state.currentFamily.notes.map((n, index) => {
                                             return (
                                                 <li key={index} className='task'>
                                                     <Grid container >
-                                                        <Grid item xs={10}><h3 id={n.title} style={{borderBottom:'solid black 1px'}} >{n.title}</h3></Grid>
+                                                        <Grid item xs={10}><h3 id={n.title} style={{ borderBottom: 'solid black 1px' }} >{n.title}</h3></Grid>
                                                         <Grid item xs={2}>
                                                             <IconButton
                                                                 className='info_dots_btn'
@@ -218,12 +218,21 @@ export default class Board extends Component {
                                                             </IconButton>
                                                         </Grid>
                                                         <Grid item xs={12}>
-                                                            <p className='text' style={{ padding: '1px' }}>{n.text}</p>
-                                                        </Grid>
-                                                        <Grid item>
-                                                            <p>{n.tagged.map(user => user.name)}</p>
+                                                        <p className='text'>{n.text}</p>
+                                                    </Grid>
+                                                    <Grid item>
+                                                        <Grid container alignItems='center' spacing={1}>
+                                                            <Grid item xs={11} >
+                                                                <p className="h2_font">{n.tagged.map((user, index) => index === 0 ? user.name : user.name + ',')}</p>
+                                                            </Grid>
+                                                            <Grid item xs={1}>
+                                                                <Button onClick={() => this.props.moveNoteToFinished(this.state.currentTaskIndex !== undefined ? this.state.currentTaskIndex : 0)}>
+                                                                    <CheckIcon></CheckIcon>
+                                                                </Button>
+                                                            </Grid>
                                                         </Grid>
                                                     </Grid>
+                                                </Grid>
 
                                                 </li>)
                                         })}
@@ -239,14 +248,14 @@ export default class Board extends Component {
                         <Grid item xs={12}>
                             <Grid container direction='row'>
                                 <Grid item xs="2" align='center'><h2>history</h2></Grid>
-                                <Grid container direction='row' xs='9' style={{borderLeft:'solid black 1px'}} > {/* tasks container*/}
+                                <Grid container direction='row' xs='9' style={{ borderLeft: 'solid black 1px' }} > {/* tasks container*/}
                                     <div className='tasks_bar' >
                                         {this.state.currentFamily.finished_notes.map((n, index) => {
 
                                             return (
                                                 <li key={index} className='task'>
                                                     <Grid container >
-                                                        <Grid item xs={10}><h3 id={n.title} style={{borderBottom:'solid black 1px'}} >{n.title}</h3></Grid>
+                                                        <Grid item xs={10}><h3 id={n.title} style={{ borderBottom: 'solid black 1px' }} >{n.title}</h3></Grid>
                                                         <Grid item xs={2}>
                                                             <IconButton
                                                                 className='info_dots_btn'
@@ -256,9 +265,8 @@ export default class Board extends Component {
                                                                 <MoreVertIcon id="history" data-index={index} onClick={this.handleClick} />
                                                             </IconButton>
                                                         </Grid>
-                                                        <Grid item xs={12}> 
+                                                        <Grid item xs={12}>
                                                             <p className='text' style={{ padding: '1px' }}>{n.text}</p>
-
                                                         </Grid>
                                                         <Grid item>
                                                             <p>{n.tagged.map(user => user.name)}</p>

@@ -73,6 +73,12 @@ h2 {
   }
 }
 
+.h2_font{
+  font-family: 'Sunday Best';
+  font-size: 1.5ch;
+
+}
+
 h3 {
   font-family: 'Sunday Best';
   font-size: 1.3ch;
@@ -124,7 +130,7 @@ h3 {
 
   display: flex;
   flex-wrap: nowrap;
-  overflow: auto;
+  overflow: scroll;
   height: 100%;
   border-radius: 5px;
 
