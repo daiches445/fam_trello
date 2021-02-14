@@ -48,8 +48,14 @@ class App extends Component {
 
   catchUserToRegister = (user) => {
     let usersArray = this.state.users
+    let family = this.state.family
+    
+    let famIndex = this.state.family.findIndex(fam=>fam.ID === user.fam_id)
+    console.log(famIndex);
+    family[famIndex].members.push(user)
     usersArray.push({ username: user.user_name,name:user.name, password: user.password, fam_id: user.fam_id })
-    this.setState({ users: usersArray })
+   
+    this.setState({ users: usersArray ,family:family})
   }
 
   AddFamily = (fam)=>{
@@ -57,9 +63,11 @@ class App extends Component {
     famArr.push({
       ID:fam.ID,
       name:fam.name,
-      members:fam.members,
-      notes:[{title:'Welcome to FamTrello',text:'take out the trash!',tagged:[fam.members[0].username]}]})
-
+      members:[],
+      notes:[{title:'Welcome to FamTrello',text:'take out the trash!',tagged:[fam.members[0].username]}]
+      ,finished_notes:[]
+    })
+     
     this.setState({family:famArr})
   }
 

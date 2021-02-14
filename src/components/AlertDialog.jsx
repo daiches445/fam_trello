@@ -40,12 +40,15 @@ export default function AlertDialogSlide(props) {
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle id="alert-dialog-slide-title">{props.info.title}</DialogTitle>
+        <DialogTitle id="alert-dialog-slide-title">{props.info.title} </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-          {props.info.start_date!="" ? props.info.start_date:""} -     {props.info.end_date!="" ? props.info.start_date:""}<br/>
-            {props.info.text}<br/>
-            {props.info.tagged_users === undefined ? "" : props.info.tagged_users.map((user,index)=>index != 0 ? ", " + user:user)}
+            <h2 style={{fontSize:'1.2ch'}}>Desc</h2>{props.info.text}<br/>
+            <h2 style={{fontSize:'1.2ch'}}>Users Tagged</h2>{props.info.tagged === undefined ? "NO USERS TAGGED" : props.info.tagged.map((user,index)=>index != 0 ? ", " + user.name:user.name)}<br/>
+            {console.log(props.info.tagged)}
+            <h2 style={{fontSize:'1.2ch'}}>Date Created</h2> {props.info.created}<br/>
+           
+
           </DialogContentText>
         </DialogContent>
         <DialogActions>

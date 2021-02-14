@@ -80,7 +80,6 @@ class Register extends Component {
 
     Register = () => {
 
-        debugger
         if(this.state.user_name.length < 2){
             this.setState({error_username:'invalid user'})
             return
@@ -116,8 +115,8 @@ class Register extends Component {
             if(this.state.create_family){
                 if(currentFamily === undefined){
                     let fam = {ID:this.state.family_ID, name:this.state.family_name,members:[{username:this.state.user_name,name:this.state.name}]}
-                    this.props.sendUserToRegister(user)
                     this.props.AddFamily(fam)
+                    this.props.sendUserToRegister(user)
                     alert('Hi,'+this.state.name+' Welcome to the family.' )
                     this.props.history.push('/')
                 }
@@ -135,6 +134,7 @@ class Register extends Component {
                     alert('Hi,'+this.state.name+' Welcome to the family.' )
                     this.props.sendUserToRegister(user)
                     this.props.history.push('/')
+
 
                 }
             }

@@ -28,7 +28,7 @@
 html {
   background: #491c0b;
   background: linear-gradient(128deg, #491c0b 0%, #b02b26 62%, #d13d1c 100%);
-  height: 100%;
+  overflow: hidden;
 }
 
 header {
@@ -124,7 +124,6 @@ h3 {
   display: flex;
   -ms-flex-wrap: nowrap;
       flex-wrap: nowrap;
-  overflow: scroll;
   height: 100%;
   border-radius: 5px;
 }

@@ -40,6 +40,7 @@ export default class Board extends Component {
     }
 
     GetUserNotes = (notes) => {
+        console.log(notes)
         let user_notes = [];
         notes.forEach(note => {
             note.tagged.forEach(t => {
@@ -114,7 +115,7 @@ export default class Board extends Component {
                 <Paper style={{ zIndex: this.state.board_z_index }}>
                     <Grid container direction='column' spacing={7} >
 
-                        <Grid item >
+                        <Grid item style={{paddingBottom:'0px'}} >
                             <Grid container className='border_bottom'>
 
                                 <Grid item xs='2' justify='center' align='center'>
@@ -122,7 +123,7 @@ export default class Board extends Component {
                                     <FCAddNoteDialog members={this.state.currentFamily.members} sendNote={this.getNoteToAdd} exitFunc={this.openOrCloseAddNote} />
                                 </Grid>
                                 <Grid item xs='9' style={{ alignSelf: 'center', margin: '0px' }}>
-                                    <h1 style={{ alignSelf: 'center', margin: '0px', borderLeft: '2px solid black', paddingLeft: '1%' }}>welcome</h1></Grid>
+                                    <h1 style={{ alignSelf: 'center', margin: '0px', borderLeft: '2px solid black', paddingLeft: '1%' }}>welcome, {this.state.currentMember.username}</h1></Grid>
                             </Grid>
                         </Grid>
 
@@ -134,7 +135,7 @@ export default class Board extends Component {
                                         {(this.GetUserNotes(this.state.currentFamily.notes)).map((n, index) =>
                                             <li key={index} className='task'>
                                                 <Grid container >
-                                                    <Grid item xs={11}><h3 id={n.title} style={{ borderBottom: 'solid black 1px' }} >{n.title}</h3></Grid>
+                                                    <Grid item xs={11}><h3 id={n.title} style={{ borderBottom: 'solid black 1px',overflowY:'hidden' }} >{n.title}</h3></Grid>
                                                     <Grid item xs={1}>
                                                         <IconButton
                                                             className='info_dots_btn'
@@ -150,11 +151,11 @@ export default class Board extends Component {
                                                     <Grid item>
                                                         <Grid container alignItems='center' spacing={1}>
                                                             <Grid item xs={11} >
-                                                                <p className="h2_font">{n.tagged.map((user, index) => index === 0 ? user.name : user.name + ',')}</p>
+                                                                <p className="h2_font">{n.tagged.map((user, index) => index === 0 ? user.name : ', ' + user.name )}</p>
                                                             </Grid>
                                                             <Grid item xs={1}>
                                                                 <Button onClick={() => this.props.moveNoteToFinished(this.state.currentTaskIndex !== undefined ? this.state.currentTaskIndex : 0)}>
-                                                                    <CheckIcon></CheckIcon>
+                                                                    <CheckIcon style={{color:'#3ab3ea'}}></CheckIcon>
                                                                 </Button>
                                                             </Grid>
                                                         </Grid>
@@ -223,11 +224,11 @@ export default class Board extends Component {
                                                     <Grid item>
                                                         <Grid container alignItems='center' spacing={1}>
                                                             <Grid item xs={11} >
-                                                                <p className="h2_font">{n.tagged.map((user, index) => index === 0 ? user.name : user.name + ',')}</p>
+                                                                <p className="h2_font">{n.tagged.map((user, index) => index === 0 ? user.name : ', ' + user.name)}</p>
                                                             </Grid>
                                                             <Grid item xs={1}>
                                                                 <Button onClick={() => this.props.moveNoteToFinished(this.state.currentTaskIndex !== undefined ? this.state.currentTaskIndex : 0)}>
-                                                                    <CheckIcon></CheckIcon>
+                                                                    <CheckIcon style={{color:'#3ab3ea'}}></CheckIcon>
                                                                 </Button>
                                                             </Grid>
                                                         </Grid>
@@ -245,7 +246,7 @@ export default class Board extends Component {
 
                         <Divider></Divider>
 
-                        <Grid item xs={12}>
+                        <Grid item xs={12} style={{marginBottom:'3%'}}>
                             <Grid container direction='row'>
                                 <Grid item xs="2" align='center'><h2>history</h2></Grid>
                                 <Grid container direction='row' xs='9' style={{ borderLeft: 'solid black 1px' }} > {/* tasks container*/}
