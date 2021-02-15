@@ -37,7 +37,7 @@ export default function SimpleSnackbar(props) {
           <React.Fragment>
               {console.log(props)}
               {props.progress1 !== undefined ? props.progress1 : "" }
-            <Button id="UNDO" color="secondary" size="small" onClick={handleClose}>
+            <Button style={{color:'red'}} id="UNDO" color="secondary" size="small" onClick={handleClose}>
               UNDO
             </Button>
            

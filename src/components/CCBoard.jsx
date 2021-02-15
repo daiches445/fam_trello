@@ -233,7 +233,7 @@ export default class Board extends Component {
 
 
                         <Divider></Divider>
-                        {this.state.snackBarOpen === true ? <CircularProgress style={{position:'absolute',marginTop:'25%',marginLeft:'50%'}} placeSelf='center' /> : ""}
+                        {this.state.snackBarOpen === true ? <CircularProgress style={{position:'absolute',marginTop:'25%',marginLeft:'50%',color:'red'}} placeSelf='center' /> : ""}
 
                         <Grid item xs={12} >
                             <Grid container direction='row' > {/* third line ,tasks */}

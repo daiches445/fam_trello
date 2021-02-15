@@ -24,12 +24,12 @@ class App extends Component {
         ],
         //we can just go over family and check name not username whats the odds families will have 2 persons with the same name?
         notes: [
-          { title: 'hello1',created:'1-2-2020', text: 'asdad1',tagged:[{username:'avi2',name:"avi"}]},
-          { title: 'hello2',created:'2-2-2020', text: 'asdad2',tagged:[{username:'avi2',name:"avi"}]},
-          { title: 'hello3',created:'3-2-2020', text: 'asdad3',tagged:[{username:'guy1',name:"guy"}]},
-          { title: 'hello4',created:'4-2-2020', text: 'asdad4',tagged:[{username:'guy1',name:"guy"}]}
+          { title: 'Wash the dishes',created:'1-2-2020', text: 'wah the dishes please!',tagged:[{username:'avi2',name:"avi"}]},
+          { title: 'Cut the grass',created:'2-2-2020', text: 'Cut the grass please guys',tagged:[{username:'avi2',name:"avi"},{username:'guy1',name:"avi"}]},
+          { title: 'Clean your room',created:'3-2-2020', text: 'clean your room!',tagged:[{username:'guy1',name:"guy"}]},
+          { title: 'Fix the gutters!',created:'4-2-2020', text: 'urgent!',tagged:[{username:'guy1',name:"guy"}]}
         ],
-        finished_notes:[ { title: 'hello' ,created:'1-2-2020', text: 'asdad1',tagged:[{username:'guy1',name:"guy"}]}]
+        finished_notes:[ { title: 'hello' ,created:'1-2-2020', text: 'Take the dog for a walk',tagged:[{username:'guy1',name:"guy"}]}]
       }
       ]
     }
