@@ -7,7 +7,11 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import AlertDialog from './AlertDialog'
 import FCAddNoteDialog from './AddNoteDialog'
 import EditAlertDialog from './EditAlertDialog'
-
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import Tooltip from '@material-ui/core/Tooltip';
+import { Link } from 'react-router-dom'
+import DeleteSnackBar from './DeleteSnackBar'
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 export default class Board extends Component {
     constructor(props) {
@@ -27,8 +31,9 @@ export default class Board extends Component {
             currentTasksID: '',
             finishedTaskID: '',
             board_z_index: 0,
-            btnDisabled: true
-
+            btnDisabled: true,
+            snackBarOpen: false,
+            clickedUndo:false
         }
 
 
@@ -86,12 +91,40 @@ export default class Board extends Component {
         console.log(index);
         console.log(this.state.currentTasksID);
         console.log(e.target.innerText);
-
+        let mycountdown;
         if (e.target.innerText === 'DELETE') {
+           var counter =5
+           console.log(counter)
+            this.setState({ snackBarOpen: true, open: false })
 
-            this.props.deleteTask(index)
+            mycountdown = setInterval(() => {
+                counter = counter - 1
+                if(this.state.clickedUndo === true){
+                    clearInterval(mycountdown)
+                    
+                    this.setState({ snackBarOpen: false, open: false,clickedUndo:false })
+                  
+                    return
+                }
+                else
+                if (counter === 0) {
+                    clearInterval(mycountdown)
+                    this.props.deleteTask(index)
+                    this.setState({ snackBarOpen: false,open:false,clickedUndo:false })
+           
+                    return 
+
+                }
+
+                console.log(counter)
+            }, 1000)
+
+
+
+
         }
-        this.setState({ open: false })
+        else
+            this.setState({ open: false, snackBarOpen: false })
     }
 
 
@@ -102,7 +135,7 @@ export default class Board extends Component {
                 <Paper style={{ zIndex: this.state.board_z_index }}>
                     <Grid container direction='column' spacing={7} >
 
-                        <Grid item style={{paddingBottom:'0px'}} >
+                        <Grid item style={{ paddingBottom: '0px' }} >
                             <Grid container className='border_bottom'>
 
                                 <Grid item xs='2' justify='center' align='center'>
@@ -111,18 +144,30 @@ export default class Board extends Component {
                                 </Grid>
                                 <Grid item xs='9' style={{ alignSelf: 'center', margin: '0px' }}>
                                     <h1 style={{ alignSelf: 'center', margin: '0px', borderLeft: '2px solid black', paddingLeft: '1%' }}>welcome, {this.state.currentMember.name}</h1></Grid>
+
+                                <Grid item xs='1' style={{ justifySelf: 'center', alignSelf: 'center', placeSelf: "center", margin: '0px' }}>
+                                    <Tooltip title="Log Out" placement='bottom' style={{ border: 'none' }}>
+
+                                        <Button ><Link style={{ height: '60px' }} to="/"> <ExitToAppIcon style={{ fontSize: '60px' }} ></ExitToAppIcon></Link></Button>
+
+                                    </Tooltip>
+                                </Grid>
+
                             </Grid>
+
+
+
                         </Grid>
 
                         <Grid item xs={12}>
                             <Grid container direction='row' >
                                 <Grid item xs="2" align='center'><h2>my notes</h2></Grid>
-                                <Grid container direction='row' xs='10' style={{ borderLeft: 'solid black 1px',overflowY:'hidden' }}>
+                                <Grid container direction='row' xs='10' style={{ borderLeft: 'solid black 1px', overflowY: 'hidden' }}>
                                     <div className='tasks_bar' >
                                         {(this.GetUserNotes(this.state.currentFamily.notes)).map((n, index) =>
                                             <li key={index} className='task'>
                                                 <Grid container >
-                                                    <Grid item xs={11}><h3 id={n.title} style={{ borderBottom: 'solid black 1px',overflowY:'hidden' }} >{n.title}</h3></Grid>
+                                                    <Grid item xs={11}><h3 id={n.title} style={{ borderBottom: 'solid black 1px', overflowY: 'hidden' }} >{n.title}</h3></Grid>
                                                     <Grid item xs={1}>
                                                         <IconButton
                                                             className='info_dots_btn'
@@ -138,11 +183,11 @@ export default class Board extends Component {
                                                     <Grid item>
                                                         <Grid container alignItems='center' spacing={1}>
                                                             <Grid item xs={11} >
-                                                                <p className="h2_font">{n.tagged.map((user, index) => index === 0 ? user.name : ', ' + user.name )}</p>
+                                                                <p className="h2_font">{n.tagged.map((user, index) => index === 0 ? user.name : ', ' + user.name)}</p>
                                                             </Grid>
                                                             <Grid item xs={1}>
                                                                 <Button onClick={() => this.props.moveNoteToFinished(this.state.currentTaskIndex !== undefined ? this.state.currentTaskIndex : 0)}>
-                                                                    <CheckIcon style={{color:'#3ab3ea'}}></CheckIcon>
+                                                                    <CheckIcon style={{ color: '#3ab3ea' }}></CheckIcon>
                                                                 </Button>
                                                             </Grid>
                                                         </Grid>
@@ -166,9 +211,10 @@ export default class Board extends Component {
                                             }}>
                                             <MenuItem>
                                                 <Button disabled={this.state.btnDisabled} color="primary" id='delete' onClick={this.handleClose} >delete</Button>
+
                                             </MenuItem>
                                             <MenuItem>
-                                            {console.log(this.state)}
+                                                {console.log(this.state)}
                                                 {this.state.finishedTaskID === undefined ? <AlertDialog handleClose={() => this.setState({ open: false })} name="Info" info={this.state.currentFamily.notes[this.state.currentTaskIndex] === undefined ? "" : this.state.currentFamily.notes[this.state.currentTaskIndex]}></AlertDialog>
 
 
@@ -177,7 +223,9 @@ export default class Board extends Component {
                                             <MenuItem>
                                                 <EditAlertDialog disabled1={this.state.btnDisabled} note={this.state.currentFamily.notes[this.state.currentTaskIndex !== undefined ? this.state.currentTaskIndex : 0]} sendNote={this.getNoteToAdd} getNoteToEdit1={this.getNoteToEdit} exitFunc={this.openOrCloseAddNote} family={this.state.currentFamily} />
                                             </MenuItem>
+
                                         </Menu>
+                                        <DeleteSnackBar setUndo={(e)=>this.setState({clickedUndo:e})} progress1 = {this.state.progress1} open1={this.state.snackBarOpen}></DeleteSnackBar>
                                     </div>
                                 </Grid>
                             </Grid>
@@ -185,6 +233,7 @@ export default class Board extends Component {
 
 
                         <Divider></Divider>
+                        {this.state.snackBarOpen === true ? <CircularProgress style={{position:'absolute',marginTop:'25%',marginLeft:'50%'}} placeSelf='center' /> : ""}
 
                         <Grid item xs={12} >
                             <Grid container direction='row' > {/* third line ,tasks */}
@@ -207,21 +256,21 @@ export default class Board extends Component {
                                                             </IconButton>
                                                         </Grid>
                                                         <Grid item xs={12}>
-                                                        <p className='text'>{n.text}</p>
-                                                    </Grid>
-                                                    <Grid item>
-                                                        <Grid container alignItems='center' spacing={1}>
-                                                            <Grid item xs={11} >
-                                                                <p className="h2_font">{n.tagged.map((user, index) => index === 0 ? user.name : ', ' + user.name)}</p>
-                                                            </Grid>
-                                                            <Grid item xs={1}>
-                                                                <Button onClick={() => this.props.moveNoteToFinished(this.state.currentTaskIndex !== undefined ? this.state.currentTaskIndex : 0)}>
-                                                                    <CheckIcon style={{color:'#3ab3ea'}}></CheckIcon>
-                                                                </Button>
+                                                            <p className='text'>{n.text}</p>
+                                                        </Grid>
+                                                        <Grid item>
+                                                            <Grid container alignItems='center' spacing={1}>
+                                                                <Grid item xs={11} >
+                                                                    <p className="h2_font">{n.tagged.map((user, index) => index === 0 ? user.name : ', ' + user.name)}</p>
+                                                                </Grid>
+                                                                <Grid item xs={1}>
+                                                                    <Button onClick={() => this.props.moveNoteToFinished(this.state.currentTaskIndex !== undefined ? this.state.currentTaskIndex : 0)}>
+                                                                        <CheckIcon style={{ color: '#3ab3ea' }}></CheckIcon>
+                                                                    </Button>
+                                                                </Grid>
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
-                                                </Grid>
 
                                                 </li>)
                                         })}
@@ -234,12 +283,12 @@ export default class Board extends Component {
 
                         <Divider></Divider>
 
-                        <Grid item xs={12} style={{marginBottom:'3%'}}>
+                        <Grid item xs={12} style={{ marginBottom: '3%' }}>
                             <Grid container direction='row'>
                                 <Grid item xs="2" align='center'><h2>history</h2></Grid>
                                 <Grid container direction='row' xs='9' style={{ borderLeft: 'solid black 1px' }} > {/* tasks container*/}
                                     <div className='tasks_bar' >
-                                        {this.state.currentFamily.finished_notes.map((n, index) => {
+                                        {this.state.currentFamily.finished_notes.length === 0 ? "" : this.state.currentFamily.finished_notes.map((n, index) => {
 
                                             return (
                                                 <li key={index} className='task'>
@@ -258,7 +307,7 @@ export default class Board extends Component {
                                                             <p className='text' style={{ padding: '1px' }}>{n.text}</p>
                                                         </Grid>
                                                         <Grid item>
-                                                            <p>{n.tagged.map(user => user.name)}</p>
+                                                            <p>{n.tagged.map((user, index) => index === 0 ? user.name : ", " + user.name)}</p>
                                                         </Grid>
                                                     </Grid>
 

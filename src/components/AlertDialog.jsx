@@ -47,7 +47,12 @@ export default function AlertDialogSlide(props) {
         <DialogTitle id="alert-dialog-slide-title">{props.info.title} </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            <b>desc: </b> {props.info.text} <br/>
+            <b>Desc: </b> {props.info.text} <br/>
+            {console.log(new Date().getMonth)}
+           <b>Created On: </b> {typeof(props.info.created) === "string" ? props.info.created : props.info.created.getDate() + "-"+(props.info.created.getMonth()+1) + "-"+(1900+props.info.created.getYear())}<br/>
+           <b>Users Tagged: </b>{props.info.tagged.length === 0 ? "NO USERS TAGGED" : props.info.tagged.map((t,index)=>index!== 0 ? ", "+ t.name:t.name )}<br/>
+           <b>Desc: </b> {props.info.text} <br/>
+
           </DialogContentText>
         </DialogContent>
         <DialogActions>
