@@ -9,11 +9,11 @@ import FCAddNoteDialog from './AddNoteDialog'
 import EditAlertDialog from './EditAlertDialog'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Tooltip from '@material-ui/core/Tooltip';
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import DeleteSnackBar from './DeleteSnackBar'
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-export default class Board extends Component {
+class Board extends Component {
     constructor(props) {
         super(props)
 
@@ -127,9 +127,20 @@ export default class Board extends Component {
             this.setState({ open: false, snackBarOpen: false })
     }
 
+    Logout=()=>{
+        this.props.Logout()
+    }
 
     render() {
-        return (
+        
+        if(this.props.data.user_index === undefined)
+            return (
+                <div>
+                    {this.props.history.push('/')}
+                </div>
+            )
+        else
+            return (
             <div className='container' >
 
                 <Paper style={{ zIndex: this.state.board_z_index }}>
@@ -148,7 +159,7 @@ export default class Board extends Component {
                                 <Grid item xs='1' style={{ justifySelf: 'center', alignSelf: 'center', placeSelf: "center", margin: '0px' }}>
                                     <Tooltip title="Log Out" placement='bottom' style={{ border: 'none' }}>
 
-                                        <Button ><Link style={{ height: '60px' }} to="/"> <ExitToAppIcon style={{ fontSize: '60px' }} ></ExitToAppIcon></Link></Button>
+                                        <Button onClick={this.Logout}><Link style={{ height: '60px' }} to="/"> <ExitToAppIcon style={{ fontSize: '60px' }} ></ExitToAppIcon></Link></Button>
 
                                     </Tooltip>
                                 </Grid>
@@ -327,3 +338,4 @@ export default class Board extends Component {
         )
     }
 }
+export default withRouter(Board)

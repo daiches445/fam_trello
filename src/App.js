@@ -10,7 +10,7 @@ class App extends Component {
     super(props)
     this.state = {
       fam_index: 0,
-      user_index: 0,
+      user_index: undefined,
       users: [
         { username: 'guy1',name:'guy the first' ,age:'18', password: '1234', fam_id: 'COHEN121' },
         { username: 'avi2',name :'avi' ,age:'17', password: '1234', fam_id: 'COHEN121' }
@@ -124,6 +124,9 @@ class App extends Component {
 
   }
 
+  LogOut=()=>{
+    this.setState({user_index:undefined})
+  }
 
   render(){
   return (
@@ -135,7 +138,7 @@ class App extends Component {
       <Switch>
         <Route exact path="/"  render={()=><Login_Page data = {this.state}  SetCurrentUser={this.SetCurrentUser}></Login_Page>}></Route>
         <Route path = "/FCRegister" render={()=><Register AddFamily={this.AddFamily} sendUserToRegister={this.catchUserToRegister} app_data = {this.state}></Register>}></Route>
-        <Route path = '/CCBoard'  render={()=><Board moveNoteToFinished={this.catchFinishedNote} deleteTask = {this.catchNoteToDelete} editNote={this.catchNoteToEdit} sendNote = {this.catchNoteToAdd} data = {this.state} InitUserNotes = {this.InitUserNotes}></Board>}></Route>
+        <Route path = '/CCBoard'  render={()=><Board Logout={this.LogOut} moveNoteToFinished={this.catchFinishedNote} deleteTask = {this.catchNoteToDelete} editNote={this.catchNoteToEdit} sendNote = {this.catchNoteToAdd} data = {this.state} InitUserNotes = {this.InitUserNotes}></Board>}></Route>
       </Switch>
         </div>
       </div>
